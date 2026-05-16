@@ -1,71 +1,153 @@
-\chapter{Independence of AC Without Forcing}
+\chapter{Sum and Density Preserving Permutations}
 
-\section{Ordinal Definable Sets}
+\section{Agnew's Theorem}
 
-\textcolor{laser_eyes}{Pendent}
-
-\section{Rieger-Bernays Permutation Model}
-In order to give a different proof for the consistency of $\text{ZF}^-+\neg\mc{R}$, we will study permutations of the whole universe $V$ and define a new $\in$-relation with this permutation.
+Let's start this section proving a really famous theorem due to Agnew, which characterizes all sum preserving permutations
 
 \begin{definition}{}{}
-    Let $F:V\to V$ be a function. Define $E=E_F\subseteq V\times V$ by $xEy$ iff $x\in F(y)$.
+    A permutation $p\in\sym$ is called Agnew if there exists a $k\in\omega$ such that for all $n\in\omega$, $p[n]$ can be written as a union of at most $k$ intervals.
 \end{definition}
 
-As usual, $F$ is just a formula $\psi(x,y)$ where $\forall x\,\exists!y\,\psi(x,y)$ and $xEy$ abbreviates $\exists y\,[\psi(x,y)\wedge x\in y]$.
+Equivalently, we can say that $p$ is Agnew if we can switch between elements in $\text{Im}(p)$ and outside at most $k$ times. To formalize such condition, say $M<N$ when $\max(M)<\min(N)$, and call $M=\{m_0<m_1<\dots<m_k\}$ and $N=\{n_0<n_1<\dots<n_k\}$ collated sets if their elements alternate between each other, i.e., $m_0<n_0<m_1<\dots<m_k<n_k$.
 
-We can now prove a really interesting theorem which gives us a lot of different models for ZFC
+\begin{definition}{}{}
+    We say $p\in\sym$ satisfies condition A if there exists a $k\in\omega$ such that whenever $M$ and $N$ are collated sets and $p[M]<p[N]$, we have $|M|=|N|<k$.
+\end{definition}
+
+It's easy to see that $p$ is Agnew iff $p^{-1}$ satisfies condition $A$. We can now state one of the main Theorems of this section.
 
 \begin{theorem}{}{}
-    Let $F:V\to V$ be a permutation of $V$. Then $\varphi^{(V,E)}$ holds for each $\varphi\in\text{ZF}^-$.
+    $p\in\sym$ is Agnew iff it's a sum preserving permutation.
+\end{theorem}
+
+\begin{sketch}
+    $(\Rightarrow)$ Given any $s=\sum_na_n$, we know by Cauchy's Criterion that, varying $m$, the partial sums starting from $a_m$ can be made arbitrarily small. So we can choose $n$ such that $p[n]$ covers $[0,m]$, meaning all at most $k$ gaps between the intervals in the image of $p$ can be made arbitrarily small.
+
+    $(\Leftarrow)$ Assume $p$ is not Agnew, we will find a $\sum_na_n$ whose rearrangement corrupts. Since $p$ is not Agnew, we can find arbitrarily large alternating sequences of elements in $\text{Im}(p)$ and outside of it.
+
+    Fix two such elements relative to $p[n_1]$ and associate the one inside $\text{Im}(p)$ with $1$, and the other with $-1$. Now, let $n_2$ such that $p[n_2]$ covers the previous interval and guarantees us to have four new alternating elements. Associate the ones inside $\text{Im}(p)$ with $\frac12$, and the ones outside with $-\frac12$. In general, choose $n_k$ such that $p[n_k]$ covers all previous elements and guarantees us $2k$ new elements, half inside and half outside of $\text{Im}(p)$. Associate the ones outside with $\frac1k$, and the ones inside with $-\frac1k$. Now, for all the remaining indices, just let them to be $0$, this defines a sequence $a_n$, where $a_n$ is the value we associate to its index $n$. Clearly for any $k$, we can let $\sum a_n$ be such that all its partial sums eventually has value at most $\frac1k$, meaning it converges to $0$. However, by construction, the partial sums of the rearranged series up to $n_k$ is always $1$.
+\end{sketch}
+
+Let's now write all these steps more formally
+
+\begin{proof}
+    $(\Rightarrow)$ By Cauchy Criterion, given $\varepsilon>0$, there is an $m_0\in\omega$ such that $\forall n>m\geq m_0$, we have
+    $$\left\lvert\sum_{i=m}^na_i\right\rvert<\frac{\varepsilon}{2k}$$
+    Let then $n$ be large enough such that $p[n]$ covers $[0,m_0]$, then, since $p$ is Agnew, we can write $p[n]=I_1\cup I_2\cup\dots\cup I_\ell$, where $\ell\leq k$ and $I_i=[b_i,B_i]$. Therefore, since any $m\in I_j$ has $m\geq m_0$, for $j=1,\dots,\ell$, then, by Cauchy's Criterion
+    $$\left\lvert\sum_{i=0}^na_{p(i)}-\sum_{i=0}^{b_1}a_i\right\rvert\leq\left\lvert\sum_{i\in I_1}a_i\right\rvert+\dots+\left\lvert\sum_{i\in I_\ell}a_i\right\rvert<\frac\varepsilon2$$
+    Therefore, we have that
+    $$\left\lvert\sum_{i=0}^na_{p(i)}-\sum_{i=0}^{n}a_i\right\rvert\leq\left\lvert\sum_{i=0}^na_{p(i)}-\sum_{i=0}^{b_1}a_i\right\rvert+\left\lvert\sum_{i=0}^{b_1}a_i-\sum_{i=0}^na_i\right\rvert<\varepsilon$$
+
+    $(\Leftarrow)$ \textcolor{laser_eyes}{É bem mais fácil de ver com um desenho colorido :)}
+\end{proof}
+
+It would be really nice if condition A also characterizes density preserving permutations. Unfortunately, this is not the case, we will see later that condition A preserves what we call strong density, or uniform density.
+
+\section{Relative Density Preserving Permutations}
+
+Now, as expected, the previous condition would not be called condition A if we didn't have a condition B:
+
+\begin{definition}{}{}
+    We say $p\in\sym$ satisfies condition B if there exists a $k\in\omega$ such that whenever $|M|=|N|$, with $M<N$ and $p[N]<p[M]$, we have $|M|=|N|<k$.
+\end{definition}
+
+It's not hard to see that condition B implies condition A, but the converse is not true. The following lemma actually shows something stronger:
+
+\begin{lemma}{}{}
+    Condition B implies condition A, but we can find some $p$ such that both $p$ and $p^{-1}$ satisfies A, but not B.
+\end{lemma}
+
+\begin{proof}
+    Consider $M$, $N$ collated sets, i.e., $m_1<n_1<m_2<n_2<\dots<m_j<n_j$, such that $p[M]<p[N]$, then, if $\ell$ is like a half of $j$ (you could take the floor), then
+    $$n_1<n_2<\dots<n_\ell<m_{\ell+1}<\dots<m_j$$
+    or $j-1$ so both sets $N'=\{n_1,\dots,n_\ell\}$ and $M'=\{m_{\ell+1},\dots,m_j\}$ have the same size. Therefore, $N'<M'$, but $p[M']<p[N']$, then, by condition $B$, $\lvert N'\rvert=\ell<k$, meaning $j$ is at most $2k$ (or $2k+1$ depending on the parity).
+
+    To construct the counterexample, let $J_1=\{1\}$, $J_2=\{2,3\}$, $J_3=\{4,5,6\}$, etc. And consider the unique $p$ that biject $J_k$ in $J_k$ reserving the order of its elements. Then, for any $k$, we can take $M$ as the first half of $J_{2k}$ and $N$ as the remainder, then $M<N$, but $p[N]<p[M]$. However, note that $p=p^{-1}$ and $p$ is clearly Agnew, since the image is the union of at most 2 intervals.
+\end{proof}
+
+It would then be expected, based on the discussions until now, that condition B would characterize the permutations that preserve relative density. However, this is also not the case:
+
+\begin{theorem}{}{}
+    $p\in\sym$ satisfies condition B iff it preserves relative density.
 \end{theorem}
 
 \begin{proof}
-    \begin{itemize}
-        \item First, for Extensionality we have that
-        $$\mc{E}^{(V,E)}\equiv\forall x,y\,(x=y\leftrightarrow\forall z(zEx\leftrightarrow zEy))$$
-        substituting the definition of $E$, we have that
-        $$\mc{E}^{(V,E)}\equiv\forall x,y(x=y\leftrightarrow\forall z(z\in F(x)\leftrightarrow z\in F(y))\equiv\forall x,y(x=y\leftrightarrow F(x)=F(y))$$
-        which says that $F$ is a bijection, that is guaranteed by the fact that it's a permutation;
-        \item For the Axiom of Union, we hve that
-        \begin{align*}
-            \mc{U}^{(V,E)} & \equiv \forall A\,\exists U\,\forall y(yEU\leftrightarrow\exists z(yEz\wedge zEA))\\
-            & \equiv \forall A\,\exists U\,\forall y(y\in F(U)\leftrightarrow\exists z(y\in F(z)\wedge z\in F(A)))
-        \end{align*}
-        Which basically says that $F(U)=\bigcup_{z\in F(A)}F(z)$, then, seting
-        $$U=F^{-1}\rp{\bigcup_{z\in F(A)}F(z)}$$
-        is sufficient to prove it.
-        \item For the Axiom of Powerset, we need to interpret $(x\subseteq y)^{(V,E)}$, which is $\forall w(wEx\to wEy)$, i.e., $\forall w(w\in F(x)\to w\in F(y))$, in other words, $F(x)\subseteq F(y)$. Therefore
-        \begin{align*}
-            \mc{P}^{(V,E)} & \equiv \forall x\,\exists y\,\forall z\rp{zEy\leftrightarrow(z\subseteq x)^{(V,E)}}\\
-            & \equiv \forall x\,\exists y\,\forall z(z\in F(y)\leftrightarrow F(z)\subseteq F(x))
-        \end{align*}
-        then, we can let $y$ be such that $F(y)=\{z:F(z)\subseteq F(x)\}$. In order to prove it's a set, just note that $F(y)=F^{-1}(\mc{P}(F(x)))$, which is a set. Then set $y=F^{-1}(F^{-1}(\mc{P}(F(x))))$.
-        \item For the Axiom of Infinity, we need to relativize $\emptyset$ and the $S$ function in $(V,E)$. First, note that $y=\emptyset$ iff $\forall z(z\in y\leftrightarrow z\neq z)$, i.e., relativized to $(V,E)$, $\forall z(z\in F(y)\leftrightarrow z\neq z)$, then $(y=\emptyset)^{(V,E)}$ iff $F(y)=\emptyset$, so $y=F^{-1}(\emptyset)$. Analogously, $y=S(x)$ iff $\forall z(z\in y\leftrightarrow(z\in x\vee z=x))$, then, in $(V,E)$, we have that $(y=S(x))^{(V,E)}$ iff $\forall z(z\in F(y)\leftrightarrow(z\in F(x)\vee z=x))$, equivalently, $F(y)=F(x)\cup\{x\}$. Therefore
-        \begin{align*}
-            \mc{I}^{(V,E)} & \equiv \exists x(\emptyset^{(V,E)}Ex\wedge\forall y(yEx\to S(y)^{(V,E)}Ex))\\
-            & \equiv \exists x(F^{-1}(\emptyset)\in F(x)\wedge\forall y(y\in F(x)\to F(y)\cup\{y\}\in F(x)))
-        \end{align*}
-        we can then define $A=\bigcup_{n\in\omega}A_n$ by recursion, where $A_0=\{F^{-1}(\emptyset)\}$ and, for all $n\geq0$
-        $$A_{n+1}=A_n\cup\{F(x)\cup\{x\}:x\in A_n\}$$
-        Then let $F(x)=A$, i.e., $x=F^{-1}(A)$.
-        \item Finally, for the Axiom Schema of Replacement, clearly $\mc{F}^{(V,E)}$ will state that, if $\varphi^{(V,E)}(x,y,\ol{v},A)$ is ``a function'' in $F(A)$, then there is a $B$ such that $F(B)=\text{Im}(\varphi^{(V,E)}(x,y,\ol{v},A))$. In fact, since $F(A)$ is a set, we can just apply replacement and then let $B=F^{-1}(\text{Im}(\varphi^{(V,E)}(x,y,\ol{v},A)))$.
-    \end{itemize}
+    $(\Rightarrow)$ For any $n$, let $M=\{m<n:p(m)\geq n\}$ then, since $p$ is a permutation, we can find some $N\subseteq\{m\geq n:p(m)<n\}$ with the same size as $M$. Then $M<N$, but $p[N]<p[M]$, so $\lvert M\rvert=\lvert N\rvert<k$, which implies that, if $A\subseteq\omega$ is infinte coinfinite with density, then
+    $$\lvert\lvert p[A]\cap n\rvert-\lvert A\cap n\rvert\rvert<k\implies \lvert p[A]\cap n\rvert=\lvert A\cap n\rvert+m_n^A$$
+    with $\lvert m_n^A\rvert<k$. This shows $p$ preserves density. Now, given $A\subseteq B\subseteq \omega$ infinite and coinfinite with relative density, by the previous result we have that
+    $$\frac{\lvert p[A]\cap n\rvert}{\lvert p[B]\cap n\rvert}=\frac{\lvert A\cap n\rvert+m_n^A}{\lvert B\cap n\rvert+m_n^B}=\frac{\frac{\lvert A\cap n\rvert}{\lvert B\cap n\rvert}+\frac{m_n^A}{\lvert B\cap n\rvert}}{1+\frac{m_n^B}{\lvert B\cap n\rvert}}\to d_B(A)$$
+    then $d_{p[B]}(p[A])=d_B(A)$, i.e., it preserves relative density.
+
+    $(\Leftarrow)$ \textcolor{laser_eyes}{This one is trickier.}
 \end{proof}
 
-Note how powerful the previous theorem is. It's basically saying that, assuming consistency of $\text{ZF}^-$, for every model $V$ of it we can make a new one by just choosing a permutation $F$ in it. Let's see how such basic permutations gives us impressive results.
+What does such result reveal to us? Not that much, to be fair. Actually, it just says that the set of permutations that preserve relative density are also sum-preserving, but it says nothing about the set of permutations that preserve density, which is what we want.
 
-\begin{corollary}{}{}
-    If $\text{ZF}$ is consistent (or even $\text{ZF}^-$), then $\text{ZF}^-+\neg\mc{R}$ is also consistent.
-\end{corollary}
+\section{Lévy's Group}
+
+Before we proceed, look again at the $(\Rightarrow)$ case in the previous proof, we showed that condition B implies the following condition:
+\begin{equation}\tag{L}
+    \lim_{n\to\infty}\frac{\lvert\{m\in\omega:m<n\leq p(m)\}\rvert}{n}=0
+\end{equation}
+such condition L (due to Lévy) has some interesting properties that was deeply studied.
+
+\begin{definition}{}{}
+    The set $\mc{G}$ of permutations that satisfies L form a group, known as Lévy's Group.
+\end{definition}
 
 \begin{proof}
-    Let $(V,\in)\vDash\text{ZF}$, and consider $F$ as the transposition of $0$ and $1$. Then, for any set $x$, we have that $xE0$ iff $x\in F(0)=1$, i.e., $x=0$, then $y=0$ proves that $(V,E)\vDash\exists y(y=\{y\})$.
+    \textcolor{laser_eyes}{Pendente}
 \end{proof}
 
-\begin{observation}
-    Such permutation $F$ is called the Rieger-Bernays Permutation, and the model $(V,E_F)$ is called the Rieger-Bernays Permutation model. As we saw, it introduces an element $x=\{x\}$, such elements are called Quine Atoms, and it's not hard to see that $x=0$ is the only one in this model.
-\end{observation}
+And, in relation to what it preserves, we have the following theorem:
 
-\section{Consistence of \texorpdfstring{$\neg\text{AC}$}{negAC}}
+\begin{theorem}{}{}
+    $p\in\mc{G}$ if, and only if, for all $A\subseteq\omega$
+    $$\lim_{n\to\infty} d_n(A)-d_n(p[A])=0$$
+\end{theorem}
 
-\textcolor{laser_eyes}{Pendent}
+\begin{proof}
+    $(\Rightarrow)$ is a scholium of the start of the previous proof;
+
+    $(\Leftarrow)$ if $p\notin\mc{G}$, choose $(a_n)$ fast growing such that $\frac{a_{n-1}}{a_n}\to0$ and $E_n=\{m\in\omega:m<a_n\leq p(m)\}$ satisfies $\frac{\lvert E_n\rvert}{a_n}>\alpha$, for some $\alpha>0$. Then, let $A=\bigcup_nE_n$. We have that
+    $$d_{a_n}(A)\geq d_{a_n}(E_n)>\alpha>0$$
+    and, since $p[E_j]\geq n_j$, we have $p[A]\cap a_n\subseteq\bigcup_{j<n}p[E_j]$, so
+    $$d_{a_n}(p[A])\leq d_{a_n}\rp{p\left[\bigcup_{j<n}E_j\right]}=d_{a_n}\rp{\bigcup_{j<n}E_j}\leq\frac{a_{n-1}}{a_n}\to0$$
+    then $\lim_{n\to\infty}d_{a_n}(A)-d_{a_n}(p[A])\geq\alpha>0$.
+\end{proof}
+
+i.e., the permutations that satisfies L ``preserves'' density in all cases, including when $d(A)=\text{osc}$.
+
+This shows that, if we had a condition C such that $p$ satisfies C iff $p$ preserves density, then condition L would imply it. Let's show such implications are strict.
+
+\begin{theorem}{}{}
+    $\text{B}>\text{L}>\text{C}$ and $\text{A}\perp\text{L},\text{C}$.
+\end{theorem}
+
+\begin{proof} We already know that $\text{B}\geq\text{L}\geq\text{C}$, then it just remains to show the strict inequalities and the incomparability with condition A.
+    \begin{itemize}
+        \item $\text{A}\not\geq\text{L}:$ Let $N_{k+1}\gg N_k$, and consider $p$ that swaps $[N_k,2N_k)$ with $[2N_k,3N_k)$, for each $k\in\omega$. Clearly $p$ satisfies condition $A$, since $p^{-1}=p$ is Agnew (the image $p[n]$ is always the union of at most two intervals). However, using the notation of the previous proof, we have $\lvert E_{2N_k}\rvert=N_k$, then it doesn't satisfy condition L.
+        
+        \item $\text{C}\not\geq\text{L}$: The permutation defined in the previous item works, since
+        \begin{align*}
+            \lvert p[A]\cap n\rvert & = \lvert\{k<n:p(k)<n\}\rvert+\lvert\{k\geq n:p(k)<n\}\rvert\\
+            & = \lvert A\cap n\rvert-\lvert\{k<n:p(k)\geq n\}\rvert+\lvert\{k\geq n:p(k)<n\}\rvert
+        \end{align*}
+        
+
+        \item $\text{L}\not\geq\text{B}:$ We now need to swap two chunks, but whose size grows sub linearly in some sense. Let then $M_k=[2^k,2^k+k)$ and $N_k=[2^k+k,2^k+2k)$ and $p$ be the unique permutation that swap both, for each $k\in\omega$. Then, clearly $p$ doesn't satisfy condition $B$, however, for $2^k\leq n<2^{k+1}$, the maximum amount $E_n$ can attain is at $n=2^k+k$, where
+        $$\frac{\lvert E_n\rvert}n=\frac{k}{2^k+k}\to0$$
+        so $p$ does satisfy condition L.
+
+        \textcolor{laser_eyes}{It's worth noting that this proof was unnecessary: if $\text{L}\geq\text{B}$, since $\text{B}\geq\text{A}$, we would have $\text{L}\geq\text{A}$, contradicting the next item.}
+    
+        \item $\text{L}\not\geq\text{A}:$ The heuristic is clear, based on the previous one. We just let $J_k=[2^k,2^k+2k)$, and let $p$ be such that the even numbers in $J_k$ are mapped to its first $k$ elements, and the odd ones to the last $k$. Then, by the same argument as before, $p$ satisfies condition L, but we have arbitrarily large collated sets that get separated, so it doesn't satify condition A.
+
+        \item $\text{C}\not\geq\text{A}$: Since $\text{L}\geq\text{C}$, if $\text{C}\geq\text{A}$, then $\text{L}\geq\text{A}$, which is false by the previous item.
+
+        \item $\text{A}\not\geq\text{C}$: Let $a_0=0$ and $a_{k+1}=2^{a_k}$, let $p$ be such that it swaps the interval $I_k=[a_k,2a_k)$ with $J_k=[a_k^2,a_k^2+a_k)$, and let $A=2\mbb{N}\setminus\bigcup_k J_k$. Then, when $n\in J_k$, we have that
+        $A\cap n$ has all the even elements until $n$, but at most the $a_k$ ones in $I_k$. But, since $n\geq a_k^2$, at this point these missed elements are negligible, and then $d(A)=\frac12$.
+
+        However, for $n=2a_k$, we have $p[A]\cap n$ missing all $a_k$ elements in $I_k$, then, since $n=2a_k$ and $p[A]$ are the even naturals with gaps, it has at most $\frac{a_k}{2}$ elements in it, i.e., $d_n(p[A])\leq\frac14$.
+    \end{itemize}
+\end{proof}

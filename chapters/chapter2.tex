@@ -1,384 +1,388 @@
-\chapter{Easy Consistency Proofs}
+\chapter{The Rearrangement Number}
 
-This chapter will be devoted to use our model approximations to give ``easy'' consistency and independence proofs about almost all axioms of ZFC.
-
-Note that hierarchies like $H(\kappa)$ and $R(\gamma)$ are defined in terms of levels of boundedness for some ``rank'' function $\rho$. In fact, since almost every ZFC axiom states the existence of some set $y$ we can construct using sets $x$ that already exists, they can be expressed as a $\forall\exists$, and then the proofs will just consists of showing our set $y$ has a bounded rank in terms of the ranks of the sets $x$.
-
-\section{First Axioms}
-
-Since $WF$, $H(\kappa)$ and $R(\gamma)$ are very similar, a lot of consistency proofs will also be similar. In order to avoid that we will prove the following useful lemma\footnote{Note that such hypothesis in each item of the following lemma are unnecessary, in the sense that they are way stronger than the conclusion. In fact, they prove a stronger axiom, namely the second order version of it, which says ``all'' possible subsets satisfying the properties we want exists, and not just the definable ones. We will see how to weaken this later.}.
-
-\begin{lemma}{}{}\label{basic_axioms_criterion}
-    For any class $M$:
-    \begin{enumerate}
-        \item If $M$ is transitive, then $M\vDash\mc{E}$;
-        \item If $M\subseteq WF$, then $M\vDash\mc{R}$;
-        \item If $\forall z\in M\;\forall y\subseteq z[y\in M]$, then $M\vDash\mc{C}$;
-        \item If $\mc{F}\in M[\bigcup\mc{F}\in M]$, then $M\vDash\mc{U}$;
-        \item If $M$ is transitive and if for any function $f$, with $\text{dom}(f)\in M$ and $\text{Im}(f)\subseteq M$, we have that $\text{Im}(f)\in M$, then $M\vDash\mc{F}$.
-    \end{enumerate}
-\end{lemma}
-
-\begin{proof}
-    1. We need to prove that $\forall x,y\in M(x=y\leftrightarrow\forall z\in M(z\in x\leftrightarrow z\in y))$. Clearly, if $x=y$, then $\forall z\in M(z\in x\leftrightarrow z\in y)$. Now, for the other direction, if $z\in x$ or $z\in y$, then, since $x,y\in M$, and $M$ is transitive, $z\in M$, which means $\forall z(z\in x\leftrightarrow z\in y)$, then in fact $x=y$.
-
-    2. The Axiom of Regularity (or Foundation) relativized to $M$ is
-    $$\forall x\in M[\exists w\in M(w\in x)\to \exists y\in M(y\in x\wedge\nexists z\in M(z\in x\wedge z\in y))]$$
-    Given $x\in M$, let $\widetilde{x}=x\cap M$. Since $w\in\widetilde{x}$, and $M\subseteq WF$, then there is a $\in$-minimal element $y$ of $\widetilde{x}$ in $M$. Now, if $z\in M$, and $z\in x$, then $z\in\widetilde{x}$, which means $z\notin y$.
-
-    3. Let $\varphi(x,z,\ol{v})$ be a $\{\in\}$-formula without $y$ free. We need to prove that
-    $$\forall z,\ol{v}\in M\;\exists y\in M\;\forall x\in M[x\in y\leftrightarrow x\in z\wedge\varphi^M(x,z,\ol{v})].$$
-    Given $z\in M$, let $y=\{x\in z:\varphi^M(x,z,\ol{v})\}$, then $y\subseteq z$ and, by hypothesis, implies that $y\in M$.
-
-    With these proofs, it's clear how to do the same for 4. and 5.
-\end{proof}
-
-Let's now see much axioms we can prove in our approximate models
-
-\begin{corollary}{}{}\label{R(gamma)_models}
-    If $\gamma$ is a limit ordinal, then $R(\gamma)\vDash Z-\mc{P}-\mc{I}$. Furthermore, $HF=R(\omega)\vDash\mc{F}$.
-\end{corollary}
-
-\begin{proof}
-    Since all three approximate models are transitive and subsets of $WF$, let's omit 1. and 2.
-
-    3. Let $z\in R(\gamma)$, then $z\in R(\alpha)$, for some $\alpha<\gamma$. Since $\lambda$ is a limit ordinal, $\alpha+1<\gamma$ and, if $y\subseteq z$, then $y\in\mc{P}(z)\subseteq R(\alpha+1)=\mc{P}(R(\alpha))\subseteq R(\gamma)$, then $y\in R(\gamma)$.
-
-    4. Similarly to 3., let $\mc{F}\in R(\gamma)$, then $\mc{F}\in R(\alpha)$ for some $\alpha<\gamma$. Given $x\in\bigcup\mc{F}$, $x\in y$, for some $y\in\mc{F}$, but since $R(\alpha)$ is transitive, $x\in R(\alpha)$ and, therefore, $\bigcup\mc{F}\subseteq R(\alpha)$, which implies that $\bigcup\mc{F}\in\mc{P}(R(\alpha))=R(\alpha+1)\subseteq R(\gamma)$.
-
-    (5. for $R(\omega)$): Since, as we saw, $R(\omega)=H(\omega)$ and $\omega$ is regular, then by Corollary \ref{H(k)_models}, $HF\vDash\mc{F}$.
-\end{proof}
-
-\begin{corollary}{}{}\label{wf_models}
-    $WF\vDash ZF-\mc{P}-\mc{I}$
-\end{corollary}
-
-\begin{proof}
-    They all follow from the previous corollary and the fact that $WF=R(ON)$.
-\end{proof}
-
-\begin{corollary}{}{}\label{H(k)_models}
-    If $\kappa$ is an infinite cardinal, then $H(\kappa)\vDash Z-\mc{P}-\mc{I}$. Furtheremore, $H(\kappa)\vDash\mc{F}$, when $\kappa$ is a regular cardinal.
-\end{corollary}
-
-\begin{proof}
-    3. Clear, since if $y\subseteq z$, then $\text{trcl}(y)\subseteq\text{trcl}(z)$, so we have a bound on cardinality.
-
-    4. Also clear since
-    $$\text{trcl}\rp{\bigcup\mc{F}}=\bigcup_{n\geq0}\rp{\bigcup\nolimits^n\bigcup\mc{F}}=\bigcup_{n\geq1}\bigcup\nolimits^n\mc{F}\subseteq\bigcup_{n\geq0}\bigcup\nolimits^n\mc{F}=\text{trcl}(\mc{F})$$
-
-    (5. for $\kappa$ regular): Let $z=\text{dom}(f)\in H(\kappa)$, since $\text{Im}(f)\subseteq H(\kappa)$ and $f$ is a surjection from $z$ to its image, then $\lvert\text{Im}(f)\rvert\leq\lvert z\rvert<\kappa$ which, by Lemma \ref{k-regular_H(k)_subset} implies that $\text{Im}(f)\in H(\kappa)$.
-\end{proof}
-
-\section{Absoluteness and Power Set Axiom}\label{absoluteness_and_power_set_axiom}
-
-We shall now consider the remaining three Axioms. As we saw, the previous proofs displayed directly the axioms as relativized $\in$-formulas, which is doable, but complicated for sentences about cardinals and other gigantic definitions. For this reason we will talk about absoluteness.
-
-Let's start proving that every $\Delta_0$ formula is absolute
-
-\begin{lemma}{}{}\label{delta_0_absoluteness}
-    Let $\in$ be a symbol of $\mc{L}$ and $\mf{A}\subseteq\mf{B}$. If $A$ is transitive, then $\mf{A}\preceq_\varphi\mf{B}$ for all $\Delta_0$ $\mc{L}$-formulas $\varphi$. For $M$ transitive and $B=V$ it says we can swap from $\varphi^M$ to $\varphi$.
-\end{lemma}
-
-\begin{proof}
-    The base case for $\varphi$ is clear since quantifier-free formulas are preserved under substructures. Similarly, the induction steps for the logical connectives are also clear.
-
-    For $\exists$, let $\varphi(\ol{v})=\exists y[y\in\tau(\ol{v})\wedge\psi(\ol{v},y)]$, where $\psi$ is $\Delta_0$ and $\mf{A}\preceq_\psi\mf{B}$ as the induction hypothesis. Then, let $\ol{a}\in A^n$, we claim that we have the following:
-    \begin{align*}
-        \mf{A}\vDash\varphi(\ol{a}) & \Leftrightarrow \exists b\in A\text{ such that }b\in\tau^\mf{A}(\ol{a})\text{ and }\mf{A}\vDash\psi(\ol{a},b)\\
-        & \Leftrightarrow \exists b\in B\text{ such that }b\in\tau^\mf{B}(\ol{a})\text{ and }\mf{B}\vDash\psi(\ol{a},b)\Leftrightarrow\mf{B}\vDash\varphi(\ol{a})
-    \end{align*}
-    The $(\Rightarrow)$ direction is clear, since $\tau^\mf{A}(\ol{a})=\tau^\mf{B}(\ol{a})$ and $A\subseteq B$ and $\mf{A}\preceq_\psi\mf{B}$. For the $(\Leftarrow)$ direction, since $A$ is transitive and $\tau^\mf{A}(\ol{a})\in A$, then $\tau^\mf{A}(\ol{a})\subseteq A\subseteq B$.
-\end{proof}
-
-\begin{example}
-    For some simple examples, note that the following are $\Delta_0$ formulas:
-    \begin{align*}
-        x\subseteq y &\equiv \forall z\in x(z\in y)\\
-        y=S(x) & \equiv \forall z\in y(y=x\vee y\in x)\wedge x\in y\wedge x\subseteq y\\
-        x=\emptyset & \equiv \forall z\in x(z\neq z)\\
-        y=v\cap w & \equiv \forall z\in y(z\in v\wedge z\in w)\wedge y\subseteq v\wedge y\subseteq w\\
-        \text{``$x$ is a singleton''} & \equiv \exists z\in x\;\forall y\in x(z=y)
-    \end{align*}
-\end{example}
-
-We will often denote ``$x$ is a singleton'' as $\text{Sing}(x)$.
-
-\begin{observation}
-    It's worth noting that, in the previous example, the equivalences are not the ``oficial'' definitions of those terms, in fact, they are equivalent over some basic set theory. What we are using here is the fact that if $V,M\vDash\forall\ol{v}(\varphi(\ol{v})\leftrightarrow\psi(\ol{v}))$, then $\varphi$ is absolute for $M$ iff $\psi$ is also absolute for $M$. What the previous statements says is that $M$ should be able to prove the logical equivalence between the formulas and, then, we sometimes require $M$ to satisfy some basic axioms of ZFC.
-\end{observation}
-
-With absoluteness in hands, we can prove the following lemma
-
-\begin{lemma}{}{}\label{power_set_criterion}
-    Let $M$ be a transitive class, then
-    $$\forall x\in M((\mc{P}(x)\cap M)\in M)\Rightarrow M\vDash\mc{P}$$
-    Also, we have the $(\Leftarrow)$ direction if $M\vDash\mc{C}$.
-\end{lemma}
-
-\begin{proof}
-    By absoluteness of $\subseteq$, the Power Set Axiom relativized to $M$ is equivalent to
-    $$\forall x\in M\;\exists y\in M\;\forall z\in M(z\subseteq x\to z\in y)$$
-    Then it's easy to see, for each $x\in M$, we can just take $y=\mc{P}(x)\cap M$ which is in $M$ by hypothesis.
-
-    The other direction is also clear, since $M\vDash\mc{P}$, then for each $x\in M$ there is some $y\in M$ such that $\mc{P}(x)\cap M\subseteq y$. By Comprehension and absoluteness of $\subseteq$ we have that
-    $$\mc{P}(x)\cap M=\{z\in y:(z\subseteq x)^M\}\in M$$
-\end{proof}
-
-The following is clear by the definition of $R$ and since $WF=R(ON)$.
-
-\begin{corollary}{}{}\label{R,WF_power_set}
-    $WF\vDash\mc{P}$ and $R(\gamma)\vDash\mc{P}$ for any limit $\gamma$.
-\end{corollary}
-
-Unfortunately (or not since it makes independence easy) the same is not true for $H(\kappa)$, as we will see in subsubsection \ref{ind_power_set}
-
-\section{Axiom of Infinity and Choice}
-
-As we shall see, the Axiom of Infinity and AC can be stated only using symbols we proved in the last subsection to be absolute, then we don't need to worry about their relativizations.
-
-\begin{lemma}{}{}\label{inf_ac_criterion}
-    Let $M$ be a transitive class such that $M\vDash\mc{E}$, $\mc{U}$, $\mc{C}$ and Pairing.
-    \begin{enumerate}
-        \item $M\vDash\mc{I}$ iff $\omega\in M$;
-        \item $M\vDash\text{AC}$ iff every disjoint family of non-empty sets in $M$ has a choice set in $M$.
-    \end{enumerate}
-\end{lemma}
-
-\begin{proof}
-    1. $(\Rightarrow)$ The Axiom of Infinity is equivalent to $\exists x\;\text{Ind}(x)$, where $\text{Ind}(x)$ states that $x$ is inductive, i.e.
-    $$\text{Ind}(x)\equiv\emptyset\in x\wedge\forall y\in x(S(y)\in x)$$
-    Since it's absolute, then $\mc{I}^M=\exists x\in M(\text{Ind}(x))$, whose $x=\omega$ clearly satisfies.
-
-    $(\Leftarrow)$ Since $\text{Ind}$ is absolute, given that there is some $\lambda\in M$ such that $\text{Ind}(\lambda)$, then $\lambda$ is in fact a limit ordinal and, by transitiveness of $M$, all smaller ordinals are also in $M$, in particular, $\omega\in M$.
-
-    2. AC is equivalent to $\forall F\;\exists C[\text{df}(F)\to\text{cs}(C,F)]$, where $\text{df}(F)$ states $F$ is a disjoint family of non-empty sets and $\text{cs}(C,F)$ that $C$ is a choice set for $F$, i.e.
-    \begin{align*}
-        \text{df}(F) & \equiv\emptyset\notin F\wedge\forall x\in F\;\forall y\in F(x\neq y\to x\cap y=\emptyset)\\
-        \text{cs}(C,F) & \equiv\forall x\in F(\text{Sing}(C\cap x))
-    \end{align*}
-    which are all absolute. Then $\text{AC}^M=\forall F\in M\;\exists C\in M[\text{df}(F)\to\text{cs}(C,F)]$. which is our condition.
-\end{proof}
-
-The hypothesis that $M$ should satisfy $\mc{E}$, $\mc{U}$, $\mc{C}$ and Pairing was used in the absoluteness of the $\Delta_0$ formulas, due to the observation after Lemma \ref{delta_0_absoluteness}.
-
-\begin{observation}
-    As a fun fact, we can't prove the $(\Rightarrow)$ direction of (1) without Regularity. In order to show this we will need to analyze permutations in $V$ and use Mostowski Collapsing Lemma, which we will see in the \href{??}{following sections}.
-\end{observation}\todo{add hyperlink to the proof}
-
-We can now analyze if these axioms are satisfied by our approximate models. In fact, we will see in subsection \ref{ind_regularity} that $WF\vDash\zfc$. For now, let's stick to $R(\gamma)$ and $H(\kappa)$.
-
-\begin{corollary}{}{}\label{R(gamma)_zf}
-    $R(\gamma)\vDash ZC$ whenever $\gamma>\omega$ is a limit ordinal.
-\end{corollary}
-
-\begin{proof}
-    Since $\gamma>\omega$, clearly $\omega\in R(\gamma)$. Now, given $F\in R(\gamma)$ a family of disjoint nonempty sets, by AC there is some choice set $C$, choose it such that $C\subseteq F$ (you can take, for example, $C\cap \bigcup F$). Since $C\subseteq F\in R(\gamma)$ and $\gamma$ is a limit ordinal, then $C\in P(F)\subseteq R(\gamma)$.
-
-    Then, by Corollary \ref{R(gamma)_models} and \ref{R,WF_power_set} we have that $R(\gamma)\vDash ZC$.
-\end{proof}
-
-\begin{corollary}{}{}\label{H(k)_zfc-p}
-    $H(\kappa)\vDash\zfc-\mc{P}$ whenever $\kappa$ is a regular uncountable cardinal.
-\end{corollary}
-
-\begin{proof}
-    Since $\kappa>\omega$, clearly $\omega\in H(\kappa)$. Now, given $F\in H(\kappa)$ a family of disjoint nonempty sets, we can take $C\subseteq F$ a choice set as in the previous proof. Since $F\in H(\kappa)$ and $H(\kappa)$ is transitive, then $F\subseteq H(\kappa)$ and, therefore, $C\subseteq H(\kappa)$. Now, since $\kappa$ is regular and $\lvert C\rvert\leq\lvert F\rvert<\kappa$, then, by Lemma \ref{k-regular_H(k)_subset}, $C\in H(\kappa)$, as desired.
-
-    The rest follows from Corollary \ref{H(k)_models}.
-\end{proof}
-
-\section{Independence of ZFC Axioms}
-
-We will now use our approximate models to construct models of $\zfc-\varphi$, where $\varphi$ is some axiom (or axiom schema) of $\zfc$, with the exception of the basic axioms and AC, whose independence is way harder and will be shown using $L$ and permutations of $V$ in the following sections.
-
-\subsection{Power Set}\label{ind_power_set}
-
-Let's analyze when Power Set Axiom is true in $H(\kappa)$.
-
-\begin{lemma}{}{}
-    If $\kappa$ is regular, uncountable and not strongly inaccessible, then $H(\kappa)\vDash\neg\mc{P}$.
-\end{lemma}
-
-\begin{proof}
-    Let's use Lemma \ref{power_set_criterion}. Since $\kappa$ is not strongly inaccessible, there is some $\lambda<\kappa$ such that $2^\lambda\geq\kappa$. And, since $\kappa$ is also regular, by Lemma \ref{k-regular_H(k)_subset} we have that $\mc{P}(\lambda)\subseteq H(\kappa)$. However, note that
-    $$\lvert\text{trcl}(\mc{P}(\lambda))\rvert\geq\lvert\mc{P}(\lambda)\rvert=2^\lambda\geq\kappa$$
-    and then, $\mc{P}(\lambda)\cap H(\kappa)=\mc{P}(\lambda)\notin H(\kappa)$, which implies $H(\kappa)\vDash\neg\mc{P}$, since $H(\kappa)\vDash\mc{C}$.
-\end{proof}
-
-\begin{observation}
-    Furthermore, when $\kappa$ is strongly inaccessible, we have $H(\kappa)\vDash\mc{P}$. To see this, note first that, as a scholium of Lemma \ref{k-regular_H(k)_subset}, we have that, for each $x\in H(\kappa)$, with $\lvert x\rvert=\lambda$
-    $$\text{trcl}(\mc{P}(x)) = \mc{P}(x)\cup\bigcup_{y\in\mc{P}(x)}\text{trcl}(y)$$
-    and, therefore, knowing that $y\subseteq x$ implies $\text{trcl}(y)\subseteq\text{trcl}(x)$, we also have
-    \begin{align*}
-        \lvert\text{trcl}(\mc{P}(x))\rvert & \leq \lvert\mc{P}(x)\rvert+\sum_{y\in\mc{P}(x)}\lvert\text{trcl}(y)\rvert\\
-        & \leq\lvert\mc{P}(x)\rvert+\lvert\mc{P}(x)\rvert\lvert\text{trcl}(x)\rvert\\
-        & = 2^\lambda+2^\lambda\lvert\text{trcl}(x)\rvert\\
-        & < \kappa^2=\kappa\tag{$2^\lambda<\kappa$}
-    \end{align*}
-    then $\mc{P}(x)\in H(\kappa)$ as desired.
-\end{observation}
-
-We can, therefore, prove our first independency result for a nontrivial axiom.
-
-\begin{theorem}{}{}
-    The Axiom of Power Set is independent of $\zfc-\mc{P}$.
+In contrast to the growth functions related cardinal characteristics this one is really easy to motivate, even for undergrads. It's known by the Riemann Rearrangement Theorem that any conditionally convergent (c.c.) series can be rearranged so it converges to any real, diverges by $\pm\infty$ or oscillates. Another way to state this theorem is as a property of $\sym$:
+\begin{theorem}{}{}\textbf{(Riemann Rearrangement)}
+    Given any c.c. series $\sum_n a_n$ and $\alpha,\beta\in\mbb{R}\cup\{\pm\infty\}$, there is some permutation $p\in\sym$ such that
+    $$\limsup_m\sum_{n=0}^m a_{p(n)}=\alpha\quad\text{and}\quad\liminf_m\sum_{n=0}^ma_{p(n)}=\beta$$
 \end{theorem}
+One natural generalization one can think about is: how much smaller could we choose $\sym$? It turns out that we can define this in terms of cardinality as we will see, but it's far from trivial what this cardinal should be. We will prove this is a cardinal characteristic of the continuum, but it is still open if we can prove the equality with any well-known cardinal characteristic.
 
-\begin{proof}
-    Consider $HC=H(\aleph_1)$. Since $\aleph_1$ is a regular uncountable cardinal, but not strongly inaccessible, the result follows trivially from Corollary \ref{H(k)_zfc-p} and the previous lemma.
-\end{proof}
-
-\begin{observation}
-    It can be argued that it would be way easier (but not that cool) to just show $HC$ proves $\mc{P}(\omega)$ doesn't exists. However it would require some absoluteness results from the next section, which is really boring to prove. Let's sketch how the proof would be:
-    \begin{proof}
-        Clearly $\forall x\in HC\;\exists f\in HC\;[f:x\stackrel{1-1}{\to}\omega]$, since every set in $HC$ is countable. Now, since $f:x\stackrel{1-1}{\to}\omega$ is absolute, then we can't have $\mc{P}(\omega)\in HF$.
-    \end{proof}
-    Way shorter, right? But trust me, the details are boring.
-\end{observation}
-
-\subsection{Infinity}
-
-\begin{theorem}{}{}
-    The Axiom of Infinity is independent of $\zfc-\mc{I}$
-\end{theorem}
-
-\begin{proof}
-    Consider $HF=H(\aleph_0)=R(\omega)$. Since $\omega\notin R(\omega)$, by Lemma \ref{inf_ac_criterion} $HF\vDash\neg\mc{I}$. Also, since $HF$ can be well-ordered, then a choice set always exists in it, then $HF\vDash\text{AC}$.
-    
-    The other axioms are consequences of Corollaries \ref{R(gamma)_models} and \ref{R,WF_power_set}.
-\end{proof}
-
-\subsection{Replacement}
-
-Before our proof, let's prove the following lemma about Beth function:
-
-\begin{lemma}{}{}
-    Show that $\{\delta:\delta=\beth_\delta\}$ is unbounded in $ON$.
-\end{lemma}
-
-\begin{proof}
-    Define $\delta_\xi$ by transfinite recursion as follows:
-    \begin{itemize}
-        \item $\delta_0=0$; \qquad $\delta_{\xi+1}=\beth_{\delta_\xi}$;
-        \item $\delta_\eta=\sup\{\delta_\xi:\xi<\eta\}$, when $\eta$ is a limit ordinal.
-    \end{itemize}
-    Note first that, given $\alpha<\delta_\eta$, with $\eta$ a limit ordinal, since $\delta_\eta=\sup\{\delta_\xi:\xi<\eta\}$, there is some $\xi<\eta$ such that $\delta_\xi>\alpha$. Using this fact, we then have that, for $\eta$ a limit ordinal
-    $$\beth_{\delta_\eta}=\sup\{\beth_\alpha:\alpha<\delta_\eta\}=\sup\{\beth_{\delta_\xi}:\xi<\eta\}=\sup\{\delta_{\xi+1}:\xi<\eta\}=\delta_\eta$$
-    Since $\eta$ is an arbitrary limit ordinal, we conclude that $\{\delta:\delta=\beth_\delta\}$ is unbounded in $ON$.
-\end{proof}
-
-Let's now see a necessary condition for $R(\gamma)\vDash\mc{F}$.
-
-\begin{lemma}{}{}
-    If $R(\gamma)\vDash\mc{F}$, for $\gamma>\omega$, then $\gamma=\beth_\gamma$ and $\{\delta<\gamma:\delta=\beth_\delta\}$ has size $\gamma$.
-\end{lemma}
-
-\begin{proof}
-    \todo{It should be a direct corollary of the previous lemma using that $\delta\mapsto\beth_\delta$ is absolute}\textcolor{laser_eyes}{PENDENT}
-\end{proof}
-
-\begin{theorem}{}{}
-    The Axiom of Replacement is independent of $\text{ZC}$
-\end{theorem}
-
-\begin{proof}
-    Consider $M=R(\omega+\omega)$, by Corollary \ref{R(gamma)_zf} it's a model of ZC and, by the previous lemma, since $\omega+\omega\neq\beth_{\omega+\omega}$, we have that $M\vDash\neg\mc{F}$.
-\end{proof}
-
-\subsection{Union}
-
-This is not as direct as the previous theorems, in fact we need to define some new kind of model approximation of $V$ that looks like $H(\kappa)$.
+\section{Definitions}
 
 \begin{definition}{}{}
-    Given a cardinal $\kappa$, a set $x$ is pseudo-hereditarily of cardinality less than $\kappa$ if $\lvert x\rvert<\kappa$ and, for all $y\in x$, $\lvert\text{trcl}(y)\rvert<\kappa$, i.e., $y\subseteq H(\kappa)$. We can define
-    $$H^*(\kappa):=\{x:x\text{ is pseudo-hereditarily of cardinality less than }\kappa\}$$
+    $\mf{rr}$ is the smallest cardinality of any family $C\subseteq\sym$ such that, for every c.c. series $\sum_n a_n$ of reals, there is some $p\in C$ for which $\sum_n a_{p(n)}$ no longer converges to the same limit.
 \end{definition}
 
-Intuitively, this is as $H(\kappa)$, but it doesn't restrict the size of the union $x\cup\bigcup_{y\in x}\text{trcl}(y)$, just the size of each term. By the next lemmas, our intended model for $\zfc-\mc{U}+\neg\mc{U}$ will be $H^*(\beth_\omega)$.
+Analogously, if $\sum_n a_{p(n)}$ is required to converge, diverge to $\pm\infty$ or diverge by oscillation, then we have new cardinals $\mf{rr}_f$, $\mf{rr}_i$ and $\mf{rr}_o$, respectively.
 
-\begin{lemma}{}{}
-    Let $\kappa$ be a strong limit cardinal, then $H^*(\kappa)\vDash\zfc-\mc{U}$
+We could also consider joints of those conditions, like $\mf{rr}_{fi}$ where $\sum_n a_{p(n)}$ either converges or diverges to $\pm\infty$.
+
+Its easy to see that, if $C\subseteq\sym$ satisfies, for example, $\mf{rr}_i$, then it also satisfies $\mf{rr}_{fi}$, so $\mf{rr}_{fi}\leq\mf{rr}_i$, in general, we can make the Hasse Diagram in Figure \ref{fig:hasse-rearrangement}.
+
+\begin{figure}[ht]
+\centering
+\input{diagrams/hasse-rr}
+\caption{Hasse Diagram of the Rearrangement Numbers}
+\label{fig:hasse-rearrangement}
+\end{figure}
+
+using this notation, $\mf{rr}$ would be $\mf{rr}_{fio}$, as expected.
+
+\section{Padding with Zeros}
+
+By Riemann's rearrangement $\mf{rr}\leq\lvert\sym\rvert=\mf{c}$, so, if $\mf{rr}$ is uncountable, then its a cardinal characteristic of the continuum.
+
+Indeed, to prove that $\lvert\sym\rvert=\mf{c}$, note that $\sym\subseteq\omega^\omega$, therefore $\lvert\sym\rvert\leq\aleph_0^{\aleph_0}=2^{\aleph_0}$, so we will construct an injection $\varphi:[0,1]\to\sym$, s.t. for each real number $a=(0.d_0d_1d_2\dots)_2\in[0,1]$ we associate $\varphi(a)$ as the bijection in $\omega$ that swaps $2n$ with $2n+1$ if $d_n=1$, and does not swap them if $d_n=0$.
+
+In this subsection we will prove its actually a cardinal characteristic and we will also explain an important technique about padding zeros.
+
+\begin{theorem}{}{}\label{rr uncountable}
+    $\mf{rr}$ is uncountable.
+\end{theorem}
+
+\begin{sketch}
+    Let $C=\{p_n:n\in\omega\}$ be any countable subset of $\sym$ we will find a c.c. sequence that can't be corrupted by any of the permutations in $C$. To do this, we will start with any c.c. series, let's say $b_n=\frac{(-1)^n}{n}$ and we will pad a lot of zeroes between the terms and create a new sequence $a_n$ such that $\sum_n a_n=\sum_n a_{p_m(n)}$, $\forall m\in\omega$. We will do this defining a new function $\ell(n)$ such that $a_n=0$ if $n\notin\text{ran}(\ell)$, so, if in the summation we take only the non zero terms, we will have to prove that
+    $$\sum_k a_{\ell(k)}=\sum_k a_{p_m(k)}$$
+    then, to force $\ell(1),\ell(2),\dots$ to eventually appear in the same order as the $p_m(k)$'s, we need to preserve the relative order of the terms $\ell(n)$ for almost all $n$, for example
+    $$p_m^{-1}(\ell(m))<p_m^{-1}(\ell(m+1))<p_m^{-1}(\ell(m+2))<\dots$$
+    so, we want to avoid that $p_m^{-1}(\ell(k))>p_m^{-1}(\ell(k+1))$, for some $m\leq k$. Then, to reach a contradiction, we could say that $\ell(k+1)\neq p_m(j)$, for any $p_m^{-1}(\ell(k))>j$ and $m\leq k$.
+\end{sketch}
+
+\begin{proof}
+    Assume by contradiction that there is a $C=\{p_n:n\in\omega\}\subseteq\sym$, Let $b_n:=\frac{(-1)^n}{n}$ (indeed, we can take any term of a c.c. series). Lets define $\ell:\omega\to\omega$ a fast growing function that will indicate the new position of $b_k$ and will add a lot of $0$'s between the $b_k$'s, i.e.
+    $$a_n:=\begin{cases}
+        b_k,\, n=\ell(k)\\
+        0,\, \text{otherwise}
+    \end{cases}$$
+    So, define $\ell(0)=0$ and, given $\ell(k)$ defined, let $\ell(k+1)>\ell(k)$ such that $\ell(k+1)\neq p_m(j)$, $j\leq p_m^{-1}(\ell(k))$, $m\leq k$ (which exists, since there are finite terms $p_m(j)$ of that form).
+
+    Now, we claim that $\forall m\geq k$, $p_m^{-1}(\ell(k))<p_m^{-1}(\ell(k+1))$, in fact, if there was a $m\leq k$ s.t. $p_m^{-1}(\ell(k))>p_m^{-1}(\ell(k+1))$, then, for $j=p_m^{-1}(\ell(k+1))$, by hypothesis
+    $$\ell(k+1)\neq p_m\rp{p_m^{-1}(\ell(k+1))}=\ell(k+1)$$
+    a contradiction. So, we finally have that, $\forall m\in\omega$
+    $$p_m^{-1}(\ell(m))<p_m^{-1}(\ell(m+1))<p_m^{-1}(\ell(m+2))<\dots$$
+    so, $p_m^{-1}$ preserves the relative order of $b_k$'s, except for possibly the first $m$ terms, so, its clear that
+    $$\sum_n a_n=\sum_n a_{p_m(n)},\,\forall m\in\omega$$
+\end{proof}
+
+\section{Mixing Permutations}
+In this subsection we will prove some equalities on the variants of the rearrangement number by explaining an important technique called The Mix Lemma.
+
+\begin{lemma}{}{}\label{mix}\textbf{(The Mix Lemma)}
+    For all $p,q\in\sym$, there is a $g\in\sym$ such that:
+    \begin{itemize}
+        \item $g[n]=p[n]$ for infinitely many $n$'s;
+        \item $g[n]=q[n]$ for infinitely many $n$'s
+    \end{itemize}
+\end{lemma}
+
+To prove The Mix Lemma we will first prove the following lemma
+
+\begin{lemma}{}{}\label{pre-mix}
+    For any $p\in\sym$, if $h:n\to\omega$ is injective, then there exists $h\subseteq h':M\to\omega$, with $M>n$, such that $\text{Im}(h')=p[M]$.
 \end{lemma}
 
 \begin{proof}
-    Clearly $H(\kappa)\subseteq H^*(\kappa)\subseteq WF$ for all cardinals $\kappa$. And, if $x\in y\in H^*(\kappa)$, then $x\subseteq\text{trcl}(y)$, which implies that $\lvert x\rvert\leq\lvert\text{trcl}(y)\rvert<\kappa$. Similarly, for all $z\in\text{trcl}(x)\subseteq\text{trcl}(y)$, we have $\text{trcl}(z)\subseteq\text{trcl}(y)$, then $\lvert\text{trcl}(z)\rvert\leq\lvert\text{trcl}(y)\rvert<\kappa$ and, therefore, $x\in H^*(\kappa)$.
-
-    Since $H^*(\kappa)$ is a subset of $WF$ and transitive, by Lemma \ref{basic_axioms_criterion}, it satisfies $\mc{E}$ and $\mc{R}$. Also, since $\kappa>\aleph_0$, we have $\omega\in H^*(\kappa)$ and, by Lemma \ref{inf_ac_criterion}, it satisfies $\mc{I}$.
-
-    For Power Set Axiom, we will use Lemma \ref{power_set_criterion}. If $x\in H^*(\kappa)$ and $y\subseteq x$, then $\lvert y\rvert\leq\lvert x\rvert<\kappa$ and $\text{trcl}(y)\subseteq\text{trcl}(x)$, so $\lvert\text{trcl}(y)\rvert\leq\lvert\text{trcl}(x)\rvert<\kappa$, this implies that $\mc{P}(x)\cap H^*(\kappa)=\mc{P}(x)$. Now, if $\lvert x\rvert=\lambda<\kappa$, since $\kappa$ is strong limit, then $\lvert\mc{P}(x)\rvert=2^\lambda<\kappa$. And, for $y\in\mc{P}(x)$, as we saw $\lvert\text{trcl}(y)\rvert<\kappa$, which implies that $\mc{P}(x)\in H^*(\kappa)$, then $H^*(\kappa)$ satisfies $\mc{P}$.
-
-    As in the proof that $H(\kappa)\vDash\mc{F}$ and $\mc{C}$, we just need to show the analogous of the Lemma \ref{k-regular_H(k)_subset} for $H^*(\kappa)$. Given $x\subseteq H^*(\kappa)$ such that $\lvert x\rvert<\kappa$, if $y\in\text{trcl}(x)$, then $\text{trcl}(y)\subseteq\text{trcl}(x)$, which implies that $\lvert\text{trcl}(y)\rvert\leq\lvert\text{trcl}(x)\rvert<\kappa$, therefore $x\in H^*(\kappa)$ and $H^*(\kappa)\vDash\mc{F},\mc{C}$.
+    Since $p$ is a bijection, there are $m_0,m_1,\dots,m_{n-1}$ such that $p(m_i)=h(i)$, so, if we choose $M=\max\{m_0,m_1,\dots,m_{n-1}\}+2>n$, then $h[n]=\text{Im}(h)\subseteq p[M]$ and $h'=p\lvert_M$ do the job.
 \end{proof}
 
+Now, let's prove the mix lemma
+
+\begin{proof}\textbf{(The Mix Lemma.)} Let $g_0=\emptyset$. If $g_{2k-1}:n_{2k-1}\to\omega$ was already defined, by the previous lemma there exists a $g_{2k}:n_{2k}\to\omega$ extending $g_{2k-1}$ s.t. $\text{Im}(g_{2k})=p[n_{2k}]$. Analogously, if $g_{2k}$ was already defined, let $g_{2k+1}:n_{2k+1}\to\omega$ extending $g_{2k}$ s.t. $\text{Im}(g_{2k+1})=q[n_{2k+1}]$.
+
+Since $\{g_n:n\in\omega\}$ is a family of compatible functions, then $g:=\bigcup_{n\in\omega}g_n$ is well defined. To show $g\in\sym$, note first that, since by the previous lemma $M>n$, then $n_k>n_m$, $\forall k>m$, therefore $\text{dom}(g)=\omega$ and, since each $g_k$ is injective, $g$ is also. Now, for any $k\in\omega$, there is a $k'\in\omega$ s.t. $p(k')=k$ and, since $g$ agrees with $p$ for infinitely many $n$'s, then $k$ is eventually in the image of $g$. Therefore we have that $g\in\sym$.
+\end{proof}
+
+Now, lets narrow down how much rearrangement numbers are there
+
+\begin{theorem}{}{}\label{rr=rr_ifo}
+    $$\mf{rr}=\mf{rr}_{fo}=\mf{rr}_{io}=\mf{rr}_o$$
+\end{theorem}
+
+\begin{proof}
+    Since $\mf{rr}_o\geq\mf{rr}_{fo},\mf{rr}_{io}\geq\mf{rr}$, its sufficient to show that $\mf{rr}\geq\mf{rr}_o$.
+
+    Let $C\subseteq\sym$ be as in the definition of $\mf{rr}$, by The Mix Lemma \ref{mix}, for each $p\in C$ there is a $g_p\in\sym$ s.t. $g_p$ agrees with $p$ and $q=\text{id}$ for infinitely many $n$'s. Define
+    $$C':=C\cup\{g_p:p\in C\}$$
+    By the previous theorem, $\lvert C\rvert>\aleph_0$, so $\lvert C'\rvert=\lvert C\rvert=\mf{rr}$. We will show that $C'$ satisfies $\mf{rr}_o$.
+
+    Let $\sum_n a_n$ be c.c., we know that there exists a $p\in C$ that corrupts the series. If $\sum_n a_{p(n)}$ diverges by oscillation, we are done, otherwise, if it diverges for infinity, or converges to a different number, then $\sum_n a_{g_p(n)}$ has a subsequence going to infinity or this new sum, and another going to the original sum, so it diverges by oscillation.
+\end{proof}
+The previous theorem narrows down the number of rearrangement cardinals (Figure \ref{fig:rearrangement-narrowed})
+
+\begin{figure}[ht]
+\centering
+\input{diagrams/narhasse-rr}
+\caption{Narrowed Hasse Diagram}
+\label{fig:rearrangement-narrowed}
+\end{figure}
+
+\section{Measure and Random Signs}
+
+In this subsection we relate the rearrangement number with the covering number for measure. In order to relate them we will need a consequence of Kolmogorov's Two Series Theorem, whose proof depends on the following inequality also due to Kolmogorov:
+
 \begin{lemma}{}{}
-    If $\kappa$ is a singular strong limit cardinal, then $H^*(\kappa)\vDash\neg\mc{U}$
+    \textbf{(Kolmogorov's Inequality)} Let $X_1,X_2,\dots,X_n$ be independent random variables with $\mbb{E}[X_k]=0$ and $\text{var}(X_k)<\infty$ for $k=1,\dots,n$. Then, $\forall\varepsilon>0$ we have that:
+    $$\mbb{P}\rp{\max_{1\leq k\leq n}\lvert S_k\rvert\geq\varepsilon}\leq\frac{\text{var}(S_n)}{\varepsilon^2}=\frac1{\varepsilon^2}\sum_{k=1}^n\text{var}(X_k)$$
+    where $S_k=X_1+X_2+\dots+X_k$.
 \end{lemma}
 
 \begin{proof}
-    Let $\cf(\kappa)=\lambda$ and $\langle\alpha_\beta:\beta<\lambda\rangle$ be a strictly increasing sequence converging to $\kappa$, with $\lvert\alpha_\beta\rvert<\kappa$, for every $\beta<\lambda$. Clearly $\xi\in H^*(\kappa)$ for every $\xi$ such that $\lvert\xi\rvert<\kappa$, then $\lambda,\alpha_\beta\in H^*(\kappa)$, for every $\beta<\lambda$, and, therefore, $\{\alpha_\beta:\beta<\lambda\}\in H^*(\kappa)$ since it satisfies $\mc{F}$. However
-    $$\bigcup\{\alpha_\beta:\beta<\lambda\}=\kappa\notin H^*(\kappa)$$
-    then $H^*(\kappa)\vDash\neg\mc{U}$
+    Let $E=\left\{\max_{1\leq k\leq n}\lvert S_k\rvert\geq\varepsilon\right\}$ and consider the events
+    $$E_k=\left\{\lvert S_1\rvert<\varepsilon,\lvert S_2\rvert<\varepsilon,\dots,\lvert S_{k-1}\rvert<\varepsilon,\lvert S_k\rvert\geq\varepsilon\right\}$$
+    Clearly $E_k$ are disjoint and $E=\bigcup_{k=1}^nE_k$, therefore
+    \begin{equation}\label{p(e)}
+        \mbb{P}(E)=\sum_{k=1}^n\mbb{P}(E_k)
+    \end{equation}
+    Furthermore, since $\mbb{E}[X_k]=0$, $k=1\dots,n$, then $\mbb{E}[S_n]=0$. And, since $S_n^2$ is always greater or equal than $0$, then $\mbb{E}[S_n^2]\geq\mbb{E}[S_n^2\cdot I_A]$ for any event $A$, consequently:
+    \begin{equation}\label{var(S_n)}
+        \text{var}(S_n)=\mbb{E}[S_n^2]\geq\mbb{E}[S_n^2\cdot\boldsymbol{1}_E]=\sum_{k=1}^n\mbb{E}[S_n^2\cdot\boldsymbol{1}_{E_k}]
+    \end{equation}
+    Now, note that
+    $$S_n^2=(S_n+(S_k-S_n))^2=S_k^2+2S_k(S_n-S_k)+(S_n-S_k)^2$$
+    therefore, multiplying by $\boldsymbol{1}_{E_k}$ and taking the expected value at both sides
+    $$\mbb{E}[S_n^2\cdot\boldsymbol{1}_{E_k}]=\mbb{E}[S_k^2\cdot\boldsymbol{1}_{E_k}]+2\mbb{E}[S_k(S_n-S_k)\cdot\boldsymbol{1}_{E_k}]+\mbb{E}[(S_n-S_k)^2\cdot\boldsymbol{1}_{E_k}]$$
+    but $S_k\cdot\boldsymbol{1}_{E_k}=(X_1+\dots X_k)\cdot\boldsymbol{1}_{E_k}$ and $S_n-S_k=X_n+X_{n-1}+\dots+X_{k+1}$ and, since $X_k$ are independent, $S_k\cdot\boldsymbol{1}_{E_k}$ and $S_n-S_k$ are also independent, then
+    $$\mbb{E}[S_k(S_n-S_k)\cdot\boldsymbol{1}_{E_k}]=\mbb{E}[S_k\cdot\boldsymbol{1}_{E_k}]\cdot\cancelto0{\mbb{E}[S_n-S_k]}=0$$
+    so we can conclude that
+    \begin{equation}\label{E(S_n2 1_E)}
+        \mbb{E}[S_n^2\cdot\boldsymbol{1}_{E_k}]=\mbb{E}[S_k^2\cdot\boldsymbol{1}_{E_k}]+\mbb{E}[(S_n-S_k)^2\cdot\boldsymbol{1}_{E_k}]\geq\mbb{E}[S_k^2\cdot\boldsymbol{1}_{E_k}]
+    \end{equation}
+    now, substituting \ref{E(S_n2 1_E)} in \ref{var(S_n)}, we conclude that
+    $$\text{var}(S_n)\geq\sum_{k=1}^n\mbb{E}[S_n^2\cdot\boldsymbol{1}_{E_k}]\geq\sum_{k=1}^n\mbb{E}[S_k^2\cdot\boldsymbol{1}_{E_k}]$$
+    and, by definition, $\lvert S_k(\omega)\rvert\geq\varepsilon$ whenever $\boldsymbol{1}_{E_k}(\omega)$, therefore $\lvert S_k^2(\omega)\rvert\geq\varepsilon^2$ and, by \ref{p(e)}, we have that
+    $$\text{var}(S_n)\geq\sum_{k=1}^n\mbb{E}[\varepsilon^2\cdot\boldsymbol{1}_{E_k}]=\varepsilon^2\sum_{k=1}^n\mbb{P}(E_k)=\varepsilon^2\mbb{P}(E)$$
 \end{proof}
 
-\begin{observation}
-    It's clear that, in the previous model, The Axiom of Union fails to ensure that the union of a set of size $\cf(\kappa)$ exists, in particular, the model of the next theorem doesn't guarantee that union of countable sets always exists.
-
-    Fortunately, since $\beth_\alpha$ is strong inaccessible, whenever $\alpha$ is a limit ordinal, and since $\cf(\kappa)$ is always a regular cardinal, then $H^*(\beth_{\kappa+\kappa})$, with $\kappa$ regular, is a model where The Axiom of Union fails for sets of size $\kappa$, since $\beth$ is a continuous function, $\cf(\beth_{\kappa+\kappa})=\kappa$ and $\beth_{\kappa+\kappa}>\beth_\kappa\geq\cf(\beth_\kappa)=\kappa$, i.e., it's singular.
-
-    Some natural questions are whether we can find models whose union fails for singular cardinals or, maybe, if we can make it fails even for union of finite elements.
-
-    It turns out that, surprisingly, we can make it fail for the union of two elements! The full construction can be found \href{https://math.stackexchange.com/a/3982905/1147686}{here}, unfortunately, it uses forcing, which we didn't learn yet.
-\end{observation}
-
 \begin{theorem}{}{}
-    The Axiom of Union is independent of $\zfc-\mc{U}$.
+    \textbf{(Kolmogorov's Two Series)}. Let $(X_n)_{n\geq0}$ be independent random variables. If $\sum_n\mbb{E}[X_n]$ and $\sum_n\text{var}(X_n)$ both converges, then $\sum_n X_n$ converges almost surely.
 \end{theorem}
 
 \begin{proof}
-    By the two previous lemmas, let $M=H^*(\beth_\omega)$, since $\beth_\omega$ is a singular strong limit cardinal, then $M\vDash\zfc-\mc{U}+\neg\mc{U}$, as desired.
+    Note first that, if we define $Y_k=X_k-\mbb{E}[X_k]$, then $Y_k$ are also independent, $\mbb{E}[Y_n]=0$ and $\text{var}(Y_n)=\text{var}(X_n)$. Now, since
+    $$\sum_n X_n=\sum_n(Y_n+\mbb{E}[X_n])=\sum_n Y_n+\sum_n\mbb{E}[X_n]$$
+    and, by hypothesis, $\sum_n\mbb{E}[X_n]$ converges, then $\sum_n X_n$ converges iff $\sum_n Y_n$ converges, then we can assume WLOG that $\mbb{E}[X_n]=0$.
+
+    We will show that, if $S_k=\sum_{i=1}^kX_k$, then $\mbb{P}(S_k\text{ converges})=1$ or, equivalently, that $S_k$ is almost surely Cauchy. In order to do that, note that
+    $$\max_{m,n\geq N}\lvert S_n-S_m\rvert\leq\max_{n\geq N}\lvert S_n-S_N\rvert+\max_{m\geq N}\lvert S_n-S_M\rvert\leq2\max_{n\geq N}\lvert S_n-S_N\rvert$$
+    then, by Kolmogorov's Inequality
+    \begin{equation}\label{kolmogorov S_n}
+        \mbb{P}\rp{\max_{m,n\geq N}\lvert S_n-S_m\rvert>\varepsilon}\leq\mbb{P}\rp{\max_{n\geq N}\lvert S_n-S_N\rvert>\frac\varepsilon2}\leq\frac4{\varepsilon^2}\sum_{n=N+1}^n\text{var}(S_n)
+    \end{equation}
+    Now, note that, $S_n$ is not Cauchy if, there is a $\varepsilon>0$ rational such that, for all $N\in\omega$, there are $n,m\geq N$ with $\lvert S_n-S_m\rvert>\varepsilon$. Then, for $S_n$ to be almost surely Cauchy it's sufficient that
+    $$\mbb{P}\rp{\bigcup_{\varepsilon\in\mbb{Q}}\bigcap_{N\in\omega}\bigcup_{n,m\geq N}\left\{\lvert S_n-S_m\rvert>\varepsilon\right\}}\leq\sum_{\varepsilon
+    \in\mbb{Q}}\;\mbb{P}\rp{\bigcap_{N\in\omega}\bigcup_{n,m\geq N}\left\{\lvert S_n-S_m\rvert>\varepsilon\right\}}=0$$
+    or that $\mbb{P}\rp{\bigcap_{N\in\omega}\bigcup_{n,m\geq N}\left\{\lvert S_n-S_m\rvert>\varepsilon\right\}}=0$. But, if $E_N=\bigcup_{n,m\geq N}\left\{\lvert S_n-S_m\rvert>\varepsilon\right\}$, note that $E_n\supseteq E_{n+1}$, $\forall n\in\omega$, then, we have
+    $$\mbb{P}\rp{\bigcap_{N\in\omega}E_N}=\lim_{N\to\infty}\mbb{P}(E_N)$$
+    and, since $E_N=\max_{m,n\geq N}\lvert S_n-S_m\rvert>\varepsilon$, by \ref{kolmogorov S_n} we have that
+    $$\lim_{N\to\infty}\mbb{P}(E_N)\leq\lim_{N\to\infty}\frac4{\varepsilon^2}\sum_{n=N+1}^n\text{var}(S_n)=0$$
+    where the summation is $0$ because $\sum_n\text{var}(S_n)$ converges. Then $S_n$ is almost surely Cauchy.
 \end{proof}
 
-\subsection{Regularity}\label{ind_regularity}
+Using Kolmogorov's Theorem we can prove the following Lemma due to Rademacher
 
-This is way easier than the previous result, but the results in this subsubsection are in some sense more important, that's why it's the last one.
+\textcolor{laser_eyes}{Como usaremos somente $c_n=\frac1n$ na prova do teorema 2.5., e sabemos que a harmônica se relaciona com a densidade assintótica por meio do ln, talvez seja possível pular esse teorema}
 
 \begin{theorem}{}{}
-    The Axiom of Regularity is independent of $\zfc^-$.
+    \textbf{(Rademacher).} Let $(c_n)_{n\geq0}$ be any sequence of reals. And let
+    $$A:=\left\{s\in2^\omega:\sum_n(-1)^{s(n)}c_n\text{ converges}\right\}$$
+    Then $\lambda(A)=1$ if $\sum_nc_n^2$ converges.
 \end{theorem}
 
 \begin{proof}
-    Let's add the constant symbols $\{c_n\}_{n\in\omega}$ to the language. Consider now the set
-    $$S=\{c_{n+1}\in c_n:n\in\omega\}$$
-    Now, since we're assuming $\zfc$ is consistent, let $M$ be some model of it. Clearly for any finite subset $S_0\subseteq S$ we have that $M\vDash S_0$, then, by Compactness Theorem, there is some model $M'$ of $\zfc+S$, which gives us an infinite descending $\in$-chain $c_0\ni c_1\ni c_2\ni\dots$, therefore $M'\vDash\neg\mc{R}$.
+    We will consider $X_n=(-1)^{s(n)}c_n$, where $s_n$ is $0$ and $1$ with probability $\frac12$. Now
+    $$\mbb{E}[X_n]=\mbb{E}[(-1)^{s(n)}c_n]=c_n\rp{1\cdot\frac12+(-1)\cdot\frac12}=0$$
+    Therefore $\sum_n\mbb{E}[X_n]$ converges. Now $\text{var}(Y_n)=\mbb{E}[Y_n^2]-\mbb{E}[Y_n]^2$ and, since we have that
+    $$\mbb{E}[Y_n^2]=c_n^2\rp{1\cdot\frac12+1\cdot\frac12}=c_n^2$$
+    then the second series became $\sum_nc_n^2$, which converges by assumption. And, by Kolmogorv's Two Series Theorem, $\lambda(A)=1$.
 \end{proof}
-
-It's worth noting that we can also construct some model of $\text{ZF}^-$ that doesn't satisfies regularity using permutations of $V$, as we shall see in the following sections.
-
-We have two reasons to give a different proof. The first is because the method used introduces a really powerful method called Permutation Models. The second is because it can be hard to tell how many axioms of ZFC we need to prove Compacteness. In fact, we need at least AC, since Compacteness is equivalent to the Ultrafilter Lemma, which is a weaker fragment of AC. With the alternative proof, however, we can just work with $\text{ZF}^-$, instead.
-
-Let's conclude this section finishing the proof that $WF$ is a model of ZFC.
+With the previous theorem we can now give an inequality between $\text{cov}(\mc{N})$ and $\mf{rr}$.
 
 \begin{theorem}{}{}
-    $WF\vDash\text{ZF}$ and, if we assume AC, $WF\vDash\zfc$.
+    $\text{cov}(\mc{N})\leq\mf{rr}$
+\end{theorem}
+
+\textcolor{laser_eyes}{Aqui estamos usando que $\text{cov}(\mc{N})$ é o mesmo se $\mc{N}$ for escolhido em $\mbb{R}$ ou no Espaço de Cantor $2^\omega$.}
+
+\begin{proof}
+    Since $\sum_n\frac1{n^2}$ converges absolutely, for any $p\in\sym$, since $\sum_n\frac1{p(n)^2}$ is just a rearrangement, then it also converges. Now, by Rademacher's Theorem, for $c_n=\frac1{p(n)}$, the set
+    $$A_p:=\left\{s\in2^\omega:\sum_n(-1)^{s(n)}/p(n)\text{ diverges}\right\}$$
+    has measure zero. And, since $s\mapsto s\circ p$ is measure preserving in the Cantor Space $2^\omega$ \textcolor{laser_eyes}{(Por que?)}, then $B_p=p[A_p]$ also has measure zero.
+
+    Now, let $C\subseteq\sym$ be s.t. $\lvert C\rvert<\text{cov}(\mc{N})$. By definition of $\text{cov}(\mc{N})$, we have that $\{B_p\}_{p\in C}$ cannot cover $2^\omega$, then there is some $s\in2^\omega$ such that $\sum_n(-1)^{s(p(n))}/p(n)$ converges $\forall p\in C$. That is, the rearrangement of $\sum_n(-1)^{s(n)}/n$ will not diverge to $\pm\infty$ or oscillate.
+
+    Therefore, this proves that $\text{cov}(\mc{N})\leq\mf{rr}_{io}=\mf{rr}$.
+\end{proof}
+
+\section{Topology and Some Inequalities}
+
+In this subsection we will continue to present some inequalities between the rearrangement numbers and other well known cardinal characteristic, so we can try, for example, to see where the rearrangement numbers are in the Cichóns Diagram.
+
+For the first inequality, we will need the following lemmas
+
+\begin{lemma}{}{}\label{comeager-lemma}
+    If $Y\subseteq X$ and $X$ is meager, then $Y$ is also meager.
+\end{lemma}
+
+\begin{proof}
+    Since $X$ is meager, $X=\bigcup_{n\in\omega}X_n$, where each $X_i$ is nowhere dense, i.e., $\text{int}\rp{\ol{X_i}}=\emptyset$, $\forall i\in\omega$. Now, since $Y\subseteq X$, we have that
+    \begin{equation}
+        Y=Y\cap X=\bigcup_{n\in\omega}Y\cap X_n\tag{$*$}
+    \end{equation}
+    but $Y\cap X_i\subseteq X_i$, which implies $\ol{Y\cap X_i}\subseteq\ol{X_i}$, then $\text{int}\rp{\ol{Y\cap X_i}}\subseteq\text{int}\rp{\ol{X_i}}=\emptyset$, i.e., $Y\cap X_i$ are nowhere dense, therefore by $(*)$ $Y$ is also meager.
+\end{proof}
+
+\begin{lemma}{}{}
+    The subspace $\sym$ of $\omega^\omega$ of all permutations of $\omega$ is homeomorphic to $\omega^\omega$
+\end{lemma}
+
+\begin{proof}
+    \textcolor{laser_eyes}{Uma possível demonstração usa o Teorema de Alexandrov-Uryhson, cujos pré-requisitos estão far beyond what I know. Outra possível demonstração é a construção direta do homeomorfismo como eles fazem no artigo do número de rearranjo, mas não é muito intuitiva.}
+\end{proof}
+
+\begin{corollary}{}{}
+    Let $\mc{M}_X$ be the set of meager sets in the space $X$. If $X\cong Y$, then
+    $$\text{non}(\mc{M}_X)=\text{non}(\mc{M}_Y)$$
+\end{corollary}
+
+\begin{proof}
+    By symmetry, it's sufficient to show that, if $f:X\cong Y$, then $A$ is meager in $X$ implies $f(A)$ is meager in $Y$. It's a classical result in topology that, if $f$ is a homeomorphism, then it commutes with $\text{cl}$ and $\text{int}$. Therefore, if $A=\bigcup_{n\in\omega}A_n$, with $\text{int}\rp{\ol{A_n}}=\emptyset$, then
+    $$f(A)=f\rp{\bigcup_{n\in\omega}A_n}=\bigcup_{n\in\omega}f(A_n)$$
+    with $\text{int}\rp{\ol{f(A_n)}}=f\rp{\text{int}\rp{\ol{A}}}=\emptyset$, i.e., $f(A)$ is also meager.
+\end{proof}
+
+\begin{theorem}{}{}\label{rr<=non(M)}
+    $$\mf{rr}\leq\textbf{non}(\mc{M})$$
 \end{theorem}
 
 \begin{proof}
-    It follows easily from Corollaries \ref{wf_models} and \ref{R(gamma)_zf} with the fact that $WF=R(ON)$.
+    Its sufficient to prove that any non-meager set $C\subseteq\sym$ has, given some series, a permutation that corrupts it. Given a c.c. series $\sum_n a_n$ of reals, consider
+    $$X(a_n):=\left\{p\in\sym:\sum_n a_{p(n)}\neq\sum_n a_n\right\}$$
+    we need to show that $C\cap X(a_n)\neq\emptyset$, then, its sufficient to show that $X(a_n)$ is comeager, since, if it was empty, then $C\subseteq X(a_n)^c$, but, by Lemma \ref{comeager-lemma}, $C$ would also be meager.
+
+    To show $X(a_n)$ is comeager, its sufficient to prove the stronger claim that
+    $$Y(a_n):=\left\{p\in\sym:\sum_n a_{p(n)}=\infty\right\}$$
+    is the intersection of countable many dense open sets, i.e. $Y=\bigcap_{n\in\omega}D_n$ with $D_n$ open and denses.
+    
+    In fact, first of all, since $D_n$ is open, $D_n^c$ is closed, then, if $\text{int}(\ol{D_n^c})=\text{int}(D_n^c)\neq\emptyset$, there would be an open $U\subseteq D_n^c$, so $U\cap D_n=\emptyset$, contradicting that $D_n$ is dense, therefore $D_n$ is nowhere dense for all $n\in\omega$. Now, since $Y^c=\bigcup_{n\in\omega}D_n^c$, $Y^c$ is meager and, since $Y(a_n)\subseteq X(a_n)$, then $X(a_n)^c\subseteq Y(a_n)^c$, so, by Lemma \ref{comeager-lemma}, $X(a_n)^c$ would be meager too.
+
+    So, since we have that
+    $$Y(a_n)=\bigcap_{k\in\omega}\bigcup_{m\geq k}\left\{p\in\sym:\sum_{n=0}^m a_{p(n)}\geq k\right\}$$
+    its sufficient to prove that
+    $$D_k:=\bigcup_{m\geq k}\left\{p\in\sym:\sum_{n=0}^m a_{p(n)}\geq k\right\}$$
+    is dense and open. If $p\in D_k$, $\sum_{n=0}^m a_{p(n)}\geq k$ for some $m\geq k$. Then, given any $q\in\mc{N}(p\restriction_{m+1})$ extending $p$ until $m$, we have that
+    $$\sum_{n=0}^m a_{q(n)}=\sum_{n=0}^m a_{p(n)}\geq k$$
+    So $\mc{N}(p\restriction_{m+1})\subseteq D_k$, then its open. Now, we will prove its dense, i.e., for all $p\in\omega^{<\omega}$, we have $D_k\cap \mc{N}(p)\neq\emptyset$. Given $p\in\omega^{<\omega}$, extend it with positive terms to $p'$ with domain $\geq k$ such that $\sum_{n=0}^m a_{p'(n)}\geq k$, which exists, since $\sum_{n=0}^m a_n^+=\infty$.
 \end{proof}
 
-It's worth noting now that, almost all work we did from now on can be done in $\text{ZF}^--\mc{P}$ instead of $\zfc$, which means we could prove the following results about proof theoretic equivalence
+Its hard to see how to change the argument so that $\sum_n a_{p(n)}$ could converge or diverge to $\pm\infty$. In fact, you can't, this is not a defect of the argument, these large rearrangement numbers can consistently be larger than $\textbf{non}(\mc{M})$.
+
+For the sake of the argument we will now prove the following inequality, which will be superseded by a stronger one in the next subsection.
 
 \begin{theorem}{}{}
-    Let $\Gamma$ be one of the theories $\text{ZF}-\mc{P}$, $\zfc-\mc{P}$, $\text{ZF}$, $\zfc$. If $\Gamma^-=\Gamma-\mc{R}$, then $\Gamma\leq\Gamma^-$.
+    $$\mf{rr}_{fi}\geq\textbf{cov}(\mc{M})$$
 \end{theorem}
 
 \begin{proof}
-    Working in $\Gamma^-$, we can just prove, as before, each axiom of $\Gamma$ relativized to $WF$.
+    Given $p\in\sym$ consider the set
+    \begin{align*}
+        A_p & := \left\{g\in\sym:g[M]=p[M]\text{ for infinitely many }M\right\}\\
+        & = \bigcap_{m\in\omega}\bigcup_{n\geq m}\left\{g\in\sym:g[n]=p[n]\right\}
+    \end{align*}
+    as we saw in \ref{rr<=non(M)}, to show $A_p$ is comeager, its sufficient to show that
+    $$U_m:=\bigcup_{n\geq m}\{g\in\sym:g[n]=p[n]\}=\bigcup_{n\geq m}B_n$$
+    is open and dense. In fact, given $g\in U_m$, then $g\in B_k$ for some $k\geq m$, so $\mc{N}(g(0),\dots,g(k))\subseteq U_m$, then it's open. Now, given $p\in\sym$, $p$ is injective, so, by The Mix Lemma \ref{mix}, it can be extended to $p'\in\sym$ s.t. $p[n]=p'[n]$ for infinitely many $n\in\omega$, so $p'\in \mc{N}(p(0),\dots,p(k))\cap U_m$, for any $k\in\omega$, so it's dense.
+
+    Now, suppose toward a contradiction that $\mf{rr}_{fi}<\textbf{cov}(\mc{M})$ and let $C$ witness this. Assume WLOG that $\text{id}\in C$. Since $\bigcap_{p\in C}A_p$ is the intersection of fewer than $\textbf{cov}(\mc{M})$ comeager sets, it's nonempty, so let $g$ be a member of it.
+
+    Then, for any c.c. series $\sum_n a_n$, let $p\in C$ be such that $\sum_n a_{p(n)}$ converges to a different number or diverges to infinity. Since $g\in A_p$, $g[M]=p[M]$ for infinitely many $M$, and also $g[M]=M$ for infinitely many, since $\text{id}\in C$. As a result, the same argument as in \ref{rr=rr_ifo} shows that $\sum_n a_{g(n)}$ diverges by oscillation, so $\{g\}$ witnesses that $\mf{rr}_o=1$, a contradiction, since it's uncountable.
 \end{proof}
 
-And, since $\Gamma^-\leq\Gamma$, then we conclude that $\Gamma\sim\Gamma^-$ which, in some sense, says that set theory without regularity is not weaker, i.e., regularity don't really add anything new.
+\section{Advanced padding}
 
-Note also that, since in almost all other independence proofs we used models that are actually sets, then we proved the stronger claim that $\Gamma\lhd\zfc$, where $\Gamma$ is ZFC minus that specific axiom. This implies that, by Lemma \ref{proof-theoretic_lemma}, with the exception of regularity, $\Gamma$ can't be proof theoretically equivalent to $\zfc$. We will see later that GHC is also another exception.
+The key idea in the padding method was to spread out the nonzero terms in a series so far that the permutations under consideration do not change their relative order up to finitely many exceptions. Now we will introduce a cardinal characteristic intended to capture this idea.
 
-With this remarks we will, for now on, always assume the Regularity Axiom (which will help us).
+\begin{definition}{}{} Let $A\subseteq\omega$
+    \begin{itemize}
+        \item $A$ is preserved by $p\in\sym$ if $p$ doesn't change the relative order of members of $A$, except for finitely many elements. If $A$ is not preserved by $p$ we say it's jumbled by $p$.
+        \item A conserving family is a family of permutations such that there is an infinite set $A$ that is preserved by every $p$ in the family.
+        \item The jumbling number $\mf{j}$ is the greatest cardinality of a conserving family.
+    \end{itemize}
+\end{definition}
+Note that, if $S=\{q_n:n\in\omega\}\subseteq\sym$, let $C=\{p_m=q_m^{-1}:m\in\omega\}$, then, by doing the construction of the fast growing function $\ell:\omega\to\omega$ as in \ref{rr uncountable}, we guarantee that $p_m(\ell(m))<p_m(\ell(m+1))<\dots$, which means $A=\{\ell(n):n\in\omega\}$ is not jumbled by any $p\in C$, then, since $\aleph_0<\mf{j}\leq\lvert\sym\rvert=\mf{c}$, it's a cardinal characteristic of the continuum. This proof is not necessary, since Theorem \ref{j<=b} will guarantee that (but the argument is way harder. way more powerful, tho).
+
+Roughly, $\mf{j}$ is defined to be the largest cardinal for which the argument in Theorem \ref{rr uncountable} remains valid. Just consider that for any fast growing such function $\ell$ we can associate the set $A=\{\ell(1),\ell(2),\dots\}$ and vice-versa. We will see how to use this in the proof of the next Theorem.
+
+\begin{theorem}{}{}
+    $$\mf{j}\leq\mf{rr}$$
+\end{theorem}
+
+\begin{proof}
+    The idea is to use the same translation as in the proof that $\mf{j}$ is uncountable. Let $C\subseteq\sym$, with $\lvert C\rvert<\mf{j}$. We shall find a c.c. series that is not corrupted by $C$. Let $\sum_n b_n$ be any c.c. series and, since $\lvert C\rvert<\mf{j}$ let $A\subseteq\omega$ be the set that is not jumbled by \textit{the inverses of all permutations} in $C$. Then, using $A$ as the growing function, let
+    $$a_n:=\begin{cases}
+        b_k,\text{ if $n$ is the $k^{\text{th}}$ element of $A$}\\
+        0,\text{ if $n\notin A$}
+    \end{cases}$$
+    If $p\in C$, then $A$ is preserved by $p^{-1}$, then the order of almost all nonzero terms of $\sum_n a_n$ and $\sum_n a_{p(n)}$ are the same, therefore $C$ does not corrupt $\sum_n a_n$.
+\end{proof}
+
+In order to bound $\mf{rr}$ with a well known cardinal characteristic, we will prove the following theorem
+
+\begin{theorem}{}{}\label{j<=b}
+    $\mf{j}\leq\mf{b}$, therefore, $\mf{b}\leq\mf{rr}$.
+\end{theorem}
+
+\begin{sketch}
+    To prove $\mf{b}\leq\mf{j}$, we will take $C\subseteq\sym$ s.t. $\lvert C\rvert<\mf{b}$ and prove it cannot be a jumbling family. Since $\lvert C\rvert<\mf{b}$, we need to associate for each $p\in C$ a function $f_p:\omega\to\omega$ so we could have a function $g:\omega\to\omega$ that dominates $f_p$ for all permutations $p\in C$ and, using $g$, we will define a set $A\subseteq\omega$ that is not jumbled by $C$.
+
+    Fixing $p\in C$, we want to define $f_p$ such that, for some $g\geq^* f_p$ and $A$ we will have, $p$ will preserve the order of most elements in $A$. Let's then define $f_p$ as an \textit{Stabilization Point}, i.e, $f_p(n)$ is s.t. from this point on, every number will have the image over $p$ greater than $p(1),p(2),\dots,p(n)$.
+
+    As Figure \ref{fig:p-arrows} shows, given $1,2,3,\dots,n$, and labeling them $b_1,b_2,\dots,b_n$ such that $p(b_1)<p(b_2)<\dots<p(b_n)$ (points represented in purple), we know that for each number between the images of $1,2,\dots,n$ there will be some number $y_i$ that will go there (numbers in blue), then, if we run out all of them, any other number after those ones will necessarily be greater than the images of $1,2,\dots,n$ over $p$, then we just need to choose $f_p(n)$ (in red) far enough so he can surpass all these finite elements.
+
+    Then, if we define $a_0\in\omega$ and $a_{n+1}\in\omega$ such that $a_{n+1}>g(a_n)$, it's easy to see that $A=\{a_i\}_{i\in\omega}$ is preserved by $C$.
+\end{sketch}
+
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt 
+
+\begin{figure}[ht]
+    \centering
+    \input{diagrams/p-arrows-sketch}
+    \caption{Visualization of $f_p(n)$}
+    \label{fig:p-arrows}
+\end{figure}
+
+\begin{proof}
+    Let $C\subseteq\sym$ be s.t. $\lvert C\rvert<\mf{b}$ and, for each $p\in C$, define $f_p:\omega\to\omega$ a function such that $\forall n\in\omega$, $\forall x\leq n$ and $\forall y\geq f_p(n)$, $p(x)<p(y)$, which we saw it's not hard to find. Then, since $\{f_p\}_{p\in C}$ has less than $\mf{b}$ functions, there is a $g:\omega\to\omega$ such that $g\geq^* f_p$, $\forall p\in C$. Let $a_0$ be any natural and $a_{n+1}$ a natural such that $a_{n+1}>g(a_n)$. Then, for fixed $p\in C$, let $k\in\omega$ be such that $g(n)\geq f_p(n)$, $\forall n\geq k$, then, for all $k\leq a_r<a_s$
+    $$f_p(a_r)\leq g(a_r)<a_{r+1}\leq a_s$$
+    and, by definition of $f_p$, $p(a_r)<p(a_s)$, therefore $A=\{a_n:n\in\omega\}$ is eventually preserved by any $p\in C$, therefore $\mf{j}\leq\mf{b}$.
+\end{proof}
+
+Indeed, we have that $\mf{j}=\mf{b}$, which is proved in rearrangement number article using another characterization of $\mf{b}$ showed in Blass chapter in the Handbook. But, since $\mf{j}$ isn't mentioned after this proof, I think it's more like a fun fact, therefore I will not add the proof here.
+
+\begin{theorem}{}{}
+    $$\mf{d}\leq\mf{rr}_{fi}$$
+\end{theorem}
+
+\begin{proof}
+    Let $C\subseteq\sym$ be such that $\lvert C\rvert<\mf{d}$, we want to find a $\sum_n a_n$ such that none of the permutations in $C$ make it diverge to $\pm\infty$ or converge to a different number.
+
+    Consider the same association $p\mapsto f_p$ as in the previous proof, but use $p\mapsto f_{p^{-1}}$, instead. Then $f_p(n)>n$ for every $n\in\omega$, and $\forall x \leq n$ and $y\geq f_p(n)$ we have $p^{-1}(x)<p^{-1}(y)$.
+
+    Since $\lvert C\rvert<\mf{d}$ there is some $g\in\omega^\omega$ that is not eventually dominated by any $f_p$, with $p\in C$. By increasing its values if necessary we can assume that $g$ is strictly increasing and $g(n)>n$, then
+    $$0<g(0)<g(g(0))<\dots<g^k(0)<g^{k+1}(0)<\dots$$
+    which we will use to use the technique of padding with zeros. Fix any c.c. series $\sum_n b_n$ and consider
+    $$a_n=\begin{cases}
+        b_k\text{, if }n=g^k(0);\\
+        0\text{, otherwise}.
+    \end{cases}$$
+    We claim that $\sum_na_n$ is such series we were looking for.
+
+    Given $p\in C$, since $g$ is not dominated by $f_p$, there are infinitely many $n_1,n_2,\dots\in\omega$ such that $f_p(n_i)<g(n_i)$, $\forall i\geq1$. Fixing some such $n$, let $k$ be the smallest integer such that $n<g^k(0)$, then $g^{k-1}(0)\leq n$ and $g(n)<g^{k+1}(n)$. Therefore, since $f_p(n)>n$, we have
+    $$g^{k-1}(0)\leq n<f_p(n)<g(n)<g^{k+1}(0)$$
+    by our definition of $f_p$, since $0,g(0),\dots,g^{k-1}(0)\leq n$ and $g^{k+1}(0),\dots\geq f_p(n)$, then
+    $$p^{-1}(0),p^{-1}(g(0)),\dots,p^{-1}(g^{k-1}(0))<p^{-1}(g^{k+1}(0)),\dots$$
+    In particular, since $p^{-1}(g^r(0))$ is the position where $b_r$ appears in $\sum_n a_{p(n)}$, then all of $b_0,b_1,\dots,b_{k-1}$ occur before all of $b_{k+1},b_{k+2},\dots$ and, since $b_k$ can occur anywhere, we know that the partial sum of $\sum_n a_{p(n)}$ differs from $\sum_{n=0}^kb_n$ by at most $\lvert b_k\rvert$ (more precisely, if we let
+    $$N(k)=\max\{p^{-1}(0),p^{-1}(g(0)),\dots,p^{-1}(g^{k-1}(0))\}$$
+    then $\sum_{n=0}^{N(k)}a_{p(n)}$ differs from $\sum_{n=0}^kb_n$ by at most $\lvert b_k\rvert$).
+    
+    When we let $n=n_i$, with $i\to\infty$, we have $k=k_i\to\infty$ too. Now, since $\lvert b_{k_i}\rvert\to0$, we have that $\sum_{n=0}^{N(k_i)}a_{p(n)}\to\sum_nb_n=\sum_na_n$, then the partial sums of $\sum_na_{p(n)}$ has a subsequence that converges to $\sum_na_n$, which means it can't diverge to $\pm\infty$ or converge to a different finite sum.
+\end{proof}

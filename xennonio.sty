@@ -21,10 +21,7 @@
 \usepackage{enumitem}
 \usepackage{footnote}
 \usepackage{etoolbox}
-
-%% idk why these
-\usepackage{multicol}
-\usepackage{bbm}
+\usepackage{quiver} %% to use quiver diagrams
 
 %% code to use cleveref with tcolorbox
 \makeatletter
@@ -57,9 +54,7 @@
 \renewcommand{\figurename}{Fig.}
 \renewcommand{\contentsname}{Summary}
 \counterwithout{equation}{chapter}
-\DeclareMathOperator{\cf}{cf}
-\DeclareMathOperator{\con}{Con}
-\newcommand{\zfc}{\text{ZFC}}
+\newcommand{\sym}{\text{Sym}(\omega)}
 
 %% -- Environments --
 %% lorelei and the laser eyes colors
@@ -111,30 +106,6 @@
 \newtcolorbox{sketch}{
     enhanced,
     title=Sketch,
-    colback=gray!5,
-    colframe=lorelei!80!black,
-    coltitle=lorelei!80!black,
-    fonttitle=\bfseries,
-    attach title to upper,
-    after title={:\enskip},
-    borderline west={5pt}{0pt}{lorelei},
-}
-
-\newtcolorbox{example}{
-    enhanced,
-    title=Example,
-    colback=gray!5,
-    colframe=lorelei!80!black,
-    coltitle=lorelei!80!black,
-    fonttitle=\bfseries,
-    attach title to upper,
-    after title={:\enskip},
-    borderline west={5pt}{0pt}{lorelei},
-}
-
-\newtcolorbox{observation}{
-    enhanced,
-    title=Observation,
     colback=gray!5,
     colframe=lorelei!80!black,
     coltitle=lorelei!80!black,
