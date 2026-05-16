@@ -2,22 +2,20 @@
 
 \section{Introduction}
 
-\textcolor{laser_eyes}{Motivação}
-
 For $A\subseteq\omega$, let $d_n(A)=\frac{\lvert A\cap n\rvert}{n}$ and
 \begin{align*}
     \underline{d}(A) & = \liminf_{n\to\infty} d_n(A)\\
     \ol{d}(A) & = \limsup_{n\to\infty} d_n(A)
 \end{align*}
-If $\underline{d}(A)=\ol{d}(A)$ we call the common value $d(A)$ the (\textit{asymptotic}) \textit{density} of $A$. Note that, when $A$ has asymptotic density, we have that $d(A)\in[0,1]$. On the other hand, analogously to Riemann's Rearrangement Theorem, we can prove the following theorem:
+If $\underline{d}(A)=\ol{d}(A)$ we call the common value $d(A)$ the \lasereye{(asymptotic) density} of $A$. Note that, when $A$ has asymptotic density, we have that $d(A)\in[0,1]$. Note that, analogously to Riemann's Rearrangement Theorem, we can prove the following theorem:
 
-\begin{theorem}{}{}
+\begin{lemma}{Riemann for Density}{riemann_density}
     Given an infinite and coinfinite set $A$, we have
     \begin{itemize}
         \item For every $r\in[0,1]$, there is a $p\in\sym$ such that $d(p[A])=r$;
         \item There is a $p\in\sym$ such that $p[A]$ does not have asymptotic density
     \end{itemize}
-\end{theorem}
+\end{lemma}
 
 \begin{proof}
     Given $r\in(0,1)$, let $p_1=1$ and $B_1=\{1\}$. Now, let $q_1$ be the least $N>p_1$ such that $d_N(B_1)<r$. Now, define $p_i,B_i$ and $q_i$, for $i>1$ recursively as follows:
@@ -41,7 +39,7 @@ If $\underline{d}(A)=\ol{d}(A)$ we call the common value $d(A)$ the (\textit{asy
     The cases for $p\in\sym$ s.t. $d(p[A])$ is $0$ or $1$, and where $p[A]$ does not have asymptotic density are analogous.
 \end{proof}
 
-\begin{lemma}{}{}
+\begin{lemma}{(\cite{brech})}{aux_dd_uncountable}
     Let $(a_n)$ be a sequence in $\omega$ satisfying that there exists $n_0\in\omega$ such that for all $n\geq n_0$, we have that $a_{n+1}-a_n>2^n$. Then $A=\{a_n\}_{n\geq0}$ is infinite-coinfinite and $d(A)=0$.
 \end{lemma}
 
@@ -53,27 +51,28 @@ If $\underline{d}(A)=\ol{d}(A)$ we call the common value $d(A)$ the (\textit{asy
     which converges to $0$ when $k\to\infty$, therefore $d(A)=0$.
 \end{proof}
 
-\begin{theorem}{}{}
-    $\mf{dd}$ is uncountable.
+\begin{theorem}{(\cite{brech})}{dd_uncountable}
+    \begin{center}
+        $\mf{dd}$ is uncountable.
+    \end{center}
 \end{theorem}
 
 \begin{proof}
-    \textcolor{laser_eyes}{Não sei porque eu não completei isso ainda, é um corolário direto do lema anterior}
+    Let $P=\{p_n:n\in\omega\}\subseteq\sym$ and assume WLOG that $p_0=\mathrm{id}$. Let $a_0=1$ and, recursively, if $a_n$ is already defined, let $a_{n+1}>a_n$ be such that $p_i(a_{n+1})\geq p_i(a_n)+2^n$, for all $i\leq n$, which can be done, since $p_i(k)\to\infty$. Then let $A=\{a_n:n\in\omega\}$. By the previous lemma $d(p[A])=d(A)=0$, for all $p\in P$.
 \end{proof}
 
 \section{Characterization of \texorpdfstring{$\mf{dd}$}{dd}}
 
-The main theorem of this subsection is the characterization $\mf{dd}=\textbf{non}(\mc{M})$, where the latter is a well known cardinal characteristic. To prove this using GT, we will find relational systems $\mc{A}_1$, $\mc{A}_2$ and $\mc{B}$ s.t. $\mc{A}_1\leq_T\mc{B}\leq_T\mc{A}_2$ and $\mf{d}(\mc{A}_1)=\mf{d}(\mc{A}_2)=\textbf{non}(\mc{M})$ and $\mf{d}(\mc{B})=\mf{dd}$.
+The main theorem of this subsection is the characterization $\mf{dd}=\textbf{non}(\mc{M})$. To prove this using GT, we will find relational systems $\mc{A}_1$, $\mc{A}_2$ and $\mc{B}$ such that we have
+$$\mc{A}_1\leq_T\mc{B}\leq_T\mc{A}_2\qquad\mf{d}(\mc{A}_1)=\mf{d}(\mc{A}_2)=\textbf{non}(\mc{M})\qquad\mf{d}(\mc{B})=\mf{dd}$$
 
-Its well known that $\mc{A}_2=(\mc{M},2^\omega,\not\ni)$ works, where $\mc{M}$ are the meager sets of $2^\omega$. And, for $\mf{dd}$, we can take $\mc{B}=(D,\sym,R)$, where $D$ are the infinite-coinfinite substets of $\omega$ with density, and $xRp$ if $d(x)\neq d(p(x))$, as expected.
+It's the usual that $\mc{A}_2=(\mc{M},2^\omega,\not\ni)$ works, where $\mc{M}$ are the meager sets of $2^\omega$. And, for $\mf{dd}$, we can take $\mc{B}=(D,\sym,R)$, where $D$ are the infinite-coinfinite substets of $\omega$ with density, and $xRp$ if $d(x)\neq d(p(x))$, as expected.
 
-We will first prove the easier inequality $\mc{B}\leq_T\mc{A}_2$, you should try to find a reduction for $\mc{A}_2\leq_T\mc{B}$, you will see that's not too easy (in fact it's impossible), this is why we will later find other relational system $\mc{A}_1$ to work with the same dominating number.
+We will first prove\footnote{Here, again, we will use that $\sym$ is homeomorphic to $\omega^\omega$ in $2^\omega$} the easier inequality $\mc{B}\leq_T\mc{A}_2$, you should try to find a reduction for $\mc{A}_2\leq_T\mc{B}$, you will see that's not too easy (in fact it's impossible), this is why we will later find other relational system $\mc{A}_1$ to work with the same dominating number.
 
-\begin{lemma}{}{}\label{dd<=non(M)}
+\begin{lemma}{(\cite{brech})}{dd_non}
     $$(D,\sym,R)\leq_T(\mc{M},2^\omega,\not\ni)$$
 \end{lemma}
-
-\textcolor{laser_eyes}{Aqui usamos que $\omega^\omega$ é homeomorfo a $\sym$ em $2^\omega$}
 
 \begin{proof}
     We need to define $\varphi_-:D\to\mc{M}$ and $\varphi_+:\sym\to\sym$ such that, for all $A\in D$ and $p\in\sym$, if $p\notin\varphi_-(A)$, then $d(A)\neq d(\varphi_+(p)(A))$. Lets take $\varphi_+=\text{id}$ as simple as possible, so we need $\varphi_-(A)$ such that, if $p\notin\varphi_-(A)$, then $d(A)\neq d(p(A))$.
@@ -87,27 +86,27 @@ We will first prove the easier inequality $\mc{B}\leq_T\mc{A}_2$, you should try
         & = \bigcap_{k,\ell\in\omega}\left\{p\in\sym:\exists n_0,n_1\geq\ell,d_{n_0}(p(A))<\frac1k\text{ and }d_{n_1}(p(A))>1-\frac1k\right\}\\
         & = \bigcap_{k,\ell\in\omega}A_{k,\ell}
     \end{align*}
-    as we saw in the proof of theorem \ref{rr<=non(M)}, to show that $\varphi_-(A)\in\mc{M}$, it's sufficient to prove that $\varphi_-(A)^c$ is the intersection of countably many dense sets, so we will show that each $A_{k,\ell}$ is open and dense. If $p\in A_{k,\ell}$, lets $m=\max\{n_0,n_1\}$, then, for $q\in\mc{N}(p\restriction_{m+1})$, clearly $d_{n_0}(q(A))=d_{n_0}(p(A))<\frac1k$ and $d_{n_1}(q(A))=d_{n_1}(p(A))>1-\frac1k$, so $q\in A_{k,\ell}$, and then $\mc{N}(p\restriction_{m+1})\subseteq A_{k,\ell}$, so it's open.
+    as we saw in the proof of \cref{th:rr_non}, to show that $\varphi_-(A)\in\mc{M}$, it's sufficient to prove that $\varphi_-(A)^c$ is the intersection of countably many dense sets, so we will show that each $A_{k,\ell}$ is open and dense. If $p\in A_{k,\ell}$, lets $m=\max\{n_0,n_1\}$, then, for $q\in\mc{N}(p\restriction_{m+1})$, clearly $d_{n_0}(q(A))=d_{n_0}(p(A))<\frac1k$ and $d_{n_1}(q(A))=d_{n_1}(p(A))>1-\frac1k$, so $q\in A_{k,\ell}$, and then $\mc{N}(p\restriction_{m+1})\subseteq A_{k,\ell}$, so it's open.
 
     To show it's dense, given $p\in\sym$ and $m\in\omega$, we need to prove $\mc{N}(p\restriction_{m+1})\cap A_{k,\ell}\neq\emptyset$. Take $q\in\mc{N}(p\restriction_{m+1})$ and extend it randomly until $\ell$. Now, extend $q$ for $r\geq\ell$ such that $q(r)\notin\omega\setminus A$ until $d_n(q(A))<\frac1k$, after this choose $q(r)\in A$ such that $d_n(q(A))>1-\frac1k$. Then $q\in A_{k,\ell}$.
 \end{proof}
 
-\begin{definition}{}{}
-    Let $h\in\omega^\omega$ with $\lvert h(n)\rvert\geq1$, $\forall n\in\omega$. A function $\phi:\omega\to[\omega]^{<\omega}$ is an $h$-slalom if $\lvert\phi(n)\rvert\leq h(n)$, $\forall n\in\omega$. We denote by $\Phi_h$ the collection of all $h$-slaloms.
+\begin{definition}{$h$-slalom}{h_slalom}
+    Let $h\in\omega^\omega$ with $\lvert h(n)\rvert\geq1$, $\forall n\in\omega$. A function $\phi:\omega\to[\omega]^{<\omega}$ is an \lasereye{$h$-slalom} if $\lvert\phi(n)\rvert\leq h(n)$, $\forall n\in\omega$. We denote by $\Phi_h$ the collection of all $h$-slaloms.
 \end{definition}
 
-Now, to prove the other tukey inequality, let's take $\mc{A}_1=(\omega^\omega,\Phi_h,\in^\infty)$, where $f\in^\infty\phi$ if $f(n)\in\phi(n)$ for infinitely many $n$, and use a result due to Bartoszyński (Combinatorial aspects of measure and category):
+Now, to prove the other tukey inequality, let's take $\mc{A}_1=(\omega^\omega,\Phi_h,\in^\infty)$, where $f\in^\infty\phi$ if $f(n)\in\phi(n)$ for infinitely many $n$, and use the following result due to Bartoszyński.
 
-\begin{theorem}{}{}\textbf{(Bartoszyński)} For any $h\in\omega^\omega$ satisfying $\lvert h(n)\rvert\geq1$, $\forall n\in\omega$
+\begin{lemma}{(Bartoszyński)}{non_cov_bartoszynski} For any $h\in\omega^\omega$ satisfying $\lvert h(n)\rvert\geq1$, $\forall n\in\omega$, we have
     \begin{align*}
         \textbf{non}(\mc{M}) & = \mf{d}\rp{\omega^\omega,\Phi_h,\in^\infty};\\
         \textbf{cov}(\mc{M}) & = \mf{b}\rp{\omega^\omega,\Phi_h,\in^\infty}.
     \end{align*}
-\end{theorem}
+\end{lemma}
 
-It's possible to show that $\rp{\omega^\omega,\Phi_h,\in^\infty}$ and $\rp{\mc{M},2^\omega,\not\ni}$ are not Tukey equivalent, so the approach to prove $\mf{dd}\geq\textbf{non}(\mc{M})$ changes a lot from the proof of Lemma \ref{dd<=non(M)} and it's way trickier.
+It's possible to show that $\rp{\omega^\omega,\Phi_h,\in^\infty}$ and $\rp{\mc{M},2^\omega,\not\ni}$ are not Tukey equivalent, so the approach to prove $\mf{dd}\geq\textbf{non}(\mc{M})$ changes a lot from the proof of \cref{lem:dd_non} and it's way trickier.
 
-\begin{lemma}{}{} For any $h\in\omega^\omega$ growing fast enough (as equation (5) in the sketch below)
+\begin{lemma}{(\cite{brech})}{} For any $h\in\omega^\omega$ growing fast enough (as in \cref{eq:slalom} in the sketch below)
     $$\rp{\omega^\omega,\Phi_h,\in^\infty}\leq_T(D,\sym,R)$$
 \end{lemma}
 
@@ -127,7 +126,7 @@ It's possible to show that $\rp{\omega^\omega,\Phi_h,\in^\infty}$ and $\rp{\mc{M
     So let's choose
     $$\varphi_+(p)=2^n\cup\{p^{-1}(0),p^{-1}(1),\dots,p^{-1}(n)\}$$
     then, $a_{n+1}=g(a_n)\notin\varphi_+(p)(a_n)$, $\forall n\geq n_0$ implies $p(a_{n+1})\geq a_n=g(a_{n-1})\geq2^{n-1}$. So the natural choice for $h$ is any $h\in\omega^\omega$ such that
-    \begin{equation}
+    \begin{equation}\label{eq:slalom}
         h(n)\geq2^n+n+1=\lvert\varphi_+(p)\rvert
     \end{equation}
 \end{sketch}
@@ -152,14 +151,14 @@ $\sum_n a_n$ diverges by oscillation & $d(A)$ is undefined\\
 
 where $\sum_n a_n$ is p.c.c. (potentially conditionally convergent) if there is some $p\in\sym$ such that $\sum_na_{p(n)}$ is c.c. In other words, it's c.c. without the condition that the original series converges to a finite number. With this in mind, we can define the actual cardinal analogous of $\mf{dd}$:
 
-\begin{definition}{}{}
-    $\mf{rr}$ is the smallest cardinality of any family $C\subseteq\sym$ such that, for every p.c.c. series $\sum_n a_n$ of reals, there is some $p\in C$ for which $\sum_n a_{p(n)}$ no longer converges to the same limit.
+\begin{definition}{$\mf{rr}'$}{rr_prime}
+    \lasereye{$\mf{rr}'$} is the smallest cardinality of any family $C\subseteq\sym$ such that, for every p.c.c. series $\sum_n a_n$ of reals, there is some $p\in C$ for which $\sum_n a_{p(n)}$ no longer converges to the same limit.
 \end{definition}
 
 using the analogous proofs for $\mf{rr}$, it's not hard to see that $\mf{rr}\leq\mf{rr}'\leq\textbf{non}(\mc{M})$. In fact, we have:
 
-\begin{theorem}{}{}
-    $\mf{rr}'=\textbf{non}(\mc{M})$
+\begin{theorem}{(\cite{brech})}{rr_prime_non}
+    $$\mf{rr}'=\textbf{non}(\mc{M})$$
 \end{theorem}
 
 whose proof is as the proof for $\mf{dd}$, since it's sufficient to show that $(\omega^\omega,\Phi_h,\in^\infty)\leq_T(\text{p.c.c.},\sym,R)$
@@ -170,15 +169,15 @@ whose proof is as the proof for $\mf{dd}$, since it's sufficient to show that $(
         \frac1n\text{, if }k=b_n\\
         -\frac1n\text{, if }k=a_n
     \end{cases}$$
-    clearly $\sum_k c_k$ is p.c.c. and, since $a_n\geq2^{n-1}$, we have $\sum_kc_k=\infty$. Also, since by our choice of $h$, we have $p(a_{n+2})\geq2^n$, then $\sum_kc_{p(k)}=\infty$ for all $p$ (\textcolor{laser_eyes}{por que??})
+    clearly $\sum_k c_k$ is p.c.c. and, since $a_n\geq2^{n-1}$, we have $\sum_kc_k=\infty$. Also, since by our choice of $h$, we have $p(a_{n+2})\geq2^n$, then $\sum_kc_{p(k)}=\infty$ \todo{why?}for all $p$.
 \end{proof}
 
 \section{Variations on \texorpdfstring{$\mf{dd}$}{dd}}
 
 Motivated by the fact that $\mf{rr}'=\textbf{non}(\mc{M})=\mf{dd}$, we will generalize the definition of $\mf{dd}$ as following:
 
-\begin{definition}{}{}
-    Let $X,Y\subseteq\textbf{all}=[0,1]\cup\{\textbf{osc}\}$ where $X\neq\emptyset$ and for all $x\in X$ there is some $y\in Y$ such that $y\neq x$. The $(X,Y)$\textit{-density number} $\mf{dd}_{X,Y}$ is the smallest cardinality of a family $C\subseteq\sym$ such that for every infinite-coinfinite set $A\subseteq\omega$ with $d(A)\in X$, there is some $p\in C$ such that $d(p[A])\in Y$ and $d(p[A])\neq d(A)$.
+\begin{definition}{$(X,Y)$-density number}{xy_density_number}
+    Let $X,Y\subseteq\textbf{all}=[0,1]\cup\{\osc\}$ where $X\neq\emptyset$ and for all $x\in X$ there is some $y\in Y$ such that $y\neq x$. The \lasereye{$(X,Y)$-density number $\mf{dd}_{X,Y}$} is the smallest cardinality of a family $C\subseteq\sym$ such that for every infinite-coinfinite set $A\subseteq\omega$ with $d(A)\in X$, there is some $p\in C$ such that $d(p[A])\in Y$ and $d(p[A])\neq d(A)$.
 \end{definition}
 
 The first two conditions are to guarantee that $\mf{dd}_{X,Y}$ is well-defined, since we need $d(A)\in X$ (then $X\neq\emptyset$) and, if $d(A)=x\in X$, we need some $y\in Y$, such that $d(p[A])=y\neq x$.
@@ -191,10 +190,10 @@ where $D_X$ is the family of infinite-coinfinite sets $A$ with $d(A)\in X$ and $
 
 Let's then rephrase the main results of the last section in this framework:
 
-\begin{theorem}{}{}\label{non(M)_general}
+\begin{theorem}{(\cite{brech})}{nonM_general}
     The following hold:
     \begin{enumerate}
-        \item If $\textbf{osc}\notin X$ and $\textbf{osc}\in Y$, then
+        \item If $\osc\notin X$ and $\osc\in Y$, then
         $$(D_X,\sym,R_Y)\leq_T(\mc{M},2^\omega,\not\ni);$$
         \item If $0\in X$ or $1\in X$, then
         $$(\omega^\omega,\Phi_h,\in^\infty)\leq_T(D_X,\sym,R_Y)$$
@@ -203,41 +202,32 @@ Let's then rephrase the main results of the last section in this framework:
 \end{theorem}
 
 \begin{proof}
-    1. Is easy to see that follows from Lemma \ref{dd<=non(M)} since, if $\textbf{osc}\notin X$ and $\textbf{osc}\in Y$, we can repeat the construction in the proof and find some $p\in\sym$ such that $d(p[A])=\textbf{osc}\in Y\setminus X$.
+    1. Is easy to see that follows from \cref{lem:dd_non} since, if $\osc\notin X$ and $\osc\in Y$, we can repeat the construction in the proof and find some $p\in\sym$ such that $d(p[A])=\osc\in Y\setminus X$.
 
-    2. \textcolor{laser_eyes}{Eu não consigo ver como alterar a construção de forma que $d(\varphi_-(g))=1$ ao invés de $0$.}
+    2\todo{idk}.
 \end{proof}
 
 This result already characterizes a lot of $\mf{dd}_{X,Y}$ as $\textbf{non}(\mc{M})$. We will see later that, in fact, this result can't be improved in the following sense: the assumptions in 1 and 2 are necessary.
 
 With such characterization, it's natural to look for other bounds of $\mf{dd}_{X,Y}$ for when $0,1\notin X$, $\mathbf{osc}\in X$ or $\mathbf{osc}\notin Y$. We will mostly obtain lower bounds, but there is one upper bound too.
 
-\begin{theorem}{}{}
+\begin{theorem}{(\cite{brech})}{cov_ddxy}
     If $X\cap[0,1]\neq\emptyset$, then
     $$(2^\omega,\mc{N},\in)\leq_T(D_X,\sym,R_Y)$$
 \end{theorem}
 
-\begin{proof}
-    The case when $0\in X$ or $1\in X$ can be reduced to the previous theorem if we could prove thar $(2^\omega,\mc{N},\in)\cong(\omega^\omega,\mc{N},\in)\leq_T(\omega^\omega,\Phi_h,\in^\infty)$, which is what we will gonna prove:
+Note that the case when $0\in X$ or $1\in X$ can be reduced to the previous theorem if we could prove thar $(2^\omega,\mc{N},\in)\cong(\omega^\omega,\mc{N},\in)\leq_T(\omega^\omega,\Phi_h,\in^\infty)$. In fact, the proof goes by these lines. We will not prove it, since it needs some measure theory concepts.
 
-    Consider the product measure $\mu=\prod_n\mu_n$ on $\omega^\omega$, where $\mu_n$ is a measure on $\omega$ defined as follows: fix a series $\sum_ka_k^n=1$ such that $0<a_k^n<\frac1{2^{n+1}h(n)}$, for all $k\in\omega$. Since $n$ is fixed, we can easily find such series. Now, given $A\subseteq\omega$, let $\mu_n(A)=\sum_{k\in A}a_k^n$.
+It's worth noting that it's an open question if the previous theorem holds if $X=\{\osc\}$.
 
-    \textcolor{laser_eyes}{``With such measure on $\omega^\omega$ we''...???}
-
-    Let then $0,1\notin X$ and $r\in(0,1)\cap X$.
-    \textcolor{laser_eyes}{Pendente}
-\end{proof}
-
-It's worth noting that it's an open question if the previous theorem holds if $X=\{\textbf{osc}\}$.
-
-\begin{corollary}{}{}
+\begin{corollary}{(\cite{brech})}{cov_ddxy}
     If $X\cap[0,1]\neq\emptyset$, then $\textbf{cov}(\mc{N})\leq\mf{dd}_{X,Y}$
 \end{corollary}
 
-we can also compare $\mf{dd}_{X,Y}$ with $\mf{b}$ and $\mf{d}$ when $\textbf{osc}\in X$ or $\textbf{osc}\notin Y$ as follows
+we can also compare $\mf{dd}_{X,Y}$ with $\mf{b}$ and $\mf{d}$ when $\osc\in X$ or $\osc\notin Y$ as follows
 
-\begin{theorem}{}{}
-    If $\textbf{osc}\in X$ or $\textbf{osc}\notin Y$, then
+\begin{theorem}{(\cite{brech})}{b_ddxy}
+    If $\osc\in X$ or $\osc\notin Y$, then
     $$(\omega^\omega,\omega^\omega,\not\geq^*)\leq_T(D_X,\sym,R_Y)$$
 \end{theorem}
 
@@ -246,7 +236,7 @@ This proof is gigantic, so let's break it in some proof-sketches, one for each c
 \begin{sketch}
     Assume first $\text{osc}\in X$, we want $\varphi_-:\omega^\omega\to D_X$ and $\varphi_+:\sym\to\omega^\omega$ such that
     $$\forall f\in\omega^\omega,\forall p\in\sym,\,f\geq^*\varphi_+(p)\implies d(p[\varphi_-(f)])=d(\varphi_-(f))\in Y$$
-    Since we only know $\text{osc}\in X$, we want $\varphi_-(f)$ s.t. $d(\varphi_-(f))=\text{osc}$. In fact, following the intuition of Lemma \ref{almost_disjoint_family_d=osc}, we will construct such disjoint intervals using the growth of $f$, so we first need to choose $\varphi_+(p)$ in a way that $f\geq^*\varphi_+(p)$ guarantees us that we can let $a_n=f(a_{n-1})$ increases fast.
+    Since we only know $\text{osc}\in X$, we want $\varphi_-(f)$ s.t. $d(\varphi_-(f))=\text{osc}$. In fact, following the intuition of \ref{lem:almost_disjoint_osc}, we will construct such disjoint intervals using the growth of $f$, so we first need to choose $\varphi_+(p)$ in a way that $f\geq^*\varphi_+(p)$ guarantees us that we can let $a_n=f(a_{n-1})$ increases fast.
 
     Let, for now, $\varphi_+(p)(n)\geq 2^n$, then $f(n)\geq 2^n$ eventually, i.e., $\forall n\geq n_0$, let's then define $a_0^f=0$ and
     $$a_n^f=\begin{cases}
@@ -336,7 +326,7 @@ This proof is gigantic, so let's break it in some proof-sketches, one for each c
     
     \noindent\rule{16.6cm}{0.4pt}
     
-        Let's now analyze the general case. If $0\in X$ or $1\in X$, the result follows \todo{and Cichoń's Diagram?}by Theorem \ref{non(M)_general}. Let's then assume $X\subseteq(0,1)$. Given $r\in(0,1)$, let:
+        Let's now analyze the general case. If $0\in X$ or $1\in X$, the result follows by \cref{th:nonM_general}. Let's then assume $X\subseteq(0,1)$. Given $r\in(0,1)$, let:
     \begin{itemize}
         \item $(\ell_b:b\in\omega)$ be a sequence such that $\left\lvert r-\frac{\ell_b}{2^b}\right\rvert<\frac1{2^b}$;
         \item $(j_b:b\in\omega)$ be such that $j_0=0$ and $j_{b+1}=j_b+2^{2b}$ and $J_b=[j_b,j_{b+1})$;
@@ -405,15 +395,14 @@ This proof is gigantic, so let's break it in some proof-sketches, one for each c
     which implies that, when $c\to\infty$, that $d_{m_{a_{n(c)}^f}^p}(p[\varphi_-(f)])\to r$, so it either oscillates, or converges to $r$, as desired.
 \end{proof}
 
-\begin{corollary}{}{}
-    If $\textbf{osc}\in X$ or $\textbf{osc}\notin Y$, then $\mf{b}\leq\mf{dd}_{X,Y}$
+\begin{corollary}{(\cite{brech})}{b_ddxy}
+    If $\osc\in X$ or $\osc\notin Y$, then $\mf{b}\leq\mf{dd}_{X,Y}$
 \end{corollary}
 
-\textcolor{laser_eyes}{Pendente}
 
-Consider the simple relational system $(\mf{c},[\mf{c}]^{\aleph_0},\in)$, let's first prove some properties about it.
+Now, Consider the relational system $(\mf{c},[\mf{c}]^{\aleph_0},\in)$, let's first prove some properties about it.
 
-\begin{lemma}{}{}
+\begin{lemma}{(\cite{brech})}{simple_relational_system}
     $\mf{d}(\mf{c},[\mf{c}]^{\aleph_0},\in)=\mf{c}$ and $\mf{b}(\mf{c},[\mf{c}]^{\aleph_0},\in)=\aleph_1$.
 \end{lemma}
 
@@ -429,7 +418,7 @@ Consider the simple relational system $(\mf{c},[\mf{c}]^{\aleph_0},\in)$, let's 
 
 In order to prove the next theorem, we also need the following lemmas about almost disjoint families
 
-\begin{lemma}{}{}
+\begin{lemma}{(\cite{brech})}{almost_disjoint}
     Let $A\subseteq\omega$ be any infinite set, then there is an almost disjoint family $\{A_\alpha:\alpha<\mf{c}\}$ of subsets of $A$, where almost disjoint means that for any $\alpha\neq\beta<\mf{c}$, we have that $\lvert A_\alpha\cap A_\beta\rvert<\aleph_0$.
 \end{lemma}
 
@@ -439,7 +428,7 @@ In order to prove the next theorem, we also need the following lemmas about almo
 
 This one is a little more technical and less general than the previous one, but we will use it to prove the next theorem
 
-\begin{lemma}{}{}\label{almost_disjoint_family_d=osc}
+\begin{lemma}{(\cite{brech})}{almost_disjoint_osc}
     There is an almost disjoint family $\{A_\alpha:\alpha<\mf{c}\}$ of subsets of $\omega$ with density $=\text{osc}$.
 \end{lemma}
 
@@ -453,7 +442,7 @@ This one is a little more technical and less general than the previous one, but 
     So $d(A_\alpha)=\text{osc}$, as desired.
 \end{proof}
 
-\begin{theorem}{}{}
+\begin{theorem}{(\cite{brech})}{ddxy_c}
     If ($0\in X$ or $1\in X$) and $\text{osc}\notin Y$, or if $\text{osc}\in X$ and ($0\notin Y$ or $1\notin Y$), then
     $$(\mf{c},[\mf{c}]^{\aleph_0},\in)\leq_T(D_X,\sym,R_Y)$$
 \end{theorem}
@@ -475,12 +464,12 @@ This one is a little more technical and less general than the previous one, but 
 \begin{proof}
     For the first case, assume that $0\in X$ and $\text{osc}\notin Y$. Let $A$ be such that $d(A)=0$, and let $\{\varphi_-(\alpha)=A_\alpha:\alpha<\mf{c}\}$ be an almost disjoint family of subsets of $A$. Then $d(A_\alpha)=0$ for all $\alpha<\mf{c}$ and we can define $\varphi_-(\alpha)=A_\alpha$. Now, given $p\in\sym$, let $\varphi_+(p)=\{\alpha<\mf{c}:d(p[A_\alpha])>0\}$, as we saw this is at most countable, so if it's finite we can just fill in with a bunch of other random $\beta<\mf{c}$ to make it countable. The case where $1\in X$ just consider $\varphi_-(\alpha)=\omega\setminus A_\alpha$, then $d(p[\omega\setminus A_\alpha])=1-d(p[A_\alpha])$ and $\varphi_+(p)=\{\alpha<\mf{c}:d(p[\varphi_-(\alpha)])<1\}=\{\alpha<\mf{c}:d(p[A_\alpha])>0\}$.
 
-    For the second case, let $0\notin Y$ (when $1\notin Y$ just take complements as in $1\in X$). Let, by lemma \ref{almost_disjoint_family_d=osc}, $\{\varphi_-(\alpha):\alpha<\mf{c}\}$ be an almost disjoint family of subsets of $\omega$ without density. Then
+    For the second case, let $0\notin Y$ (when $1\notin Y$ just take complements as in $1\in X$). Let, by \cref{lem:almost_disjoint_osc}, $\{\varphi_-(\alpha):\alpha<\mf{c}\}$ be an almost disjoint family of subsets of $\omega$ without density. Then
     $$\varphi_+(p)=\{\alpha<\mf{c}:d(p[\varphi_-(\alpha)])>0\}$$
     is at most countable and satisfies what we want.
 \end{proof}
 
-\begin{corollary}{}{}
+\begin{corollary}{(\cite{brech})}{ddxy_c}
     Under the assumptions of the previous theorem
     $$\mf{dd}_{X,Y}=\mf{c}\text{ and }\mf{dd}_{X,Y}^\bot\leq\aleph_1$$
 \end{corollary}
@@ -489,7 +478,7 @@ In fact, we can't prove $\mf{dd}_{X,Y}^\bot=\aleph_1$. For example, let $X=\{0\}
 
 Let $UR$ be the unreaping relation on $[\omega]^\omega$, where, $A\;UR\;B$ iff $B\subseteq^*A$ or $B\cap A$ is finite (i.e., $A$ does not split $B$ in infinitely many sets inside and outside $A$). $\mf{d}([\omega]^\omega,[\omega]^\omega,UR)=\mf{r}$ is called the reaping number, and $\mf{b}([\omega]^\omega,[\omega]^\omega,UR)=\mf{s}$ is called the splitting number.
 
-\begin{theorem}{}{}
+\begin{theorem}{(\cite{brech})}{ddxy_r_s}
     Assume $0,1\notin X$ and either
     \begin{itemize}
         \item $0,1\in Y$ or
@@ -497,8 +486,6 @@ Let $UR$ be the unreaping relation on $[\omega]^\omega$, where, $A\;UR\;B$ iff $
     \end{itemize}
     Then $(D_X,\sym,R_Y)\leq_T([\omega]^\omega,[\omega]^\omega,UR)$.
 \end{theorem}
-
-\textcolor{laser_eyes}{Pendente}
 
 \begin{sketch}
     We need $\varphi_-:D_X\to[\omega]^\omega$ and $\varphi_+:[\omega]^\omega\to\sym$ such that
@@ -508,8 +495,6 @@ Let $UR$ be the unreaping relation on $[\omega]^\omega$, where, $A\;UR\;B$ iff $
     In fact, since we only know $0,1\in Y$, we want $p_y$ such that $d(p_y[x])=0$ or $1$, and the fact that $0,1\notin X$ will already guarantee that $d(x)\neq d(p_y[x])$. Now, $x\setminus y$ being finite, with $x,y\in[\omega]^\omega$, basically says that $y$ is almost inside $x$, except for finitely many elements. And $x\cap y$ being finite says $y$ is almost outside $x$, except for finitely many elements. In both cases, since that finite amount does not affect the density in the limit, then we can see as if $y\subseteq x$ or $y\cap x=\emptyset$.
 
     In particular, this shows we just need $a,1-a\notin X$ and $a,1-a\in Y$ for any $a\in[0,1]$.
-
-    \textcolor{laser_eyes}{Pendente}
 \end{sketch}
     
 \begin{proof}
@@ -543,14 +528,14 @@ Let $UR$ be the unreaping relation on $[\omega]^\omega$, where, $A\;UR\;B$ iff $
     \end{itemize}
 \end{proof}
 
-\begin{corollary}{}{}
+\begin{corollary}{(\cite{brech})}{ddxy_r_s}
     Under the assumptions of the previous theorem
     $$\mf{dd}_{X,Y}\leq\mf{r}\text{ and }\mf{s}\leq\mf{dd}_{X,Y}^\bot$$
 \end{corollary}
 
-\textcolor{laser_eyes}{Pendente}
+Finally, we can also prove the following.
 
-\begin{theorem}{}{}
+\begin{theorem}{(\cite{brech})}{dd_osc_all}
     For any $X\subseteq[0,1]$, we have that
     $$\mf{dd}_{X,\{\text{osc}\}}=\mf{dd}_{X,\text{all}}$$
 \end{theorem}

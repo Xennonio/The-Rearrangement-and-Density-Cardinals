@@ -2,106 +2,149 @@
 
 \section{Growth of Functions}
 
-\label{b,d-ineq}
-\textcolor{laser_eyes}{Definição de $\mf{b}$ e $\mf{d}$ e demonstração de que
-$$\aleph_1\leq\text{cf}(\mf{b})=\mf{b}\leq\text{cf}(\mf{d})\leq\mf{d}\leq\mf{c}$$}
-\textcolor{laser_eyes}{(Andreas Blass - Handbook of Set Theory [6])}
+\begin{definition}{Dominating and Bounding Numbers}{dominating_bounding}
+    \begin{itemize}
+        \item Given $f,g\in\omega^\omega$, we say $g$ \lasereye{dominates} $f$, denoted by $f\leq^*g$, if $f(n)\leq g(n)$ for all, but finitely many $n\in\omega$;
+        \item A family $\mc{D}\subseteq\omega^\omega$ is called \lasereye{dominating} if for each $f\in\omega^\omega$ there is some $g\in\mc{D}$ with $f\leq^*g$. The \lasereye{dominating number} $\mf{d}$ is the smallest cardinality of any dominating family;
+        \item A family $\mc{B}\subseteq\omega^\omega$ is called \lasereye{unbounded} if there is no single $f\in\omega^\omega$ such that $g\leq^*f$ for all $g\in\mc{B}$. The \lasereye{bounding number}\footnote{As you see, it should be called the unbounding number} $\mf{b}$ is the smallest cardinality of any unbounded family.
+    \end{itemize}
+\end{definition}
+
+The following theorem gives all the, provable in ZFC\footnote{This can be made formal by a theorem of Hechler, which we will not mention here, but can be found in \cite{blass}}, constraints on $\mf{b}$ and $\mf{d}$.
+
+\begin{theorem}{(\cite{handbook})}{b_d_ineq}
+    $$\aleph_1\leq\cf{\mf{b}}=\mf{b}\leq\cf{\mf{d}}\leq\mf{d}\leq\mf{c}$$
+\end{theorem}
+
+\begin{proof}
+    The last two inequalities are trivial.
+
+    For the first inequality, if $\{g_n\}_{n\in\omega}$ is any countable family of functions in $\omega^\omega$, we can let $f$ be such that $f(k):=\max_{n\leq x}g(k)$. It clearly eventually dominates every $g_n$.
+
+    Now, to show $\mf{b}\leq\cf{\mf{d}}$, if $\mc{D}=\{D_\beta:\beta<\mf{d}\}$ is a witness of $\mf{d}$, let $\langle\alpha_\xi:\xi<\cf{\mf{d}}\rangle$ be an increasing sequence with sup $\mf{d}$ and define\footnote{By abuse of notation} $D_\xi:=\{D_\beta:\beta<\alpha_\xi\}$. Since $\lvert D_\xi\rvert=\lvert\alpha_\xi\rvert<\mf{d}$, then for each $\xi<\cf{\mf{d}}$ there is some $f_\xi$ not dominated by any $g\in D_\xi$. But then, if we could find some $f$ dominating each $f_\xi$, then $f$ itself would not be dominated by any $g\in\mc{D}$! a contradiction, so $\{f_\xi:\xi<\cf{\mf{d}}\}$ is unbounded.
+
+    Similarly, if $\mc{B}$ is a witness of $\mf{b}$, let $B_\xi$ be defined as before, for $\xi<\cf{\mf{b}}$. Then each $B_\xi$ is bounded by some $f_\xi$, but then, again, we can't have a $f$ dominating every $f_\xi$, otherwise $\mc{B}$ would also be bounded by $f$, a contradiction. So $\{f_\xi:\xi<\cf{\mf{b}}\}$ is unbounded.
+\end{proof}
 
 \section{Galois-Tukey Connections}
 
 Lets introduce the language of Galois Tukey Connections (GT).
 
-\begin{definition}{}{}
-    A relational system is a triple $\mc{A}=(A_-,A_+,A)$, with $A\subseteq A_-\times A_+$ where, for every $a_-\in A_-$, there is $a_+\in A_+$ such that $a_-Aa_+$, and, for every $a_+\in A_+$ there is $a_-\in A_-$ such that $a_-Aa_+$ fails.
+\begin{definition}{Relational System}{relational_system}
+    A \lasereye{relational system} is a triple $\mc{A}=(A_-,A_+,A)$, with $A\subseteq A_-\times A_+$ where, for every $a_-\in A_-$, there is $a_+\in A_+$ such that $a_-Aa_+$, and, for every $a_+\in A_+$ there is $a_-\in A_-$ such that $a_-Aa_+$ fails.
 \end{definition}
 
 You can interpret $A_-$ as the set of challenges you need to surpass, and $A_+$ as the responses you will use to pass the challenges. So, the relation $A$ indicates when a challenge is passed. The other conditions requires that any challenge can be surpassed (this guarantees $\mf{d}(\mc{A})$ is well defined), and that we don't have any response for every challenge, to avoid trivializations (and to guarantee $\mf{b}(\mc{A})$ is well defined).
 
 Any relational system $\mc{A}=(A_-,A_+,A)$ has a dual $A^\top=(A_+,A_-,\neg\check{A})$, where $a_+\neg\check{A}a_-$ if $\neg(a_-Aa_+)$.
 
-\begin{definition}{}{}
+\begin{definition}{Dominating and Unbounding Numbers}{dominating_unbounding}
     Given a relation system $\mc{A}=(A_-,A_+,A)$, we associate the following cardinals
     \begin{itemize}
-        \item the dominating number $\mf{d}(\mc{A})$ is the smallest size of a family $C_+\subseteq A_+$ s.t. for all $a_-\in A_-$, there is a $a_+\in C_+$ with $a_-Aa_+$;
-        \item the unbounding number $\mf{b}(\mc{A})$ is the smallest size of a family $C_-\subseteq A_-$ s.t. for all $a_+\in A_+$, there is $a_-\in C_-$ s.t. $\neg(a_-Aa_+)$.
+        \item the \lasereye{dominating number} $\mf{d}(\mc{A})$ is the smallest size of a family $C_+\subseteq A_+$ s.t. for all $a_-\in A_-$, there is a $a_+\in C_+$ with $a_-Aa_+$;
+        \item the \lasereye{unbounding number}\footnote{We will name this one properly} $\mf{b}(\mc{A})$ is the smallest size of a family $C_-\subseteq A_-$ s.t. for all $a_+\in A_+$, there is $a_-\in C_-$ s.t. $\neg(a_-Aa_+)$.
     \end{itemize}
 \end{definition}
 
 Intuitively, the dominating number is the smallest size of a set of responses that do the job, and the unbounding number the smallest size of a set of challenges that "breaks" any given response. Note that $\mf{b}(\mc{A})$ and $\mf{d}(\mc{A})$ are dual in the sense that $\mf{b}\rp{A^\top}=\mf{d}(A)$ and $\mf{d}\rp{A^\top}=\mf{b}(A)$.
 
-\begin{sketch}
-Now, we want to define a reduction $\varphi:\mc{A}\to\mc{B}$ between two relational systems, which helps to prove that $\mf{d}(\mc{A})\leq\mf{d}(\mc{B})$ and $\mf{b}(\mc{A})\geq\mf{d}(\mc{B})$. So, it's natural to think like this: Since we want to reduce $\mc{A}$ to $\mc{B}$, we can work really well in $\mc{B}$, so, given a challenge $a_-\in A_-$, we want to convert it to a challenge $\varphi_-(a_-)\in B_-$, where we know it has an answer $b_+\in B_+$ that responds this challenge, i.e., $\varphi(a_-)B b_+$, so it only remains to convert this response $b_+\in B_+$ back to a response $\varphi_+(b_+)\in A_+$, where $a_-A\varphi_+(b_+)$.
-\end{sketch}
+Now, we want to define a reduction $\varphi:\mc{A}\to\mc{B}$ between two relational systems, which helps to prove that $\mf{d}(\mc{A})\leq\mf{d}(\mc{B})$ and $\mf{b}(\mc{A})\geq\mf{b}(\mc{B})$. So, it's natural to think like this: Since we want to reduce $\mc{A}$ to $\mc{B}$, we can work really well in $\mc{B}$, so, given a challenge $a_-\in A_-$, we want to convert it to a challenge $\varphi_-(a_-)\in B_-$, where we know it has an answer $b_+\in B_+$ that responds this challenge, i.e., $\varphi(a_-)B b_+$, so it only remains to convert this response $b_+\in B_+$ back to a response $\varphi_+(b_+)\in A_+$, where $a_-A\varphi_+(b_+)$. So we can define:
 
-So we can define:
-
-\begin{definition}{}{}
-    Given two relational systems $\mc{A}=(A_-,A_+,A)$ and $\mc{B}=(B_-,B_+,B)$, $\mc{A}$ is Tukey reducible to $\mc{B}$ ($\mc{A}\leq_T\mc{B}$) if there are functions $\varphi_-:A_-\to B_-$, $\varphi_+:B_+\to A_+$ such that $\varphi_-(a_-)Bb_+\Rightarrow a_-A\varphi(b_+)$ for all $a_-\in A_-$ and $b_+\in B_+$.
+\begin{definition}{Tukey Reduction}{tukey_reducible}
+    Given two relational systems $\mc{A}=(A_-,A_+,A)$ and $\mc{B}=(B_-,B_+,B)$, $\mc{A}$ is \lasereye{Tukey reducible} to $\mc{B}$, denoted by $\mc{A}\leq_T\mc{B}$, if there are functions $\varphi_-:A_-\to B_-$, $\varphi_+:B_+\to A_+$ such that $\varphi_-(a_-)Bb_+\Rightarrow a_-A\varphi(b_+)$ for all $a_-\in A_-$ and $b_+\in B_+$.
 \end{definition}
 
-\textcolor{laser_eyes}{Pendente}
+By our rambling before the definition, it's not hard to see that
 
-\section{Null and Meager Sets}
+\begin{lemma}{(\cite{handbook})}{tukey_reduction}
+    If $\mc{A}\leq_T\mc{B}$, then $\mf{d}(\mc{A})\leq\mf{d}(\mc{B})$ and $\mf{b}(\mc{A})\geq\mf{b}(\mc{B})$.
+\end{lemma}
 
-The main result of this chapter is known as the Cichoń's Diagram (Figure \ref{fig:cichons-diagram})
+\section{Cichoń's Diagram}
+
+The main result of this chapter is known as the Cichoń's Diagram (\cref{fig:cichons-diagram}), which condenses visually the relationship between the cardinal characteristics that we will present throughout the chapter.
 
 \begin{figure}[ht]
 \centering
 \input{diagrams/cichon}
-\caption{Cichoń's Diagram (w/ clickable hyperlinks)}
+\caption{Cichoń's Diagram (with clickable hyperlinks)}
 \label{fig:cichons-diagram}
 \end{figure}
 
-\textcolor{laser_eyes}{Definição de um ideal}
+The arrows $\kappa\to\lambda$ represents $\kappa\leq\lambda.$\footnote{Note that if you rotate it by 45 degrees, it becomes a Hasse Diagram}. Such diagram, presented in 1993 by Tomek Bartoszyński, Haim Judah, and Saharon Shelah, is one of the greatest achievements in the field of Cardinal Characteristics. It's a theorem that the inequalities described by the diagram, together with
+$$\add{\mc{M}}=\min\{\cov{\mc{M}},\mf{b}\}\quad\text{and}\quad\cof{\mc{M}}=\max\{\non{\mc{M}},\mf{d}\}$$
+are all the relations between these cardinals that are provable in ZFC.\footnote{In the sense that every assignment of $\aleph_1$ and $\aleph_2$ to these cardinals, that satisfies these relations, is realized in some model of ZFC}
 
-\begin{theorem}{}{}\label{ideals-ineq}
-    If $\mc{I}$ is a $\sigma$-complete ideal containing all singletons, then
-    $$\aleph_0\leq\text{add}(\mc{I})\leq\text{cov}(\mc{I}),\text{non}(\mc{I})\leq\text{cof}(\mc{I})\leq2^{\aleph_0}$$
-    summarized by (Figure \ref{fig:ideals-diagram})
-\end{theorem}
+\subsection{Null and Meager Sets}
+
+As usual, an \lasereye{ideal} $\mc{I}$ in $X$ will be the dual notion of a filter. The only additional constraint we will impose is that $[X]^{<\omega}\subseteq\mc{I}$, i.e., all finite subsets of $X$ are ``small''. Also, we will usually deal with $\mc{I}$ with continuum cardinality, so let's pin down that too.
+
+Ideals naturally define the following, as we will see, cardinal characteristics.
+
+\begin{definition}{Cardinal Ideals}{ideals_cardinals}
+Let $\mc{I}$ be an ideal on $X$, then
+    \begin{align*}
+        \add{\mc{I}} & := \min\left\{\lvert\mc{A}\rvert:\mc{A}\subseteq\mc{I}\text{ and }\bigcup\mc{A}\notin\mc{I}\right\};\\
+        \cov{\mc{I}} & := \min\left\{\lvert\mc{A}\rvert:\mc{A}\subseteq\mc{I}\text{ and }\bigcup\mc{A}=X\right\};\\
+        \non{\mc{I}} & := \min\left\{\lvert Y\rvert:Y\subseteq X\text{ and }Y\notin\mc{I}\right\};\\
+        \cof{\mc{I}} & := \min\left\{\lvert\mc{A}\rvert:\mc{A}\subseteq\mc{I}\text{ and }\forall B\in\mc{I}\;\exists A\in\mc{A}\;[B\subseteq A]\right\}.
+    \end{align*}
+\end{definition}
+
+We can then prove the following relation between them.
+
+\begin{lemma}{(\cite{bartoszynsky})}{ideals_ineq}
+    If $\mc{I}$ is a $\sigma$-complete ideal, then
+    $$\aleph_1\leq\add{\mc{I}}\leq\cov{\mc{I}},\non{\mc{I}}\leq\cof{\mc{I}}\leq2^{\aleph_0}$$
+    Furthermore, $\add{\mc{I}}$ is regular. This is summarized by \cref{fig:ideals_diagram}
+\end{lemma}
 
 \begin{figure}[ht]
 \centering
 \input{diagrams/th-ideals}
-\caption{Theorem \ref{ideals-ineq}}
-\label{fig:ideals-diagram}
+\caption{\Cref{lem:ideals_ineq}}
+\label{fig:ideals_diagram}
 \end{figure}
 
-\textcolor{laser_eyes}{Definição de $\mc{M}$ e $\mc{N}$}
+Well, it turns out that the family $\mc{M}$ of meager subsets of $\mbb{R}$, and the family $\mc{N}$ of subsets of null measure on $\mbb{R}$ are ideals, which is not hard to see.
 
-\begin{theorem}{}{}\label{M,N-ideals}
-    $\mc{M}$ and $\mc{N}$ are both ideals, in particular, Theorem \ref{ideals-ineq} applies to them
-\end{theorem}
+\begin{corollary}{}{M_N_ideals}
+    $\mc{M}$ and $\mc{N}$ are both ideals, in particular, \cref{lem:ideals_ineq} applies to them
+\end{corollary}
+
+Let's now prove the previous lemma.
 
 \begin{proof}
-    \textcolor{laser_eyes}{Pendente}
+    The first inequality is trivial, since $\mc{I}$ is $\sigma$-complete. Also, that $\add{\mc{I}}\leq\cov{\mc{I}}$ is also clear, since $X\notin\mc{I}$. And $\cov{\mc{I}}\leq\cof{\mc{I}}$ too, since $\mc{I}$ contains all singletons.
+    
+    For $\add{\mc{I}}\leq\non{\mc{I}}$, let $Y$ be a witness for $\non{\mc{I}}$, and let $\mc{A}=\{\{y\}:y\in Y\}$, then $\bigcup\mc{A}=Y\notin\mc{I}$, i.e., $\mc{A}$ is a witness of $\add{\mc{I}}$. Now, let $\mc{A}$ be a witness of $\cof{\mc{I}}$, and let $x_A\in X\setminus A$ for each $A\in\mc{A}$. The set $\mc{B}=\{x_A:A\in\mc{A}\}$, by definition, is not a subset of any $A\in\mc{A}$, then $\mc{B}\notin\mc{I}$, i.e., $\non{\mc{I}}\leq\cof{\mc{I}}$. The $\leq2^{\aleph_0}$ inequality came from the fact we assumed $\lvert\mc{I}\vert=\mf{c}$.
 \end{proof}
 
-The following classical lemma shows that null and meager describe "smallness" in two different ways.
+The following lemma shows that null and meager describe "smallness" in two different ways.
 
-\begin{lemma}{}{}
+\begin{lemma}{(\cite{bartoszynsky})}{meager_null}
     There exists sets $A\in\mc{N}$ and $B\in\mc{M}$ such that $A\cup B=\mbb{R}$.
 \end{lemma}
 
 \begin{proof}
-    \textcolor{laser_eyes}{Pendente}
+    The construction is similar to the one to prove that there is some uncountable closed set $F$ with only irrationals in it. We let $\mbb{Q}=\{q_n:n\in\omega\}$, and consider
+    $$U_m:=\bigcup_{n>m}\rp{q_n-\frac1{2^n},q_n+\frac1{2^n}}$$
+    Then $\mu(U_m)=2^{1-m}$, and then $A=\bigcap_{m\in\omega}U_m\in\mc{N}$. Now, since $U_m$ is open, $\mbb{R}\setminus U_m$ is closed, and it doesn't contain any rational, meaning it's nowhere dense. So
+    $$\mbb{R}\setminus A=\bigcup_{m\in\omega}\mbb{R}\setminus U_m\in\mc{M}$$
+    as desired.
 \end{proof}
 
-This easy lemma has two interesting consequences.
+This easy lemma has two unexpected consequences.
 
-\begin{theorem}{}{}(Rothberger - 1938)\label{cov<=non}
-$$\text{cov}(\mc{M})\leq\text{non}(\mc{N})\quad\text{and}\quad\text{cov}(\mc{N})\leq\text{non}(\mc{M})$$  
+\begin{theorem}{(Rothberger - 1938)}{rothberger}
+$$\cov{\mc{M}}\leq\non{\mc{N}}\quad\text{and}\quad\cov{\mc{N}}\leq\non{\mc{M}}$$  
 \end{theorem}
 
-\begin{proof}
-    \textcolor{laser_eyes}{Pendente}
+\begin{proof}\footnote{The original proof used $2^\omega$ instead of $\mbb{R}$, since there $x=-x$, but this is quite unnecessary}
+    Let $A\in\mc{N}$ and $B\in\mc{M}$ as in the previous lemma. To see the first inequality, let $X$ be a witness of $\non{\mc{N}}$, we claim that the translation $X+B$ of $X$ covers $\mbb{R}$. In fact, if there was some $y\in\mbb{R}\setminus(X+B)$, then $y\notin x+B$ for every $x\in X$, i.e., $(y-X)\cap B=\emptyset$, so $y-X\subseteq A$. But since $A$ has null measure, then also $y-X$, and so $X$. The proof for the other inequality is exactly the same, we just swap $A$ with $B$.
 \end{proof}
 
-\begin{theorem}{}{}(Erdös-Sierpiński). If $\text{add}(\mc{N})=\text{cof}(\mc{N})$, then, there exists a bijection $f:\mbb{R}\to\mbb{R}$ such that
+\begin{theorem}{Erdös-Sierpiński\footnote{I just added this one as a curiosity, since the proof is rather intricate}}{erdos_sierpinski}. If $\add{\mc{N}}=\cof{\mc{N}}$, then, there exists a bijection $f:\mbb{R}\to\mbb{R}$ such that
 $$f(X)\in\mc{N}\iff X\in\mc{M}\quad\text{and}\quad f(X)\in\mc{M}\iff X\in\mc{N}$$
     In particular, $\text{CH}$ implies the existence of such bijection.
 \end{theorem}
-
-\begin{proof}
-    \textcolor{laser_eyes}{Pendente}
-\end{proof}

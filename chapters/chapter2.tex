@@ -1,43 +1,45 @@
 \chapter{The Rearrangement Number}
 
-In contrast to the growth functions related cardinal characteristics this one is really easy to motivate, even for undergrads. It's known by the Riemann Rearrangement Theorem that any conditionally convergent (c.c.) series can be rearranged so it converges to any real, diverges by $\pm\infty$ or oscillates. Another way to state this theorem is as a property of $\sym$:
-\begin{theorem}{}{}\textbf{(Riemann Rearrangement)}
+In contrast to the growth functions related cardinal characteristics, this one is really easy to motivate, even for undergrads. It's known by the Riemann Rearrangement Theorem that any conditionally convergent (c.c.) series can be rearranged so it converges to any real, diverges by $\pm\infty$ or oscillates. Another way to state this theorem is as a property of $\sym$:
+\begin{theorem}{Riemann Rearrangement}{riemann_rearrangement}
     Given any c.c. series $\sum_n a_n$ and $\alpha,\beta\in\mbb{R}\cup\{\pm\infty\}$, there is some permutation $p\in\sym$ such that
     $$\limsup_m\sum_{n=0}^m a_{p(n)}=\alpha\quad\text{and}\quad\liminf_m\sum_{n=0}^ma_{p(n)}=\beta$$
 \end{theorem}
-One natural generalization one can think about is: how much smaller could we choose $\sym$? It turns out that we can define this in terms of cardinality as we will see, but it's far from trivial what this cardinal should be. We will prove this is a cardinal characteristic of the continuum, but it is still open if we can prove the equality with any well-known cardinal characteristic.
+One natural generalization one can think about is: how much smaller could we choose $\sym$? It turns out that we can define this in terms of cardinality as we will see, but it's far from trivial what this cardinal should be. We will prove this is a cardinal characteristic of the continuum, but it is still open if we can prove the equality with any expression involving well-known cardinal characteristic in the literature.
 
 \section{Definitions}
 
-\begin{definition}{}{}
-    $\mf{rr}$ is the smallest cardinality of any family $C\subseteq\sym$ such that, for every c.c. series $\sum_n a_n$ of reals, there is some $p\in C$ for which $\sum_n a_{p(n)}$ no longer converges to the same limit.
+\begin{definition}{Rearrangement Number}{rearrangement_number}
+    The \lasereye{Rearrangement Number}, $\mf{rr}$, is the smallest cardinality of any family $C\subseteq\sym$ such that, for every c.c. series $\sum_n a_n$ of reals, there is some $p\in C$ for which $\sum_n a_{p(n)}$ no longer converges to the same limit\footnote{Which includes diverging for $\pm\infty$ or oscillating}.
 \end{definition}
 
 Analogously, if $\sum_n a_{p(n)}$ is required to converge, diverge to $\pm\infty$ or diverge by oscillation, then we have new cardinals $\mf{rr}_f$, $\mf{rr}_i$ and $\mf{rr}_o$, respectively.
 
 We could also consider joints of those conditions, like $\mf{rr}_{fi}$ where $\sum_n a_{p(n)}$ either converges or diverges to $\pm\infty$.
 
-Its easy to see that, if $C\subseteq\sym$ satisfies, for example, $\mf{rr}_i$, then it also satisfies $\mf{rr}_{fi}$, so $\mf{rr}_{fi}\leq\mf{rr}_i$, in general, we can make the Hasse Diagram in Figure \ref{fig:hasse-rearrangement}.
+Its easy to see that, if $C\subseteq\sym$ satisfies, for example, $\mf{rr}_i$, then it also satisfies $\mf{rr}_{fi}$, so $\mf{rr}_{fi}\leq\mf{rr}_i$, in general, we can make the Hasse Diagram in \cref{fig:hasse_rearrangement}.
 
 \begin{figure}[ht]
 \centering
 \input{diagrams/hasse-rr}
 \caption{Hasse Diagram of the Rearrangement Numbers}
-\label{fig:hasse-rearrangement}
+\label{fig:hasse_rearrangement}
 \end{figure}
 
-using this notation, $\mf{rr}$ would be $\mf{rr}_{fio}$, as expected.
+using this notation, $\mf{rr}$ would be $\mf{rr}_{ifo}$, as expected.
 
 \section{Padding with Zeros}
 
 By Riemann's rearrangement $\mf{rr}\leq\lvert\sym\rvert=\mf{c}$, so, if $\mf{rr}$ is uncountable, then its a cardinal characteristic of the continuum.
 
-Indeed, to prove that $\lvert\sym\rvert=\mf{c}$, note that $\sym\subseteq\omega^\omega$, therefore $\lvert\sym\rvert\leq\aleph_0^{\aleph_0}=2^{\aleph_0}$, so we will construct an injection $\varphi:[0,1]\to\sym$, s.t. for each real number $a=(0.d_0d_1d_2\dots)_2\in[0,1]$ we associate $\varphi(a)$ as the bijection in $\omega$ that swaps $2n$ with $2n+1$ if $d_n=1$, and does not swap them if $d_n=0$.
+Indeed, to prove that $\lvert\sym\rvert=\mf{c}$, note that $\sym\subseteq\omega^\omega$, therefore $\lvert\sym\rvert\leq\aleph_0^{\aleph_0}=2^{\aleph_0}$, so we can construct an injection $\varphi:[0,1]\to\sym$, such that for each real number $a=(0.d_0d_1d_2\dots)_2\in[0,1]$ we associate $\varphi(a)$ as the bijection in $\omega$ that swaps $2n$ with $2n+1$ if $d_n=1$, and does not swap them if $d_n=0$.
 
-In this subsection we will prove its actually a cardinal characteristic and we will also explain an important technique about padding zeros.
+In this subsection we will prove its actually a cardinal characteristic and we will also explain an important technique about padding with zeros, which will be generalized later.
 
-\begin{theorem}{}{}\label{rr uncountable}
-    $\mf{rr}$ is uncountable.
+\begin{theorem}{(\cite{blass})}{rr_uncountable}
+    \begin{center}
+        $\mf{rr}$ is uncountable.
+    \end{center}
 \end{theorem}
 
 \begin{sketch}
@@ -49,7 +51,7 @@ In this subsection we will prove its actually a cardinal characteristic and we w
 \end{sketch}
 
 \begin{proof}
-    Assume by contradiction that there is a $C=\{p_n:n\in\omega\}\subseteq\sym$, Let $b_n:=\frac{(-1)^n}{n}$ (indeed, we can take any term of a c.c. series). Lets define $\ell:\omega\to\omega$ a fast growing function that will indicate the new position of $b_k$ and will add a lot of $0$'s between the $b_k$'s, i.e.
+    Assume by contradiction that there is a $C=\{p_n:n\in\omega\}\subseteq\sym$, Let $b_n:=\frac{(-1)^n}{n}$ (indeed, we can take any term of a c.c. series). \todo{add my asymptote pic}Lets define $\ell:\omega\to\omega$ a fast growing function that will indicate the new position of $b_k$ and will add a lot of $0$'s between the $b_k$'s, i.e.
     $$a_n:=\begin{cases}
         b_k,\, n=\ell(k)\\
         0,\, \text{otherwise}
@@ -67,7 +69,7 @@ In this subsection we will prove its actually a cardinal characteristic and we w
 \section{Mixing Permutations}
 In this subsection we will prove some equalities on the variants of the rearrangement number by explaining an important technique called The Mix Lemma.
 
-\begin{lemma}{}{}\label{mix}\textbf{(The Mix Lemma)}
+\begin{lemma}{The Mix Lemma}{mix}
     For all $p,q\in\sym$, there is a $g\in\sym$ such that:
     \begin{itemize}
         \item $g[n]=p[n]$ for infinitely many $n$'s;
@@ -77,7 +79,7 @@ In this subsection we will prove some equalities on the variants of the rearrang
 
 To prove The Mix Lemma we will first prove the following lemma
 
-\begin{lemma}{}{}\label{pre-mix}
+\begin{lemma}{(\cite{blass})}{mix_aux}
     For any $p\in\sym$, if $h:n\to\omega$ is injective, then there exists $h\subseteq h':M\to\omega$, with $M>n$, such that $\text{Im}(h')=p[M]$.
 \end{lemma}
 
@@ -87,41 +89,45 @@ To prove The Mix Lemma we will first prove the following lemma
 
 Now, let's prove the mix lemma
 
-\begin{proof}\textbf{(The Mix Lemma.)} Let $g_0=\emptyset$. If $g_{2k-1}:n_{2k-1}\to\omega$ was already defined, by the previous lemma there exists a $g_{2k}:n_{2k}\to\omega$ extending $g_{2k-1}$ s.t. $\text{Im}(g_{2k})=p[n_{2k}]$. Analogously, if $g_{2k}$ was already defined, let $g_{2k+1}:n_{2k+1}\to\omega$ extending $g_{2k}$ s.t. $\text{Im}(g_{2k+1})=q[n_{2k+1}]$.
+\begin{proof} Let $g_0=\emptyset$. If $g_{2k-1}:n_{2k-1}\to\omega$ was already defined, by the previous lemma there exists a $g_{2k}:n_{2k}\to\omega$ extending $g_{2k-1}$ s.t. $\text{Im}(g_{2k})=p[n_{2k}]$. Analogously, if $g_{2k}$ was already defined, let $g_{2k+1}:n_{2k+1}\to\omega$ extending $g_{2k}$ s.t. $\text{Im}(g_{2k+1})=q[n_{2k+1}]$.
 
 Since $\{g_n:n\in\omega\}$ is a family of compatible functions, then $g:=\bigcup_{n\in\omega}g_n$ is well defined. To show $g\in\sym$, note first that, since by the previous lemma $M>n$, then $n_k>n_m$, $\forall k>m$, therefore $\text{dom}(g)=\omega$ and, since each $g_k$ is injective, $g$ is also. Now, for any $k\in\omega$, there is a $k'\in\omega$ s.t. $p(k')=k$ and, since $g$ agrees with $p$ for infinitely many $n$'s, then $k$ is eventually in the image of $g$. Therefore we have that $g\in\sym$.
 \end{proof}
 
 Now, lets narrow down how much rearrangement numbers are there
 
-\begin{theorem}{}{}\label{rr=rr_ifo}
+\begin{theorem}{(\cite{blass})}{rr_narrow}
     $$\mf{rr}=\mf{rr}_{fo}=\mf{rr}_{io}=\mf{rr}_o$$
 \end{theorem}
 
 \begin{proof}
     Since $\mf{rr}_o\geq\mf{rr}_{fo},\mf{rr}_{io}\geq\mf{rr}$, its sufficient to show that $\mf{rr}\geq\mf{rr}_o$.
 
-    Let $C\subseteq\sym$ be as in the definition of $\mf{rr}$, by The Mix Lemma \ref{mix}, for each $p\in C$ there is a $g_p\in\sym$ s.t. $g_p$ agrees with $p$ and $q=\text{id}$ for infinitely many $n$'s. Define
+    Let $C\subseteq\sym$ be as in the definition of $\mf{rr}$, by The Mix Lemma, for each $p\in C$ there is a $g_p\in\sym$ s.t. $g_p$ agrees with $p$ and $q=\text{id}$ for infinitely many $n$'s. Define
     $$C':=C\cup\{g_p:p\in C\}$$
     By the previous theorem, $\lvert C\rvert>\aleph_0$, so $\lvert C'\rvert=\lvert C\rvert=\mf{rr}$. We will show that $C'$ satisfies $\mf{rr}_o$.
 
     Let $\sum_n a_n$ be c.c., we know that there exists a $p\in C$ that corrupts the series. If $\sum_n a_{p(n)}$ diverges by oscillation, we are done, otherwise, if it diverges for infinity, or converges to a different number, then $\sum_n a_{g_p(n)}$ has a subsequence going to infinity or this new sum, and another going to the original sum, so it diverges by oscillation.
 \end{proof}
-The previous theorem narrows down the number of rearrangement cardinals (Figure \ref{fig:rearrangement-narrowed})
+The previous theorem narrows down the number of rearrangement cardinals (Figure \cref{fig:rearrangement_narrowed})
 
 \begin{figure}[ht]
 \centering
 \input{diagrams/narhasse-rr}
 \caption{Narrowed Hasse Diagram}
-\label{fig:rearrangement-narrowed}
+\label{fig:rearrangement_narrowed}
 \end{figure}
 
-\section{Measure and Random Signs}
+\section{Measure and Category}
 
-In this subsection we relate the rearrangement number with the covering number for measure. In order to relate them we will need a consequence of Kolmogorov's Two Series Theorem, whose proof depends on the following inequality also due to Kolmogorov:
+In this subsection we relate the rearrangement number with a lot of category cardinal characteristics.
 
-\begin{lemma}{}{}
-    \textbf{(Kolmogorov's Inequality)} Let $X_1,X_2,\dots,X_n$ be independent random variables with $\mbb{E}[X_k]=0$ and $\text{var}(X_k)<\infty$ for $k=1,\dots,n$. Then, $\forall\varepsilon>0$ we have that:
+\subsection{Rademacher's Theorem and \texorpdfstring{$\mathbf{cov}(\mc{N})$}{covN}}
+
+In order to relate them we will need a consequence of Kolmogorov's Two Series Theorem, whose proof depends on the following inequality also due to Kolmogorov:
+
+\begin{lemma}{Kolmogorov's Inequality}{kolmogorovs_inequality}
+    Let $X_1,X_2,\dots,X_n$ be independent random variables with $\mbb{E}[X_k]=0$ and $\text{var}(X_k)<\infty$ for $k=1,\dots,n$. Then, $\forall\varepsilon>0$ we have that:
     $$\mbb{P}\rp{\max_{1\leq k\leq n}\lvert S_k\rvert\geq\varepsilon}\leq\frac{\text{var}(S_n)}{\varepsilon^2}=\frac1{\varepsilon^2}\sum_{k=1}^n\text{var}(X_k)$$
     where $S_k=X_1+X_2+\dots+X_k$.
 \end{lemma}
@@ -130,11 +136,11 @@ In this subsection we relate the rearrangement number with the covering number f
     Let $E=\left\{\max_{1\leq k\leq n}\lvert S_k\rvert\geq\varepsilon\right\}$ and consider the events
     $$E_k=\left\{\lvert S_1\rvert<\varepsilon,\lvert S_2\rvert<\varepsilon,\dots,\lvert S_{k-1}\rvert<\varepsilon,\lvert S_k\rvert\geq\varepsilon\right\}$$
     Clearly $E_k$ are disjoint and $E=\bigcup_{k=1}^nE_k$, therefore
-    \begin{equation}\label{p(e)}
+    \begin{equation}\label{eq:P(E)}
         \mbb{P}(E)=\sum_{k=1}^n\mbb{P}(E_k)
     \end{equation}
     Furthermore, since $\mbb{E}[X_k]=0$, $k=1\dots,n$, then $\mbb{E}[S_n]=0$. And, since $S_n^2$ is always greater or equal than $0$, then $\mbb{E}[S_n^2]\geq\mbb{E}[S_n^2\cdot I_A]$ for any event $A$, consequently:
-    \begin{equation}\label{var(S_n)}
+    \begin{equation}\label{eq:var(S_n)}
         \text{var}(S_n)=\mbb{E}[S_n^2]\geq\mbb{E}[S_n^2\cdot\boldsymbol{1}_E]=\sum_{k=1}^n\mbb{E}[S_n^2\cdot\boldsymbol{1}_{E_k}]
     \end{equation}
     Now, note that
@@ -144,18 +150,18 @@ In this subsection we relate the rearrangement number with the covering number f
     but $S_k\cdot\boldsymbol{1}_{E_k}=(X_1+\dots X_k)\cdot\boldsymbol{1}_{E_k}$ and $S_n-S_k=X_n+X_{n-1}+\dots+X_{k+1}$ and, since $X_k$ are independent, $S_k\cdot\boldsymbol{1}_{E_k}$ and $S_n-S_k$ are also independent, then
     $$\mbb{E}[S_k(S_n-S_k)\cdot\boldsymbol{1}_{E_k}]=\mbb{E}[S_k\cdot\boldsymbol{1}_{E_k}]\cdot\cancelto0{\mbb{E}[S_n-S_k]}=0$$
     so we can conclude that
-    \begin{equation}\label{E(S_n2 1_E)}
+    \begin{equation}\label{eq:E(S2)}
         \mbb{E}[S_n^2\cdot\boldsymbol{1}_{E_k}]=\mbb{E}[S_k^2\cdot\boldsymbol{1}_{E_k}]+\mbb{E}[(S_n-S_k)^2\cdot\boldsymbol{1}_{E_k}]\geq\mbb{E}[S_k^2\cdot\boldsymbol{1}_{E_k}]
     \end{equation}
-    now, substituting \ref{E(S_n2 1_E)} in \ref{var(S_n)}, we conclude that
+    now, substituting \cref{eq:E(S2)} in \cref{eq:var(S_n)}, we conclude that
     $$\text{var}(S_n)\geq\sum_{k=1}^n\mbb{E}[S_n^2\cdot\boldsymbol{1}_{E_k}]\geq\sum_{k=1}^n\mbb{E}[S_k^2\cdot\boldsymbol{1}_{E_k}]$$
-    and, by definition, $\lvert S_k(\omega)\rvert\geq\varepsilon$ whenever $\boldsymbol{1}_{E_k}(\omega)$, therefore $\lvert S_k^2(\omega)\rvert\geq\varepsilon^2$ and, by \ref{p(e)}, we have that
+    and, by definition, $\lvert S_k(\omega)\rvert\geq\varepsilon$ whenever $\boldsymbol{1}_{E_k}(\omega)$, therefore $\lvert S_k^2(\omega)\rvert\geq\varepsilon^2$ and, by \cref{eq:P(E)}, we have that
     $$\text{var}(S_n)\geq\sum_{k=1}^n\mbb{E}[\varepsilon^2\cdot\boldsymbol{1}_{E_k}]=\varepsilon^2\sum_{k=1}^n\mbb{P}(E_k)=\varepsilon^2\mbb{P}(E)$$
 \end{proof}
 
-\begin{theorem}{}{}
-    \textbf{(Kolmogorov's Two Series)}. Let $(X_n)_{n\geq0}$ be independent random variables. If $\sum_n\mbb{E}[X_n]$ and $\sum_n\text{var}(X_n)$ both converges, then $\sum_n X_n$ converges almost surely.
-\end{theorem}
+\begin{lemma}{Kolmogorov's Two Series\footnote{He also has his three series theorem}}{kolmogorovs_two_series}
+    Let $(X_n)_{n\geq0}$ be independent random variables. If $\sum_n\mbb{E}[X_n]$ and $\sum_n\text{var}(X_n)$ both converges, then $\sum_n X_n$ converges almost surely.
+\end{lemma}
 
 \begin{proof}
     Note first that, if we define $Y_k=X_k-\mbb{E}[X_k]$, then $Y_k$ are also independent, $\mbb{E}[Y_n]=0$ and $\text{var}(Y_n)=\text{var}(X_n)$. Now, since
@@ -165,7 +171,7 @@ In this subsection we relate the rearrangement number with the covering number f
     We will show that, if $S_k=\sum_{i=1}^kX_k$, then $\mbb{P}(S_k\text{ converges})=1$ or, equivalently, that $S_k$ is almost surely Cauchy. In order to do that, note that
     $$\max_{m,n\geq N}\lvert S_n-S_m\rvert\leq\max_{n\geq N}\lvert S_n-S_N\rvert+\max_{m\geq N}\lvert S_n-S_M\rvert\leq2\max_{n\geq N}\lvert S_n-S_N\rvert$$
     then, by Kolmogorov's Inequality
-    \begin{equation}\label{kolmogorov S_n}
+    \begin{equation}\label{eq:kolmogorov_S_n}
         \mbb{P}\rp{\max_{m,n\geq N}\lvert S_n-S_m\rvert>\varepsilon}\leq\mbb{P}\rp{\max_{n\geq N}\lvert S_n-S_N\rvert>\frac\varepsilon2}\leq\frac4{\varepsilon^2}\sum_{n=N+1}^n\text{var}(S_n)
     \end{equation}
     Now, note that, $S_n$ is not Cauchy if, there is a $\varepsilon>0$ rational such that, for all $N\in\omega$, there are $n,m\geq N$ with $\lvert S_n-S_m\rvert>\varepsilon$. Then, for $S_n$ to be almost surely Cauchy it's sufficient that
@@ -173,17 +179,17 @@ In this subsection we relate the rearrangement number with the covering number f
     \in\mbb{Q}}\;\mbb{P}\rp{\bigcap_{N\in\omega}\bigcup_{n,m\geq N}\left\{\lvert S_n-S_m\rvert>\varepsilon\right\}}=0$$
     or that $\mbb{P}\rp{\bigcap_{N\in\omega}\bigcup_{n,m\geq N}\left\{\lvert S_n-S_m\rvert>\varepsilon\right\}}=0$. But, if $E_N=\bigcup_{n,m\geq N}\left\{\lvert S_n-S_m\rvert>\varepsilon\right\}$, note that $E_n\supseteq E_{n+1}$, $\forall n\in\omega$, then, we have
     $$\mbb{P}\rp{\bigcap_{N\in\omega}E_N}=\lim_{N\to\infty}\mbb{P}(E_N)$$
-    and, since $E_N=\max_{m,n\geq N}\lvert S_n-S_m\rvert>\varepsilon$, by \ref{kolmogorov S_n} we have that
+    and, since $E_N=\max_{m,n\geq N}\lvert S_n-S_m\rvert>\varepsilon$, by \cref{eq:kolmogorov_S_n} we have that
     $$\lim_{N\to\infty}\mbb{P}(E_N)\leq\lim_{N\to\infty}\frac4{\varepsilon^2}\sum_{n=N+1}^n\text{var}(S_n)=0$$
     where the summation is $0$ because $\sum_n\text{var}(S_n)$ converges. Then $S_n$ is almost surely Cauchy.
 \end{proof}
 
 Using Kolmogorov's Theorem we can prove the following Lemma due to Rademacher
 
-\textcolor{laser_eyes}{Como usaremos somente $c_n=\frac1n$ na prova do teorema 2.5., e sabemos que a harmônica se relaciona com a densidade assintótica por meio do ln, talvez seja possível pular esse teorema}
+\textcolor{laser_eyes}{Como usaremos somente $c_n=\frac1n$ na prova do teorema 2.5., e sabemos que a harmônica se relaciona com a densidade assintótica por meio do ln, talvez fosse possível pular esse teorema}
 
-\begin{theorem}{}{}
-    \textbf{(Rademacher).} Let $(c_n)_{n\geq0}$ be any sequence of reals. And let
+\begin{theorem}{Rademacher}{rademacher}
+    Let $(c_n)_{n\geq0}$ be any sequence of reals. And let
     $$A:=\left\{s\in2^\omega:\sum_n(-1)^{s(n)}c_n\text{ converges}\right\}$$
     Then $\lambda(A)=1$ if $\sum_nc_n^2$ converges.
 \end{theorem}
@@ -197,29 +203,27 @@ Using Kolmogorov's Theorem we can prove the following Lemma due to Rademacher
 \end{proof}
 With the previous theorem we can now give an inequality between $\text{cov}(\mc{N})$ and $\mf{rr}$.
 
-\begin{theorem}{}{}
-    $\text{cov}(\mc{N})\leq\mf{rr}$
+\begin{theorem}{(\cite{blass})}{cov_rr}
+    $$\text{cov}(\mc{N})\leq\mf{rr}$$
 \end{theorem}
-
-\textcolor{laser_eyes}{Aqui estamos usando que $\text{cov}(\mc{N})$ é o mesmo se $\mc{N}$ for escolhido em $\mbb{R}$ ou no Espaço de Cantor $2^\omega$.}
 
 \begin{proof}
     Since $\sum_n\frac1{n^2}$ converges absolutely, for any $p\in\sym$, since $\sum_n\frac1{p(n)^2}$ is just a rearrangement, then it also converges. Now, by Rademacher's Theorem, for $c_n=\frac1{p(n)}$, the set
     $$A_p:=\left\{s\in2^\omega:\sum_n(-1)^{s(n)}/p(n)\text{ diverges}\right\}$$
-    has measure zero. And, since $s\mapsto s\circ p$ is measure preserving in the Cantor Space $2^\omega$ \textcolor{laser_eyes}{(Por que?)}, then $B_p=p[A_p]$ also has measure zero.
+    has measure zero\footnote{Note here we're using $\cov{\mc{N}}$ is the same in the Cantor Space $2^\omega$ as in $\mbb{R}$}. And, since $s\mapsto s\circ p$ \todo{why?}is measure preserving in the Cantor Space $2^\omega$, then $B_p=p[A_p]$ also has measure zero.
 
     Now, let $C\subseteq\sym$ be s.t. $\lvert C\rvert<\text{cov}(\mc{N})$. By definition of $\text{cov}(\mc{N})$, we have that $\{B_p\}_{p\in C}$ cannot cover $2^\omega$, then there is some $s\in2^\omega$ such that $\sum_n(-1)^{s(p(n))}/p(n)$ converges $\forall p\in C$. That is, the rearrangement of $\sum_n(-1)^{s(n)}/n$ will not diverge to $\pm\infty$ or oscillate.
 
     Therefore, this proves that $\text{cov}(\mc{N})\leq\mf{rr}_{io}=\mf{rr}$.
 \end{proof}
 
-\section{Topology and Some Inequalities}
+\subsection{\texorpdfstring{$\mathbf{non}(\mc{M})$}{nonM} and \texorpdfstring{$\mathbf{cov}(\mc{M})$}{covM}}
 
 In this subsection we will continue to present some inequalities between the rearrangement numbers and other well known cardinal characteristic, so we can try, for example, to see where the rearrangement numbers are in the Cichóns Diagram.
 
 For the first inequality, we will need the following lemmas
 
-\begin{lemma}{}{}\label{comeager-lemma}
+\begin{lemma}{}{comeager}
     If $Y\subseteq X$ and $X$ is meager, then $Y$ is also meager.
 \end{lemma}
 
@@ -231,15 +235,13 @@ For the first inequality, we will need the following lemmas
     but $Y\cap X_i\subseteq X_i$, which implies $\ol{Y\cap X_i}\subseteq\ol{X_i}$, then $\text{int}\rp{\ol{Y\cap X_i}}\subseteq\text{int}\rp{\ol{X_i}}=\emptyset$, i.e., $Y\cap X_i$ are nowhere dense, therefore by $(*)$ $Y$ is also meager.
 \end{proof}
 
-\begin{lemma}{}{}
+\begin{lemma}{(\cite{blass})}{sym_hom_ww}
     The subspace $\sym$ of $\omega^\omega$ of all permutations of $\omega$ is homeomorphic to $\omega^\omega$
 \end{lemma}
 
-\begin{proof}
-    \textcolor{laser_eyes}{Uma possível demonstração usa o Teorema de Alexandrov-Uryhson, cujos pré-requisitos estão far beyond what I know. Outra possível demonstração é a construção direta do homeomorfismo como eles fazem no artigo do número de rearranjo, mas não é muito intuitiva.}
-\end{proof}
+As mentioned in \cite{blass}, there are well known theorems that guarantees this is true, but if you want, they construct a direct homeomorphism between these spaces, but I will not add it here.
 
-\begin{corollary}{}{}
+\begin{corollary}{}{non_eq}
     Let $\mc{M}_X$ be the set of meager sets in the space $X$. If $X\cong Y$, then
     $$\text{non}(\mc{M}_X)=\text{non}(\mc{M}_Y)$$
 \end{corollary}
@@ -250,20 +252,22 @@ For the first inequality, we will need the following lemmas
     with $\text{int}\rp{\ol{f(A_n)}}=f\rp{\text{int}\rp{\ol{A}}}=\emptyset$, i.e., $f(A)$ is also meager.
 \end{proof}
 
-\begin{theorem}{}{}\label{rr<=non(M)}
+In fact, it's not hard to see this is true for any other ideal cardinal characteristics, since all of them just use information of the topology. Let's now see one of the main results of this section.
+
+\begin{theorem}{(\cite{blass})}{rr_non}
     $$\mf{rr}\leq\textbf{non}(\mc{M})$$
 \end{theorem}
 
 \begin{proof}
     Its sufficient to prove that any non-meager set $C\subseteq\sym$ has, given some series, a permutation that corrupts it. Given a c.c. series $\sum_n a_n$ of reals, consider
     $$X(a_n):=\left\{p\in\sym:\sum_n a_{p(n)}\neq\sum_n a_n\right\}$$
-    we need to show that $C\cap X(a_n)\neq\emptyset$, then, its sufficient to show that $X(a_n)$ is comeager, since, if it was empty, then $C\subseteq X(a_n)^c$, but, by Lemma \ref{comeager-lemma}, $C$ would also be meager.
+    we need to show that $C\cap X(a_n)\neq\emptyset$, then, its sufficient to show that $X(a_n)$ is comeager, since, if it was empty, then $C\subseteq X(a_n)^c$, but, by \cref{lem:comeager}, $C$ would also be meager.
 
     To show $X(a_n)$ is comeager, its sufficient to prove the stronger claim that
     $$Y(a_n):=\left\{p\in\sym:\sum_n a_{p(n)}=\infty\right\}$$
     is the intersection of countable many dense open sets, i.e. $Y=\bigcap_{n\in\omega}D_n$ with $D_n$ open and denses.
     
-    In fact, first of all, since $D_n$ is open, $D_n^c$ is closed, then, if $\text{int}(\ol{D_n^c})=\text{int}(D_n^c)\neq\emptyset$, there would be an open $U\subseteq D_n^c$, so $U\cap D_n=\emptyset$, contradicting that $D_n$ is dense, therefore $D_n$ is nowhere dense for all $n\in\omega$. Now, since $Y^c=\bigcup_{n\in\omega}D_n^c$, $Y^c$ is meager and, since $Y(a_n)\subseteq X(a_n)$, then $X(a_n)^c\subseteq Y(a_n)^c$, so, by Lemma \ref{comeager-lemma}, $X(a_n)^c$ would be meager too.
+    In fact, first of all, since $D_n$ is open, $D_n^c$ is closed, then, if $\text{int}(\ol{D_n^c})=\text{int}(D_n^c)\neq\emptyset$, there would be an open $U\subseteq D_n^c$, so $U\cap D_n=\emptyset$, contradicting that $D_n$ is dense, therefore $D_n$ is nowhere dense for all $n\in\omega$. Now, since $Y^c=\bigcup_{n\in\omega}D_n^c$, $Y^c$ is meager and, since $Y(a_n)\subseteq X(a_n)$, then $X(a_n)^c\subseteq Y(a_n)^c$, so, by \cref{lem:comeager}, $X(a_n)^c$ would be meager too.
 
     So, since we have that
     $$Y(a_n)=\bigcap_{k\in\omega}\bigcup_{m\geq k}\left\{p\in\sym:\sum_{n=0}^m a_{p(n)}\geq k\right\}$$
@@ -278,7 +282,7 @@ Its hard to see how to change the argument so that $\sum_n a_{p(n)}$ could conve
 
 For the sake of the argument we will now prove the following inequality, which will be superseded by a stronger one in the next subsection.
 
-\begin{theorem}{}{}
+\begin{theorem}{(\cite{blass})}{rrfi_cov}
     $$\mf{rr}_{fi}\geq\textbf{cov}(\mc{M})$$
 \end{theorem}
 
@@ -288,33 +292,33 @@ For the sake of the argument we will now prove the following inequality, which w
         A_p & := \left\{g\in\sym:g[M]=p[M]\text{ for infinitely many }M\right\}\\
         & = \bigcap_{m\in\omega}\bigcup_{n\geq m}\left\{g\in\sym:g[n]=p[n]\right\}
     \end{align*}
-    as we saw in \ref{rr<=non(M)}, to show $A_p$ is comeager, its sufficient to show that
+    as we saw in \cref{th:rr_non}, to show $A_p$ is comeager, its sufficient to show that
     $$U_m:=\bigcup_{n\geq m}\{g\in\sym:g[n]=p[n]\}=\bigcup_{n\geq m}B_n$$
-    is open and dense. In fact, given $g\in U_m$, then $g\in B_k$ for some $k\geq m$, so $\mc{N}(g(0),\dots,g(k))\subseteq U_m$, then it's open. Now, given $p\in\sym$, $p$ is injective, so, by The Mix Lemma \ref{mix}, it can be extended to $p'\in\sym$ s.t. $p[n]=p'[n]$ for infinitely many $n\in\omega$, so $p'\in \mc{N}(p(0),\dots,p(k))\cap U_m$, for any $k\in\omega$, so it's dense.
+    is open and dense. In fact, given $g\in U_m$, then $g\in B_k$ for some $k\geq m$, so $\mc{N}(g(0),\dots,g(k))\subseteq U_m$, then it's open. Now, given $p\in\sym$, $p$ is injective, so, by The Mix Lemma, it can be extended to $p'\in\sym$ s.t. $p[n]=p'[n]$ for infinitely many $n\in\omega$, so $p'\in \mc{N}(p(0),\dots,p(k))\cap U_m$, for any $k\in\omega$, so it's dense.
 
     Now, suppose toward a contradiction that $\mf{rr}_{fi}<\textbf{cov}(\mc{M})$ and let $C$ witness this. Assume WLOG that $\text{id}\in C$. Since $\bigcap_{p\in C}A_p$ is the intersection of fewer than $\textbf{cov}(\mc{M})$ comeager sets, it's nonempty, so let $g$ be a member of it.
 
-    Then, for any c.c. series $\sum_n a_n$, let $p\in C$ be such that $\sum_n a_{p(n)}$ converges to a different number or diverges to infinity. Since $g\in A_p$, $g[M]=p[M]$ for infinitely many $M$, and also $g[M]=M$ for infinitely many, since $\text{id}\in C$. As a result, the same argument as in \ref{rr=rr_ifo} shows that $\sum_n a_{g(n)}$ diverges by oscillation, so $\{g\}$ witnesses that $\mf{rr}_o=1$, a contradiction, since it's uncountable.
+    Then, for any c.c. series $\sum_n a_n$, let $p\in C$ be such that $\sum_n a_{p(n)}$ converges to a different number or diverges to infinity. Since $g\in A_p$, $g[M]=p[M]$ for infinitely many $M$, and also $g[M]=M$ for infinitely many, since $\text{id}\in C$. As a result, the same argument as in \cref{th:rr_narrow} shows that $\sum_n a_{g(n)}$ diverges by oscillation, so $\{g\}$ witnesses that $\mf{rr}_o=1$, a contradiction, since it's uncountable.
 \end{proof}
 
 \section{Advanced padding}
 
 The key idea in the padding method was to spread out the nonzero terms in a series so far that the permutations under consideration do not change their relative order up to finitely many exceptions. Now we will introduce a cardinal characteristic intended to capture this idea.
 
-\begin{definition}{}{} Let $A\subseteq\omega$
+\begin{definition}{Jumbling Number}{jumbling_number} Let $A\subseteq\omega$
     \begin{itemize}
-        \item $A$ is preserved by $p\in\sym$ if $p$ doesn't change the relative order of members of $A$, except for finitely many elements. If $A$ is not preserved by $p$ we say it's jumbled by $p$.
-        \item A conserving family is a family of permutations such that there is an infinite set $A$ that is preserved by every $p$ in the family.
-        \item The jumbling number $\mf{j}$ is the greatest cardinality of a conserving family.
+        \item $A$ is \lasereye{preserved} by $p\in\sym$ if $p$ doesn't change the relative order of members of $A$, except for finitely many elements. If $A$ is not preserved by $p$ we say it's jumbled by $p$.
+        \item A \lasereye{conserving family} is a family of permutations such that there is an infinite set $A$ that is preserved by every $p$ in the family.
+        \item The \lasereye{jumbling number} $\mf{j}$ is the greatest cardinality of a conserving family.
     \end{itemize}
 \end{definition}
-Note that, if $S=\{q_n:n\in\omega\}\subseteq\sym$, let $C=\{p_m=q_m^{-1}:m\in\omega\}$, then, by doing the construction of the fast growing function $\ell:\omega\to\omega$ as in \ref{rr uncountable}, we guarantee that $p_m(\ell(m))<p_m(\ell(m+1))<\dots$, which means $A=\{\ell(n):n\in\omega\}$ is not jumbled by any $p\in C$, then, since $\aleph_0<\mf{j}\leq\lvert\sym\rvert=\mf{c}$, it's a cardinal characteristic of the continuum. This proof is not necessary, since Theorem \ref{j<=b} will guarantee that (but the argument is way harder. way more powerful, tho).
+Note that, if $S=\{q_n:n\in\omega\}\subseteq\sym$, let $C=\{p_m=q_m^{-1}:m\in\omega\}$, then, by doing the construction of the fast growing function $\ell:\omega\to\omega$ as in \cref{th:rr_uncountable}, we guarantee that $p_m(\ell(m))<p_m(\ell(m+1))<\dots$, which means $A=\{\ell(n):n\in\omega\}$ is not jumbled by any $p\in C$, then, since $\aleph_0<\mf{j}\leq\lvert\sym\rvert=\mf{c}$, it's a cardinal characteristic of the continuum. This proof is not necessary, since \cref{th:j_b} will guarantee that (but the argument is way harder. way more powerful, tho).
 
-Roughly, $\mf{j}$ is defined to be the largest cardinal for which the argument in Theorem \ref{rr uncountable} remains valid. Just consider that for any fast growing such function $\ell$ we can associate the set $A=\{\ell(1),\ell(2),\dots\}$ and vice-versa. We will see how to use this in the proof of the next Theorem.
+Roughly, $\mf{j}$ is defined to be the largest cardinal for which the argument in \cref{th:rr_uncountable} remains valid. Just consider that for any fast growing such function $\ell$ we can associate the set $A=\{\ell(1),\ell(2),\dots\}$ and vice-versa. We will see how to use this in the proof of the next Theorem.
 
-\begin{theorem}{}{}
+\begin{lemma}{(\cite{blass})}{j_rr}
     $$\mf{j}\leq\mf{rr}$$
-\end{theorem}
+\end{lemma}
 
 \begin{proof}
     The idea is to use the same translation as in the proof that $\mf{j}$ is uncountable. Let $C\subseteq\sym$, with $\lvert C\rvert<\mf{j}$. We shall find a c.c. series that is not corrupted by $C$. Let $\sum_n b_n$ be any c.c. series and, since $\lvert C\rvert<\mf{j}$ let $A\subseteq\omega$ be the set that is not jumbled by \textit{the inverses of all permutations} in $C$. Then, using $A$ as the growing function, let
@@ -325,10 +329,12 @@ Roughly, $\mf{j}$ is defined to be the largest cardinal for which the argument i
     If $p\in C$, then $A$ is preserved by $p^{-1}$, then the order of almost all nonzero terms of $\sum_n a_n$ and $\sum_n a_{p(n)}$ are the same, therefore $C$ does not corrupt $\sum_n a_n$.
 \end{proof}
 
-In order to bound $\mf{rr}$ with a well known cardinal characteristic, we will prove the following theorem
+In order to bound $\mf{rr}$ with $\mf{b}$, we will prove the following theorem
 
-\begin{theorem}{}{}\label{j<=b}
-    $\mf{j}\leq\mf{b}$, therefore, $\mf{b}\leq\mf{rr}$.
+\begin{theorem}{(\cite{blass})}{j_b}
+    \begin{center}
+        $\mf{j}\leq\mf{b}$, therefore $\mf{b}\leq\mf{rr}$.
+    \end{center}
 \end{theorem}
 
 \begin{sketch}
@@ -336,7 +342,7 @@ In order to bound $\mf{rr}$ with a well known cardinal characteristic, we will p
 
     Fixing $p\in C$, we want to define $f_p$ such that, for some $g\geq^* f_p$ and $A$ we will have, $p$ will preserve the order of most elements in $A$. Let's then define $f_p$ as an \textit{Stabilization Point}, i.e, $f_p(n)$ is s.t. from this point on, every number will have the image over $p$ greater than $p(1),p(2),\dots,p(n)$.
 
-    As Figure \ref{fig:p-arrows} shows, given $1,2,3,\dots,n$, and labeling them $b_1,b_2,\dots,b_n$ such that $p(b_1)<p(b_2)<\dots<p(b_n)$ (points represented in purple), we know that for each number between the images of $1,2,\dots,n$ there will be some number $y_i$ that will go there (numbers in blue), then, if we run out all of them, any other number after those ones will necessarily be greater than the images of $1,2,\dots,n$ over $p$, then we just need to choose $f_p(n)$ (in red) far enough so he can surpass all these finite elements.
+    As \ref{fig:p_arrows} shows, given $1,2,3,\dots,n$, and labeling them $b_1,b_2,\dots,b_n$ such that $p(b_1)<p(b_2)<\dots<p(b_n)$ (points represented in purple), we know that for each number between the images of $1,2,\dots,n$ there will be some number $y_i$ that will go there (numbers in blue), then, if we run out all of them, any other number after those ones will necessarily be greater than the images of $1,2,\dots,n$ over $p$, then we just need to choose $f_p(n)$ (in red) far enough so he can surpass all these finite elements.
 
     Then, if we define $a_0\in\omega$ and $a_{n+1}\in\omega$ such that $a_{n+1}>g(a_n)$, it's easy to see that $A=\{a_i\}_{i\in\omega}$ is preserved by $C$.
 \end{sketch}
@@ -347,7 +353,7 @@ In order to bound $\mf{rr}$ with a well known cardinal characteristic, we will p
     \centering
     \input{diagrams/p-arrows-sketch}
     \caption{Visualization of $f_p(n)$}
-    \label{fig:p-arrows}
+    \label{fig:p_arrows}
 \end{figure}
 
 \begin{proof}
@@ -358,7 +364,7 @@ In order to bound $\mf{rr}$ with a well known cardinal characteristic, we will p
 
 Indeed, we have that $\mf{j}=\mf{b}$, which is proved in rearrangement number article using another characterization of $\mf{b}$ showed in Blass chapter in the Handbook. But, since $\mf{j}$ isn't mentioned after this proof, I think it's more like a fun fact, therefore I will not add the proof here.
 
-\begin{theorem}{}{}
+\begin{theorem}{(\cite{blass})}{d_rrfi}
     $$\mf{d}\leq\mf{rr}_{fi}$$
 \end{theorem}
 

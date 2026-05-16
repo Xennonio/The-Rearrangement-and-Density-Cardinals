@@ -19,6 +19,7 @@
 }
 \usepackage[Conny]{fncychap}
 \usepackage{enumitem}
+\setlist[itemize]{leftmargin=*, nosep}
 \usepackage{footnote}
 \usepackage{etoolbox}
 \usepackage{quiver} %% to use quiver diagrams
@@ -54,12 +55,20 @@
 \renewcommand{\figurename}{Fig.}
 \renewcommand{\contentsname}{Summary}
 \counterwithout{equation}{chapter}
-\newcommand{\sym}{\text{Sym}(\omega)}
+\newcommand{\sym}{\mathrm{Sym}(\omega)}
+\newcommand{\cf}[1]{\mathrm{cf}\left(#1\right)}
+\newcommand{\lasereye}[1]{\textcolor{emph}{#1}}
+\newcommand{\add}[1]{\mathrm{add}\left(#1\right)}
+\newcommand{\cov}[1]{\mathrm{cov}\left(#1\right)}
+\newcommand{\non}[1]{\mathrm{non}\left(#1\right)}
+\newcommand{\cof}[1]{\mathrm{cof}\left(#1\right)}
+\newcommand{\osc}{\mathbf{osc}}
 
 %% -- Environments --
 %% lorelei and the laser eyes colors
 \definecolor{lorelei}{RGB}{120, 4, 56}
 \definecolor{laser_eyes}{RGB}{220, 6, 90}
+\colorlet{emph}{laser_eyes!80!black}
 
 %% theorems style
 \NewTcbTheorem[number within=chapter]{theorem}{Theorem}{
@@ -105,6 +114,7 @@
 %% sketches style
 \newtcolorbox{sketch}{
     enhanced,
+    breakable,
     title=Sketch,
     colback=gray!5,
     colframe=lorelei!80!black,
@@ -114,3 +124,5 @@
     after title={:\enskip},
     borderline west={5pt}{0pt}{lorelei},
 }
+\BeforeBeginEnvironment{sketch}{\savenotes}
+\AfterEndEnvironment{sketch}{\spewnotes}
