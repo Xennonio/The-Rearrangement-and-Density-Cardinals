@@ -1,0 +1,474 @@
+\chapter{Forcing}
+
+\section{Basic Idea}
+
+\subsection{Failure of Inner Models}
+
+Let's first see why we can't use the method of inner models to prove, for example, that $\neg\text{CH}$.
+
+If we would follow the analogy in subsection \ref{inner_model_theory}, we could argue for example that if $\Phi$ proves there is some inner model $M^G$ such that $M^G\vDash\neg\varphi$, we would have a problem, since in $E^G$ we will have that $M^{E^G}\leq E^G$ and, therefore, $M^{E^G}=\{e_G\}$, by minimality. Therefore $M^{E^G}\vDash\varphi$, a contradiction. Then $\varphi$ would be an example of a formula that we can't prove using the method of inner models.
+
+In fact, we have the technical limitation that Group Theory is clearly not strong enough to define what is a formula or construct a satisfiability relation, but that's the intuitive idea.
+
+\begin{observation}
+    If we could define in ZF a transitive proper class $M\vDash\zfc+\neg\text{CH}$, then $\neg\con(\text{ZF})$.
+\end{observation}
+
+\begin{proof}
+    If we could define such $M$ in ZF, we could also define it in $\zfc+V=L$. Since $M$ is a proper class model, by absoluteness of rank (Corollary \todo{add hyperlink}\ref{rank_absoluteness}), we have that $\text{ON}\subseteq M$. We also have that $L\subseteq M$ since, by Lemma \ref{L(alpha)_absoluteness}, $L(\delta)$ is absolute, and, therefore, $M=L$ by $V=L$, so $M\vDash V=L$ and, therefore, $M\vDash\text{CH}$, a contradiction.
+\end{proof}
+
+In other words, since $L$ is the minimal model, we can't use the method of inner models to prove the relative consistency of the negation of any corollary of $V=L$.
+
+With this in mind, to produce a model $N$ for $\zfc+\neg\text{CH}$, we need to step outside of our universe and create some $N\supset V$ that has sufficiently many subsets of $\omega$ so that CH fails in it.
+
+\subsection{Sketch of Forcing}
+
+\textcolor{laser_eyes}{Pendent}
+
+\subsection{Finitistic Consistecy Proofs}
+
+\textcolor{laser_eyes}{Pendent}
+
+\section{Generic Extensions}
+
+Throughout this subsection $\mbb{P}\in M$ abbreviates $(\mbb{P},\mathbbm{1},\leq)\in M$, and we say $G$ is $\mbb{P}$-generic over $M$ when $G$ is a filter on $\mbb{P}$ and $\mc{D}$-generic, where $\mc{D}=\{D\in M:D\text{ is dense in }\mbb{P}\}$. Whenever $M$ is a ctm, we have $\mc{D}$ countable and, by Lemma \ref{generic_filter_existence}, it's clear that:
+
+\begin{lemma}{}{}
+    \textbf{(Rasiowa–Sikorski)} If $M$ is a ctm for $\text{ZF}-\mc{P}$ and $\mbb{P}\in M$, then for every $p\in\mbb{P}$ there is a $\mbb{P}$-generic $G$ over $M$, with $p\in G$.
+\end{lemma}
+
+In the proof of the Generic Filter Existence Lemma, the notion of being dense is absolute, so this is not a problem. However, the enumeration of the dense sets $\mc{D}$ in order type $\omega$ must take place outside of $M$, since $M$ itself doesn't know it's countable, so $G$ is usually not in $M$:
+
+\begin{lemma}{}{}
+    If $\mbb{P}\in M$ is atomless and $G$ is $\mbb{P}$-generic over $M$, then $G\notin M$.
+\end{lemma}
+
+\begin{proof}
+    As in the proof of Corollary \ref{atomless_not_MA}, $D=\mbb{P}\setminus G$ is dense. If $G\in M$, then $D\in M$, contradicting that $G\cap D\neq\emptyset$.
+\end{proof}
+
+Since we want to extend $M$ to $M[G]$, as the set of all sets that can be built from $G$ and $M$ using ``simple set-theoretic processes'', if $G\in M$ then $M[G]$ is simply $M$, so posets with atom are of little interest in forcing.
+
+\begin{definition}{}{}
+    $\tau$ is a $\mbb{P}$-name iff $\tau$ is a relation and
+    $$\forall\langle\sigma,p\rangle\in\tau\,[\sigma\text{ is a }\mbb{P}\text{-name}\wedge p\in\mbb{P}]$$
+    Then $V^{\mbb{P}}$ is the class of all $\mbb{P}$-names.
+\end{definition}
+
+As a side note, it's worth noting that the way we formally define a $\mbb{P}$-name is by recursion on the well-founded relation $xRy$ iff $x\in\text{trcl}(y)$, where we let $F:V\to\{0,1\}$ be given by: $F(\tau)=1$ iff $\tau$ is a relation and $\forall\langle\sigma,p\rangle\in\tau\,[F(\sigma)=1\wedge p\in\mbb{P}]$; and $F(\tau)=0$ otherwise. Since all these notions are absolute for transitive models of $\text{ZF}-\mc{P}$, then the notion of $\mbb{P}$-name are absolute.
+
+We will call $M^{\mbb{P}}$ the set of $\mbb{P}$-names in $M$, which is exactly $\{\tau\in M:(\tau\text{ is a $\mbb{P}$ name})^M\}$.
+
+\begin{definition}{}{}
+    If $\tau$ is a $\mbb{P}$-name and $G\subseteq\mbb{P}$, then define by recursion
+    $$\text{val}(\tau,G)=\tau_G:=\{\sigma_G:\exists p\in G\,[\langle\sigma,p\rangle\in\tau]\}$$
+    And let $M[G]=\{\tau_G:\tau\in M^{\mbb{P}}\}$, whenever $M$ is a transitive model of $\text{ZF}-\mc{P}$, with $\mbb{P}\in M$.
+\end{definition}
+
+So, if $\tau$ represents a name, then $\tau_G$ represents its actual value. In some sense, $\tau$ is then a ``fuzzy'' representation of some actual set $\tau_G$ that is determined by $G$ (or, way better, filtered by it). In fact, since $M^{\mbb{P}}\in M$, then $M$ can talk about names, but since in general $G\notin M$, then it cannot talk about its actual values. It's also not that hard to see that $\text{val}$ is absolute.
+
+With this in mind, let's try to give name to some known sets
+
+\begin{definition}{}{}
+    For a forcing poset $(\mbb{P},\leq,\mathbbm{1})$ and any set $x$, let $\check{x}=\{\langle\check{y},\mathbbm{1}\rangle:y\in x\}$.
+\end{definition}
+
+This is, in some sense, a natural definition, since $\mathbbm{1}$ is the unique element we can guarantee to be in $G$. And, as expected, we have the following properties:
+
+\begin{lemma}{}{}\label{lemma_with_hypothesis}
+    If $M$ is a transitive model of $\text{ZF}-\mc{P}$, with $\mbb{P}\in M$ and $G$ a filter on $\mbb{P}$, then
+    \begin{enumerate}
+        \item $\forall x\in M\,[\check{x}\in M^{\mbb{P}}\wedge\check{x}_G=x]$;
+        \item $M\subseteq M[G]$.
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    1. Clearly $\check{x}$ is a $\mbb{P}$-name in $M$ by absoluteness. Now, using $\in$-induction, we know $\check{\emptyset}=\{\langle\check{y},\mathbbm{1}\rangle:y\in\emptyset\}=\emptyset$, then $\check{\emptyset}_G=\emptyset$. Now, if $\check{y}_G=y$ for all $y\in x$, then clearly
+    $$\check{x}_G=\{\langle\check{y},\mathbbm{1}\rangle:y\in x\}_G=\{\check{y}_G:y\in x\}=\{y:y\in x\}=x$$
+
+    2. And this is immediate by 1., since $\check{x}_G=x\in M[G]$ for all $x\in M$.
+\end{proof}
+
+As noted earlier, usually $G\notin M$, but we can cook up a name $\Gamma$ for $G$ in $M$ as follows:
+
+\begin{corollary}{}{}
+    Let $\Gamma=\{\langle\check{p},p\rangle:p\in\mbb{P}\}$. Under the hypothesis of the previous lemma, we have that $\Gamma$ is a $\mbb{P}$-name and $\Gamma_G=G$. Hence $G\in M[G]$.
+\end{corollary}
+
+\begin{proof}
+    Clearly $\Gamma$ is a $\mbb{P}$-name and, by the previous lemma, we have that
+    $$\Gamma_G=\{\check{p}_G:\exists p\in G\,[\langle\check{p},p\rangle\in\Gamma]\}=\{\check{p}_G:p\in G\}=\{p:p\in G\}=G$$
+\end{proof}
+
+Let's now see which axioms $M[G]$ does satisfies under the hypothesis of the previous lemma.
+
+\begin{lemma}{}{}
+    Under the hypothesis of the previous lemma, $M[G]\vDash \mc{E},\mc{R},\mc{U}$ and it's transitive.
+\end{lemma}
+
+\begin{proof}
+    Given $\tau_G\in M[G]$, if $x\in\tau_G$, then $x=\sigma_G$ for some $\sigma\in\text{dom}(\tau)$, which means $\sigma$ is a $\mbb{P}$-name and, therefore, $\sigma_G=x\in M[G]$, then it's transitive.
+
+    By transitivity, Lemma \ref{basic_axioms_criterion} guarantees that $M[G]\vDash\mc{E}$, and $\mc{R}$ is true since we are under it.
+
+    Now, instead of $\mc{U}$ as it's usually defined, we will change it by an equivalent form (only under $\mc{C}$ or $\mc{F}$), which is that for any $x\in M[G]$, there is some $y\in M[G]$ such that $\bigcup x\subseteq y$, since Comprehension (when proved) will do the hard work to then find $\bigcup x$ inside of $y$.
+
+    For this, let $\tau_G\in M[G]$, then take $\sigma=\bigcup\text{dom}(\tau)$. Since $\text{dom}(\tau)$ only has $\mbb{P}$-names, by the recursive definition we know their union has elements of the form $\langle\pi,p\rangle$, where $\pi$ is a $\mbb{P}$-name and $p\in\mbb{P}$, so $\sigma$ is also a $\mbb{P}$-name, we claim $y=\sigma_G$. To see this, if $a\in b\in\tau_G$, then $b=\pi_G$ for some $\pi\in\text{dom}(\tau)$, so $\pi\subseteq\bigcup\text{dom}(\tau)=\sigma$, and $b=\pi_G\subseteq\sigma_G=y$, therefore, since $a\in b$, we have $a\in y$.
+\end{proof}
+
+Let's now see where the concept of a filter being generic becomes important. We aim to prove that $M[G]\vDash\text{ZF}$, in particular, since $G,\mbb{P}\in M[G]$, then we would like that $C=\mbb{P}\setminus G\in M[G]$ too, but what would be its name $\mathring{C}$? Since we have no access to $G$, we can take $\mathring{C}$ based on some property of the filter $G$. In particular, since they are all pairwise compatible, let $\mathring{C}=\{\langle\check{p},q\rangle:p,q\in\mbb{P}\wedge p\perp q\}$. Then $\mathring{C}_G=\{\check{p}_G:p\in\mbb{P}\wedge\exists q\in G\,[p\perp q]\}=\{p\in\mbb{P}:\exists q\in G\,[p\perp q]\}$, so if $p\in G$, then $\nexists q\in G$ incompatible with it, then $\mathring{C}_G\cap G=\emptyset$, but why $\mathring{C}_G\cup G=\mbb{P}$?
+
+In fact, if we merely assumed that $G$ is a filter, then $\mathring{C}$ need not work, for example, if $G=\{\mathbbm{1}\}$, then $\mathring{C}_G=\emptyset$. Furthermore, this would not be a problem of the name $\mathring{C}$ we choose, we can show that for mere filter $G$, the complement $\mbb{P}\setminus G$ need not be in $M[G]$ at all. But, \todo{how to make it appear naturally?}if $G$ was generic...
+
+Although $M[G]$ is bigger than $M$, the following lemma shows it's not too much bigger.
+
+\begin{lemma}{}{}
+    Under the hypothesis of Lemma \ref{lemma_with_hypothesis}:
+    \begin{enumerate}
+        \item $\text{rank}(\tau_G)\leq\text{rank}(\tau)$ for all $\tau\in M^{\mbb{P}}$;
+        \item $o(M[G])=o(M)$;
+        \item $\lvert M[G]\rvert=\lvert M\rvert$.
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    (1) Clearly it's true for $\tau=\emptyset$. Now, assume it's true for all $\sigma\in\text{dom}(\tau)$. Since
+    $$\text{rank}(\tau)=\sup\{\text{rank}(\langle\sigma,p\rangle)+1:\langle\sigma,p\rangle\in\tau\}\geq\text{rank}(\langle\sigma,p\rangle)>\text{rank}(\sigma)$$
+    then, we have that
+    \begin{align*}
+        \text{rank}(\tau_G) & = \sup\{\text{rank}(\sigma_G)+1:\exists p\in G\,[\langle\sigma,p\rangle\in\tau]\}\\
+        & \leq\sup\{\text{rank}(\sigma_G) + 1:\sigma\in\text{dom}(\tau)\}\\
+        & \leq\sup\{\text{rank}(\sigma)+1:\sigma\in\text{dom}(\tau)\}\\
+        & \leq\text{rank}(\tau);
+    \end{align*}
+
+    (2) Since $M\subseteq M[G]$, clearly $M\cap ON\subseteq M[G]\cap ON$. Now, given $\alpha\in M[G]\cap ON$, then $\alpha=\tau_G$ for some $\tau\in M^{\mbb{P}}$, and, by the previous item, $\alpha=\text{rank}(\alpha)=\text{rank}(\tau_G)\leq\text{rank}(\tau)$, but since $\mbb{P}$-names and rank are absolute, then $\text{rank}(\tau)\in M\cap ON$, so $\alpha\in M\cap ON$ and, therefore, $M\cap ON=M[G]\cap ON$;
+
+    (3) Since $M^{\mbb{P}}\subseteq M\subseteq M[G]$, then
+    $$\lvert M[G]\rvert\leq\lvert M^{\mbb{P}}\rvert\leq\lvert M\rvert\leq\lvert M[G]\rvert$$
+\end{proof}
+
+It's almost a miracle that $M[G]$ is, in fact, the minimal transitive model of $\text{ZF}-\mc{P}$ (as we will see) that contains both the elements of $M$ and $G$:
+
+\begin{lemma}{}{}
+    Under the hypothesis of Lemma \ref{lemma_with_hypothesis}, if $N\vDash\text{ZF}-\mc{P}$ is transitive, with $M\subseteq N$ and $G\in N$, then $M[G]\subseteq N$.
+\end{lemma}
+
+\begin{proof}
+    Since $\text{val}$ is absolute, if $\tau,G\in N$, then $\tau_G\in N$.
+\end{proof}
+
+\section{The Forcing Relation}
+
+In order to verify that $M[G]\vDash\text{ZFC}$, the hardest axiom is $\mc{C}$. To illustrate the problem, let $\varphi(x,y)$ be a formula and $\sigma\in M^{\mbb{P}}$, why would $S=\{n\in\omega:(\varphi(n,\sigma_G))^{M[G]}\}\in M[G]$? We need to somehow cook up a name $\tau$ for $S$ for $\varphi$ arbitrary, and we will see that our name will be something like
+\begin{equation}
+    \tau=\{\langle\check{n},p\rangle:n\in\omega\wedge p\in\mbb{P}\wedge p\Vdash\varphi(\check{n},p)\}
+\end{equation}
+where $\Vdash$ is the forcing relation, that roughly says $M[G]\vDash\varphi(\check{n},\sigma)$ whenever $G$ is generic and $p\in G$.
+
+\begin{definition}{}{}
+    The $\mbb{P}$ forcing language $\mc{FL}_{\mbb{P}}$ is $\mc{L}^S$, where $S=\{\in\}\cup V^{\mbb{P}}$.
+\end{definition}
+
+Then we can formalize what does it means to $M[G]\vDash\varphi(\check{n},\sigma)$, when $\sigma$ is a $\mbb{P}$-name:
+
+\begin{definition}{}{}
+    Let $\psi\in\mc{FL}_{\mbb{P}}\cap M$, then $M[G]\vDash\psi$ is interpreted as usual, with $\tau^{M[G]}=\tau_G$.
+\end{definition}
+
+And, finally, we can now define the forcing relation:
+
+\begin{definition}{}{}
+    Let $M$ be a ctm for $\text{ZF}-\mc{P}$, $\mbb{P}\in M$ and $\psi\in\mc{FL}_{\mbb{P}}\cap M$ be a sentence. Then $p\Vdash_{\mbb{P},M}\psi$ iff $M[G]\vDash\psi$ for all $\mbb{P}$-generic filters $G$ over $M$, with $p\in G$.
+\end{definition}
+
+The assumption that $M$ is countable is to guarantee, by Rasiowa-Sirkoski, that such $G$ exists. Note that it's a immediate corollary from the definition that: if $p\Vdash\varphi$ and $q\leq p$, then $q\Vdash\varphi$.
+
+Now, using our $\tau$ defined in (3), we have two major problems: First, why is $\tau\in M^{\mbb{P}}$? To define $\Vdash$ we considered not only one generic filter, but all of them. Second, why does $\tau_G=S$? The first problem is addressed by the Definability Lemma, which roughly says that forcing is definable in $M$, and the second by the Truth Lemma, which says that anything true in $M[G]$ is forced by something. Let's state them without proof by now:
+
+\begin{lemma}{}{}\label{truth_lemma}
+    \textbf{(Truth Lemma)} Let $M$ be a ctm for $\text{ZF}-\mc{P}$, with $\mbb{P}\in M$, $\psi\in\mc{FL}_{\mbb{P}}\cap M$ a sentence and $G$ a $\mbb{P}$-generic filter over $M$. Then
+    $$M[G]\vDash\psi\iff\exists p\in G\,[p\Vdash\psi]$$
+\end{lemma}
+
+Now, naively, the Definability Lemma should be that $\{(p,\psi):p\Vdash\psi\}\in\mc{D}^+(M)$, but, if $\mbb{P}=\{\mathbbm{1}\}$, then every name is of the form $\check{a}$, and $\mathbbm{1}\Vdash\psi$ iff $M\vDash\psi$, which would contradict Tarski's Theorem on Undefinability of Truth. A correct statement is:
+
+\begin{lemma}{}{}\label{definability_lemma}
+    \textbf{(Definability Lemma)} Let $M$ be a ctm for $\text{ZF}-\mc{P}$ and $\varphi(\ol{x})\in\mc{L}^{\{\in\}}$, then
+    $$\left\{(p,\mbb{P},\leq,\mathbbm{1},\ol{\vartheta}):p\in\mbb{P}\wedge\mbb{P}\in M\text{ is a forcing poset}\wedge\ol{\vartheta}\in M^{\mbb{P}}\wedge p\Vdash\varphi(\ol{\vartheta})\right\}\in\mc{D}^-(M)$$
+\end{lemma}
+
+We can, in some sense, talk about the elements of $M[G]$ cooking $\mbb{P}$-names in $M$. In a lot of these cases, the name we gonna cook up will use the forcing relation $\Vdash$, and here is where The Definability Lemma comes in, if we can express $\Vdash$ in $M$, we can do all our work inside $M$, which we know is a model of ZFC. Using such name $\tau$ in $M$, if $p\Vdash\varphi$ appears in it's definition, $\tau_G$ will have something like $\exists p\in G\,[p\Vdash\varphi]$, and then $M[G]\vDash\varphi$ by definition. Conversely, if we know $M[G]\vDash\varphi$, The Truth Lemma gives us the other direction.
+
+With these lemmas in hand, let's prove that $M[G]\vDash\zfc$, we will split this proof in two:
+
+\begin{lemma}{}{}
+    Let $M$ be a ctm for $\text{ZF}-\mc{P}$, $\mbb{P}\in M$ and $G$, $\mbb{P}$-generic over $M$. Then $M[G]\vDash\mc{C},\mc{I}$.
+\end{lemma}
+
+\begin{proof}
+    Let $\varphi(x,z,\ol{v})\in\mc{L}^{\{\in\}}$ without $y$ free, and $N=M[G]$; we must check that
+    $$\forall z,\ol{v}\in N\,\exists y\in N\,\forall x\in N\,[x\in y\leftrightarrow x\in z\wedge\varphi^N(x,z,\ol{v})]$$
+    Let $\pi_G,\ol{\sigma_G}\in N$ (corresponding to $z,\ol{v}$) and let 
+    $$S=\{\vartheta\in\pi_G:\varphi^N(\vartheta,\pi_G,\ol{\sigma_G})\}=\{\vartheta_G:\vartheta\in\text{dom}(\pi)\wedge N\vDash(\vartheta\in\pi\wedge\varphi(\vartheta,\pi,\ol{\sigma}))\}$$
+    then it's sufficient to prove that $S\in N$. Let's then cook a name for it, define:
+    $$\tau=\{\langle\vartheta,p\rangle:\vartheta\in\text{dom}(\pi)\wedge p\in\mbb{P}\wedge p\Vdash(\vartheta\in\pi\wedge\varphi(\vartheta,\pi,\ol{\sigma}))\}$$
+    then $\tau_G=\{\vartheta_G:\vartheta\in\text{dom}(\pi)\wedge\exists p\in G\,[p\Vdash(\vartheta\in\pi\wedge\varphi(\vartheta,\pi,\ol{\sigma}))]\}$. By the Definability Lemma, $\tau\in M^{\mbb{P}}$ and, if $\vartheta_G\in\tau_G$, then $p\Vdash(\vartheta\in\pi\wedge\varphi(\vartheta,\pi,\ol{\sigma}))$, in particular, since $p\in G$ and $G$ is $\mbb{P}$-generic over $M$, then $M[G]=N\vDash(\vartheta\in\pi\wedge\varphi(\vartheta,\pi,\ol{\sigma}))$, so $\vartheta_G\in S$ too.
+
+    Fix now $\vartheta_G\in S$, where $\vartheta\in\text{dom}(\pi)$. Then $N\vDash(\vartheta\in\pi\wedge\varphi(\vartheta,\pi,\ol{\sigma}))$ and, by the Truth Lemma, there is a $p\in G$ such that $p\Vdash(\vartheta\in\pi\wedge\varphi(\vartheta,\pi,\ol{\sigma}))$, then $\langle\vartheta,p\rangle\in\tau$, so $\vartheta_G\in\tau_G$.
+
+    Now, to show $\mc{I}$, since $\omega\in M[G]$, it follows from Lemma \ref{inf_ac_criterion}.
+\end{proof}
+
+Let's now prove that $M[G]\vDash\zfc$ in fact.
+
+\begin{theorem}{}{}
+    If $M$ be a ctm for $\text{ZF}$, $\mbb{P}\in M$ and $G$ a $\mbb{P}$-generic filter over $M$, then $M[G]\vDash\text{ZF}$. Furthermore, if $M\vDash\zfc$, then $M[G]\vDash\zfc$.
+\end{theorem}
+
+\begin{proof}
+    By the previous Lemmas we just need to show that $M[G]\vDash\mc{P},\mc{F},\text{AC}$.
+
+    $\mc{P}$: Let $\tau_G\in M[G]$, we will find a set $b\in M[G]$ such that $\mc{P}(\tau_G)\cap M[G]\subseteq b$. So, working with $\tau$ in $M$, let's find a set big enough so it have names for the elements of $\mc{P}(\tau_G)$. Let $Q=(\mc{P}(\text{dom}(\tau)\times\mbb{P}))^M$, the set of all names $\vartheta\in M^{\mbb{P}}$ such that $\text{dom}(\vartheta)\subseteq\text{dom}(\tau)$. Let then $\pi=Q\times\{\mathbbm{1}\}$ so we have that $b=\pi_G=\{\vartheta_G:\vartheta\in Q\}$. Now, given $\theta_G\in\mc{P}(\tau_G)\cap M[G]$, let's find a name $\vartheta$ for $\theta_G$ in $Q$. Let
+    $$\vartheta=\{\langle\sigma,p\rangle:\sigma\in\text{dom}(\tau)\wedge p\Vdash\sigma\in\theta\}\in Q$$
+    Then $\vartheta\in M$ by the Definability Lemma. So, let $\sigma_G\in\vartheta_G=\{\sigma_G:\exists p\in G\,[p\Vdash\sigma\in\theta]\}$, then $M[G]\vDash\sigma_G\in\theta_G$ and, therefore, $\vartheta_G\subseteq\theta_G$. Now, since $\theta_G\subseteq\tau_G$, then every element $\sigma_G\in\theta_G$ has $\sigma\in\text{dom}(\tau)$ and, by the Truth Lemma, there is some $p\in G$ such that $p\Vdash\sigma\in\theta$, then $\langle\sigma,p\rangle\in\vartheta$ and, therefore, $\sigma_G\in\vartheta_G$.
+
+    $\mc{F}$: If $a\in M[G]$ and $(\forall x\in a\,\exists y\,\varphi(x,y))^{M[G]}$, then, since we now have comprehension, it's sufficient to show that there is a $b\in M[G]$ such that $(\forall x\in a\,\exists y\in b\,\varphi(x,y))^{M[G]}$. So, if $a=\tau_G$, working with $\tau$ in $M$ let's find a set $Q$ of names such that for all $p\in\mbb{P}$ and all $\sigma\in\text{dom}(\tau)$, if there is some name $\vartheta$ such that $p\Vdash\varphi(\sigma,\vartheta)$, then at least one such $\vartheta$ is in $Q$.
+    
+    In order to obtain such $Q$, let's use the Reflection Theorem in $M$, with $A_\alpha=(R(\alpha))^M$ and (using the Definability Lemma) \textcolor{laser_eyes}{how the hell do I use Reflection's Theorem here?}
+
+    Let then $\pi=Q\times\{\mathbbm{1}\}$ and $b=\pi_G$. Now, if $\sigma_G\in a$, for $\sigma\in\text{dom}(\tau)$, then $M[G]\vDash\exists y\,\varphi(\sigma,y)$ by hypothesis, so $M[G]\vDash\varphi(\sigma,\vartheta)$, for some $\vartheta\in M^{\mbb{P}}$. Then, by the Truth Lemma, $p\Vdash\varphi(\sigma,\vartheta)$ for some $p\in G$ and, by definition of $Q$, there is some $\vartheta\in Q$ such that $p\Vdash\varphi(\sigma,\vartheta)$, then $y=\vartheta_G$ is such that $y\in b$ and $(\varphi(\sigma,\vartheta))^{M[G]}$.
+
+    AC: Let $\tau_G\in M[G]$. Working in $M$, well order $\text{dom}(\tau)$ as $\{\sigma^\xi:\xi<\alpha\}$, define $\mathring{f}=\{\langle\text{op}(\check{\xi},\sigma^\xi),\mathbbm{1}\rangle:\xi<\alpha\}$ and let $f=\mathring{f}_G=\{\langle\xi,\sigma_G^\xi\rangle:\xi<\alpha\}:\alpha\to A$, where $\tau_G\subseteq A$. Then, we can well-order $\tau_G$ in $M[G]$ as: $x\lhd y$ iff $\min\{\xi<\alpha:f(\xi)=x\}<\min\{\xi<\alpha:f(\xi)=y\}$. \textcolor{laser_eyes}{Pendent}
+\end{proof}
+
+It's worth noting that, by now, we explained why do we need objects like generic filters $G$ to construct our new model $M[G]$ with the desired properties, but we haven't explained the importance of the ccc condition. This will be clear in subsection \ref{cardinal_collapse}, where we relate the ccc condition with cardinal arithmetic in our new model $M[G]$.
+
+\section{Proof of Truth and Definability Lemmas}
+
+The aim of this subsection is to prove The Truth Lemma \ref{truth_lemma} and The Definability Lemma \ref{definability_lemma}.
+
+\subsection{Motivational Properties}
+
+In order to define $\Vdash$ in $M$, we will do the reverse work, let's use both lemmas to see some properties it satisfies and then define another forcing relation $\Vdash^*$ in $M$ based on those properties. It then remains to see they are sufficient so that $\Vdash$ and $\Vdash^*$ coincide in $M$.
+
+\begin{lemma}{}{}\label{forcing_logical_properties}
+    For any forcing poset $\mbb{P}\in M$ and sentences $\varphi,\psi\in\mc{FL}_{\mbb{P}}\cap M$:
+    \begin{enumerate}
+        \item No $p$ force both $\varphi$ and $\neg\varphi$;
+        \item If $\varphi,\psi$ are logically equivalent, then $p\Vdash\varphi$ iff $p\Vdash\psi$;
+        \item If $p\Vdash\varphi$ and $q\leq p$, then $q\Vdash\varphi$;
+        \item $p\Vdash\varphi\wedge\psi$ iff $p\Vdash\varphi$ and $p\Vdash\psi$;
+        \item $p\Vdash\neg\varphi$ iff $\nexists q\leq p\,[q\Vdash\varphi]$;
+        \item \textcolor{laser_eyes}{Other connectives that follows from 4 and 5}
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    1. Since $M$ is a ctm, there is always a generic $G$, with $p\in G$. Then clearly we cannot have $M[G]\vDash\varphi$ and $M[G]\vDash\neg\varphi$;
+
+    2. $p\Vdash\varphi$ iff $M[G]\vDash\varphi$ for all generic $G$, with $p\in G$, iff $M[G]\vDash\psi$ (since they are logically equivalent), iff $p\Vdash\psi$, as desired;
+
+    3. If $G$ is generic with $q\in G$, then, since it's a filter, and $q\leq p$, then $p\in G$ and, therefore, $p\Vdash\varphi$ implies that $M[G]\vDash\varphi$, so $q\Vdash\varphi$;
+
+    4. Trivially follows from $N\vDash\varphi\wedge\psi$ iff $N\vDash\varphi$ and $N\vDash\psi$;
+
+    5. $(\Rightarrow)$ If $q\Vdash\varphi$, for some $q\leq p$, by items (3) $p\Vdash\neg\varphi$ would imply that $q\Vdash\neg\varphi$, contradicting (1);
+
+    $(\Leftarrow)$ If $p\nVdash\neg\varphi$, then there is some generic $G$, with $p\in G$, such that $M[G]\vDash\varphi$. By the Truth Lemma, there is some $r\in G$ such that $r\Vdash\varphi$ and, since it's a filter, let $q\leq r,p$, then by item (3) we have that $q\Vdash\varphi$.
+
+    6. \textcolor{laser_eyes}{Pendent}
+\end{proof}
+
+In fact, the same argument we used to prove item (5) yields:
+
+\begin{lemma}{}{}\label{q<=p_q_Vdash_phi}
+    If $G$ is $\mbb{P}$-generic over $M$, and $M[G]\vDash\varphi$, with $p\in G$, then there is a $q\in G$ such that $q\leq p$ and $q\Vdash\varphi$.
+\end{lemma}
+
+Let's now see how $\Vdash$ behaves with quantification:
+
+\begin{lemma}{}{}
+    For any forcing poset $\mbb{P}\in M$ and $\varphi(x)\in\mc{FL}_{\mbb{P}}\cap M$:
+    \begin{enumerate}
+        \item $p\Vdash\forall x\,\varphi(x)\text{ iff }p\Vdash\varphi(\tau)\text{ for all }\tau\in M^{\mbb{P}}$;
+        \item \textcolor{laser_eyes}{Same, but for $\exists$, which follows by the previous lemmas}
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    1. Is also trivial by definition, $p\Vdash\forall x\,\varphi(x)$ iff $M[G]\vDash\forall x\,\varphi(x)$ for all generic $G$, with $p\in G$, which is equivalent to $M[G]\vDash\varphi(\tau)$ for all $\tau\in M^{\mbb{P}}$ and $G$ generic containing $p$.
+
+    2. \textcolor{laser_eyes}{Pendent}
+\end{proof}
+
+
+
+\textcolor{laser_eyes}{Pendent}
+
+\subsection{Definition of \texorpdfstring{$\Vdash^*$}{Vdash*}}
+
+\textcolor{laser_eyes}{Pendent}
+
+\section{Cardinal Collapse}\label{cardinal_collapse}
+
+Throughout this subsection, let $M$ be a ctm for ZFC. In order to discuss cardinal arithmetic in $M[G]$, let's pin down what the cardinal are. Although $M$ and $M[G]$ have the same ordinals, they need not have the same cardinals, as we will see.
+
+In fact, let $\mbb{P}=\text{Fn}(I,J)$, with $I,J\in M$ infinite, and let $G$ be $\mbb{P}$-generic over $M$, with $f=\bigcup G$. Then $f\in M[G]$ and, as we saw in Lemma \ref{MA(kappa)_kappa<c}, since all those dense sets $D_i,R_j$ and $E_h$ are in $M$ by absoluteness, $f$ is a function from $I$ onto $J$.
+
+Consider then $I=\omega$ and $J=\omega_5^M$, then $\omega^M=\omega$ by absoluteness, but $\omega_5^M$ is some countable ordinal, although $M$ believes that it's the fifth uncountable cardinal. But $M[G]$ contains a map $f$ from $\omega$ onto $\omega_5^M$, so $M[G]$ knows that $\omega_5^M$ is countable, this phenomena is called cardinal collapse.
+
+\begin{definition}{}{}
+    For a forcing poset $\mbb{P}\in M$:
+    \begin{enumerate}
+        \item $\mbb{P}$ preserves cardinals iff for all generic $G$:
+        $$(\beta\text{ is a cardinal})^M\text{ iff }(\beta\text{ is a cardinal})^{M[G]}\text{, for all }\beta<o(M)$$
+        \item $\mbb{P}$ preserves cofinality iff for all generic $G$:
+        $$\cf^M(\gamma)=\cf^{M[G]}(\gamma)\text{, for all limit }\gamma<o(M)$$
+    \end{enumerate}
+\end{definition}
+
+Note that $\cf^M(\gamma)\geq\cf^{M[G]}(\gamma)$, for all limit $\gamma<o(M)$, since we have that
+$$\cf(\gamma)=\min\{\text{ot}(X):X\subseteq\gamma\wedge\sup(X)=\gamma\}$$
+and, by absoluteness of $\text{ot}(X)$, if $X\in M$ witnesses $\cf^M(\gamma)$, then $X\in M[G]$ also guarantees us that $\cf^{M[G]}(\gamma)\leq\text{ot}^{M[G]}(X)=\text{ot}^M(X)=\cf^M(\gamma)$.
+
+The next lemma says that, to guarantee $\mbb{P}$ preserves cardinals, it's sufficient to study when all limit $\beta$ remains regular from $M$ to $M[G]$, with $\omega<\beta<o(M)$.
+
+\begin{lemma}{}{}
+    For a forcing poset $\mbb{P}\in M$:
+    \begin{enumerate}
+        \item $\mbb{P}$ preserves cofinalities iff for all generic $G$:
+        $$(\beta\text{ is regular})^M\to(\beta\text{ is regular})^{M[G]}\text{, for all limit }\beta\text{ with }\omega<\beta<o(M)$$
+        \item If $\mbb{P}$ preserves cofinalities, then $\mbb{P}$ preserves cardinals.
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    1. $(\Rightarrow)$ is trivial.
+
+    $(\Leftarrow)$ \textcolor{laser_eyes}{Pendent}
+
+    2. Given a cardinal $\kappa$, either $\kappa\leq\omega$, and then we know both $M$ and $M[G]$ have it, or $\kappa$ is regular, and we saw they're the same in $M$ and $M[G]$, or $\kappa$ is singular, then $\kappa=\aleph_\eta$ for some limit $\eta$. So
+    $$\sup\{\aleph_\xi:\xi<\eta\}=\aleph_\eta=\sup\{\aleph_{\xi+1}:\xi<\eta\}$$
+    and, since every successor cardinal is regular, the singular cardinals are the same.
+\end{proof}
+
+It remains to find a good condition for when $\mbb{P}$ does preserves cofinalities, and here is where the condition that $\mbb{P}$ is ccc appears as an important concept.
+
+\begin{theorem}{}{}\label{ccc->preserve_cardinals}
+    If $\mbb{P}\in M$ and $(\mbb{P}\text{ is ccc})^M$, then $\mbb{P}$ preserves cofinalities and, hence, cardinals too.
+\end{theorem}
+
+In order to prove such theorem, we need the following ``approximation lemma'', where if $f:A\to B$ in $M[G]$, then $f$ is not necessarily in $M$, but we can, within $M$, pick out a countable set of possible values for each $f(a)$.
+
+\begin{lemma}{}{}
+    Let $\mbb{P}\in M$, $(\mbb{P}\text{ is ccc})^M$, and $A,B\in M$. If $G$ is $\mbb{P}$-generic over $M$ and $f\in M[G]$, with $f:A\to B$, then there is an $F:A\to\mc{P}(B)$ with $F\in M$ such that for all $a\in A$, $f(a)\in F(a)$ and $(\lvert F(a)\rvert\leq\aleph_0)^M$.
+\end{lemma}
+
+\begin{proof}
+    Let $\mathring{f}_G=f$, then $\varphi\equiv(\mathring{f}:\check{A}\to\check{B})\in\mc{FL}_{\mbb{P}}\cap M$ is true in $M[G]$ and, by the Truth Lemma, there is some $p\in G$ such that $p\Vdash\varphi$. Now, let $F:A\to\mc{P}(B)$ be such that
+    $$F(a)=\{b\in B:\exists q\leq p\,[q\Vdash\mathring{f}(\check{a})=\check{b}]\}$$
+    Then $F\in M$ by the Definability Lemma.
+    
+    To see $f(a)\in F(a)$: Let $b=f(a)$, then $M[G]\vDash\mathring{f}(\check{a})=\check{b}$, so by Lemma \ref{q<=p_q_Vdash_phi}, there is a $q\leq p$ in $G$ such that $q\Vdash\mathring{f}(\check{a})=\check{b}$, then $b\in F(a)$.
+
+    To see $(\lvert F(a)\rvert\leq\aleph_0)^M$: Given $b\in F(a)$, let $q_b\leq p$ be such that $q_b\Vdash\mathring{f}(\check{a})=\check{b}$ then, since $\mathring{f}_G$ is a function, $q_b$ are pairwise incompatible. Furthermore, we can let $b\mapsto q_b$ be in $M$ using the Definability Lemma and $AC^M$. Now, in $M$, since $b\neq c\Rightarrow q_b\perp q_c$, then by ccc $\lvert F(a)\rvert\leq\aleph_0$.
+\end{proof}
+
+Let's now proceed to the proof of Theorem \ref{ccc->preserve_cardinals}
+
+\begin{proof}
+    Let $\omega<\beta<o(M)$ a limit ordinal, with $(\beta\text{ is regular})^M$. If $\beta$ is not regular in $M[G]$, then there is some $X\in M[G]$ cofinal in $\beta$ such that $\alpha:=\text{ot}(X)<\beta$. Let $f:\alpha\to X$ be the order preserving bijection, then $f:\alpha\to\beta$ and there is an $F:\alpha\to\mc{P}(\beta)$ as in the previous lemma. Let $Y=\bigcup_{\xi<\alpha}F(\xi)$, then $Y\subseteq\beta$ and $\sup(Y)=\beta$.
+
+    So, within $M$, $Y=\sup_{\xi<\alpha}F(\xi)$ is a union of $\alpha<\beta$ countable sets, then $\lvert Y\rvert<\beta$, so we have that $\cf(\beta)\leq\lvert Y\rvert<\beta$, contradicting that $\beta$ is an uncountable regular cardinal.
+\end{proof}
+
+\section{Models for \texorpdfstring{$\zfc+\neg\text{CH}$}{zfc+negch}}
+
+We now have all the tools to construct a model of $\zfc+\neg\text{CH}$.
+
+\begin{lemma}{}{}\label{lower_bound_nch}
+    If $\alpha<o(M)$, $\kappa=(\aleph_\alpha)^M$, $\mbb{P}=\text{Fn}(\kappa\times\omega,2)$ and $G$ be $\mbb{P}$-generic over $M$, then
+    $$M[G]\vDash2^{\aleph_0}\geq\aleph_\alpha$$
+\end{lemma}
+
+\begin{proof}
+    $(\mbb{P}\text{ is ccc})^M$ by Lemma \ref{Fn(I,J)_has_ccc} so, by Theorem \ref{ccc->preserve_cardinals} we also have $\kappa=(\aleph_\alpha)^{M[G]}$. Furthermore, as in the proof of Lemma \ref{MA(kappa)_kappa<c}, $f_G=\bigcup G:\kappa\times\omega\to 2$, which we can think of as a family of functions $h_\alpha:\omega\to 2$, for each $\alpha<\kappa$, where $h_\alpha(n)=f_G(\alpha,n)$. Now, for $\alpha<\beta<\kappa$, the dense sets
+    $$E_{\alpha,\beta}=\{p\in\mbb{P}:\exists n\,[(\alpha,n),(\beta,n)\in\text{dom}(p)\wedge p(\alpha,n)\neq p(\beta,n)]\}$$
+    are also in $M$, which means $G$ meets these too, so $h_\alpha$ are all different functions.
+
+    Then $\{h_\alpha:\alpha<\kappa\}$ is a set of $\kappa$ different elements of $\mc{P}(\omega)$, so $\lvert\mc{P}(\omega)\rvert=2^{\aleph_0}\geq\kappa=(\aleph_\alpha)^{M[G]}$.
+\end{proof}
+
+Let's now prove an really interesting theorem, sometimes referenced by Solovay's article '$2^{\aleph_0}$ can be anything it ought to be'. It say's $\mf{c}$ can be exatly $\aleph_\alpha$, whenever this does not contradict König's Theorem, i.e., whenever $\aleph_\alpha>\omega$, with $\cf(\aleph_\alpha)>\omega$.
+
+\begin{definition}{}{}
+    A nice name for a subset of $\tau\in V^{\mbb{P}}$ is a name of the form
+    $$\bigcup\{\{\sigma\}\times A_\sigma:\sigma\in\text{dom}(\tau)\}$$
+    where each $A_\sigma$ is an antichain in $\mbb{P}$.
+\end{definition}
+
+\begin{lemma}{}{}
+    Let $\tau\in V^{\mbb{P}}$ and $\mbb{P}$ be ccc. Then, if $\kappa=\lvert\mbb{P}\rvert,\lambda=\lvert\text{dom}(\tau)\rvert\geq\omega$, there are no more than $\kappa^\lambda$ nice names for subsets of $\tau$.
+\end{lemma}
+
+\begin{proof}\label{nice_names_size}
+    Since $\mbb{P}$ is ccc, there are no more than $\lvert[\kappa]^{\leq\omega}\rvert=\kappa^{\aleph_0}$ antichains in it, hence no more than $(\kappa^{\aleph_0})^\lambda=\kappa^{\aleph_0\cdot\lambda}=\kappa^\lambda$ nice names for subsets of $\tau$.
+\end{proof}
+
+Let's now see every subset of $\tau$ is named by a nice name
+
+\begin{lemma}{}{}\label{nice_names_for_subsets}
+    If $\mbb{P}\in M$ and $\tau,\mu\in M^{\mbb{P}}$, then there is a nice name $\vartheta\in M^{\mbb{P}}$ for a subset of $\tau$ such that $\mathbbm{1}\Vdash(\mu\subseteq\tau\to\mu=\vartheta)$.
+\end{lemma}
+
+\begin{proof}
+    Within $M$, given $\sigma\in\text{dom}(\tau)$, we can consider (using the Definability Lemma)
+    $$\mc{A}_\sigma=\{A\in\mbb{P}:A\text{ is an antichain}\wedge\forall p\in A\,[p\Vdash\sigma\in\mu]\}$$
+    Then, $\mc{A}_\sigma\neq\emptyset$, since $\emptyset\in\mc{A}_\sigma$. Now, if $C$ is a chain in $\mc{A}_\sigma$, then $A=\bigcup C$ is such that, if $p,q\in A$, then $p\in A_1$ and $q\in A_2$, for $A_1,A_2\in C$. But, since $C$ is a chain, assume WLOG that $A_1\subseteq A_2$, then $p,q\in A_2$, which is an antichain, so $p\perp q$ and, therefore, $A$ is also antichain.
+
+    Now, if $p\in A$, then $p\in A'$ for some $A'\in C$ and, by definition, $p\Vdash\sigma\in\mu$, so $A\in\mc{A}_\sigma$ is an upper bound for $C$. Now, by Zorn's Lemma, we know there is a maximum $A_\sigma$ in $(\mc{A}_\sigma,\subseteq)$.
+
+    Let $\vartheta=\bigcup\{\{\sigma\}\times A_\sigma:\sigma\in\text{dom}(\tau)\}$. For a $\mbb{P}$-generic filter $G$ over $M$, assume $\mu_G\subseteq\tau_G$, then:
+
+    $(\subseteq)$: If $\sigma_G\in\vartheta_G$, with $\langle\sigma,p\rangle\in\vartheta$, for some $p\in G$ then, by definition of $\vartheta$, $p\Vdash\sigma\in\mu$, so $\sigma_G\in\mu_G$;
+
+    $(\supseteq)$: If $\sigma_G\in\mu_G\setminus\vartheta_G$, since $\mu_G\subseteq\tau_G$, then we can let $\sigma\in\text{dom}(\tau)$. So $M[G]\vDash(\sigma\in\mu\wedge\sigma\notin\vartheta)$ and, by the Truth Lemma, let $q\in G$ be such that $q\Vdash \sigma\in\mu$ and $q\Vdash\sigma\notin\vartheta$, then, if $p\in A_\sigma$, we have $\langle\sigma,p\rangle\in\vartheta$, so $p\Vdash\sigma\in\vartheta$, contrary to $q\Vdash\sigma\notin\vartheta$. Then, by Lemma \ref{forcing_logical_properties} (1) and (3), we have $p\perp q$, but $\langle\sigma,q\rangle\notin\vartheta$, then $q\notin A_\sigma$, contradicting its maximality.
+\end{proof}
+
+We now have an upper bound:
+
+\begin{lemma}{}{}\label{upper_bound_nch}
+    Assume $M$ proves that: $\mbb{P}\in M$ is ccc and $\kappa=\lvert\mbb{P}\rvert,\lambda,\delta$ are infinite cardinals with $\delta=(\kappa^\lambda)^M$. If $G$ be $\mbb{P}$-generic over $M$, then $(2^\lambda\leq\delta)^{M[G]}$.
+\end{lemma}
+
+\begin{proof}
+    Within $M$: By Lemma \ref{nice_names_size}, since $\check{\lambda}=\{\langle\check{\xi},\mathbbm{1}\rangle:\xi<\lambda\}$ has size $\lambda$, we can list all the nice names for subsets of $\check{\lambda}$ as $\{\vartheta_\zeta:\zeta<\delta\}$. Then, let $\mathring{f}=\{\langle\text{op}(\check{\zeta},\vartheta_\zeta),\mathbbm{1}\rangle:\zeta<\delta\}$.
+
+    Within $M[G]$: $\mathring{f}_G$ is a function with domain $\delta$ and $\mathring{f}_G(\zeta)=(\vartheta_\zeta)_G$. Furthermore, if $s\subseteq\lambda$, with $s\in M[G]$, then $s=\mu_G$ for some $\mu$ and, by Lemma \ref{nice_names_for_subsets}, there is some $\zeta$ such that $\mathbbm{1}\Vdash(\mu\subseteq\check{\lambda}\to\mu=\vartheta_\zeta)$, so $\mathring{f}_G(\zeta)=\mu_G$. Thus we have $\mc{P}(\lambda)\subseteq\text{Im}(\mathring{f}_G)$ and, therefore, $(2^\lambda\leq\delta)^{M[G]}$.
+\end{proof}
+
+In particular, we can now prove the following:
+
+\begin{theorem}{}{}
+    If $(\kappa=\aleph_\alpha\wedge\kappa^{\aleph_0}=\kappa)^M$, let $\mbb{P}=\text{Fn}(\kappa\times\omega,2)$ and let $G$ be $\mbb{P}$-generic over $M$, then
+    $$M[G]\vDash(2^{\aleph_0}=\aleph_\alpha=\kappa)$$
+\end{theorem}
+
+\begin{proof}
+    Since $\kappa=(\aleph_\alpha)^M$, Lemma \ref{lower_bound_nch} guarantees that $M[G]\vDash2^{\aleph_0}\geq\aleph_\alpha$. Now, applying Lemma \ref{upper_bound_nch} for $\lambda=\aleph_0$ and $\kappa=\lvert\mbb{P}\rvert=\aleph_\alpha$, we have $M[G]\vDash2^{\aleph_0}\leq\delta=\kappa^{\aleph_0}=\kappa=\aleph_\alpha$.
+\end{proof}
+
+As a corollary we can prove a really interesting result that says the continuum can consistently be any cardinal of uncountable cofinality.
+
+\begin{corollary}{}{}
+    Assuming $\con(\zfc)$, let $\kappa$ be any cardinal with uncountable cofinality, then there is a ctm for ZFC where $\mf{c}=\kappa$ and $\forall\lambda\geq\mf{c}\,[2^\lambda=\lambda^+]$.
+\end{corollary}
+
+\begin{proof}
+    Since $\con(\zfc)$, by Mostowski Collapsing Lemma there is a ctm $N$ for ZFC, then let $M=L(o(N))\vDash\zfc+V=L$. Since $V=L\to\text{GCH}$, which implies that $\cf(\kappa)>\omega$ iff $\kappa^{\aleph_0}=\kappa$, then, by the previous theorem, $M[G]\vDash(\mf{c}=\kappa)$. \textcolor{laser_eyes}{Pendent}
+\end{proof}
+
+\todo{Add References}

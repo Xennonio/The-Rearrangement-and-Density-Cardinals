@@ -1,0 +1,567 @@
+\chapter{The Constructible Universe \texorpdfstring{$L$}{L}}
+
+\section{About Inner Model Theory}\label{inner_model_theory}
+
+From here on, we will construct some kind of ``Inner Models'' of Set Theory, namely $L$ and HOD. In fact, such models assume we already have a model $M$ of ZFC, then we actually should denote them by $L^M$ and $\text{HOD}^M$.
+
+We can give an intuitive idea on how the method of inner models work using a simpler example. Let $\Phi$ be the axioms of a group, we already know that the property of being abelian, i.e., $\varphi=\forall x,y(x\cdot y=y\cdot x)$ is independent of $\Phi$, since there are a lot of abelian and non abelian groups. In fact, we can show $\varphi$ is consistent with $\Phi$ by exhibiting an inner model: Assume $\con(\Phi)$, then there is a $G\vDash\Phi$ and, in particular, we know $Z^G\vDash\Phi+\varphi$, where $Z^G$ is the center of $G$.
+
+For the constructible universe $L$, a better analogy would be to consider the inner model $E^G=\{e_G\}$, where we only have the identity element of $G$. Clearly $E^G$ is the minimal inner model, just as $L^M$.
+
+The only difference from set theory is that we can't actually show that $\con(\Phi)\to\con(\Phi+\varphi)$, since the theory of groups is way weaker than $\zfc$.
+
+\section{More on Absoluteness}
+\todo{I will complete it when needed}
+
+This subsection, although filled with a lot of boring proofs, will be important in general to avoid future stress. In particular, we will prove a useful criterion to verify when a transitive set is a model for ZF, which will simplify our future proofs for $L$ and HOD.
+
+As a first example of the importance of Regularity Axiom, we have the following Lemma who shows that notions like ``ordinal'', and related concepts, now become absolute over transitive models.
+
+\begin{lemma}{}{}
+    The following notions are equivalent to formulas BST proves are equivalent to $\Delta_0$ formulas and, therefore, absolute over transitive models of BST:
+    \begin{multicols}{2}
+        \begin{enumerate}
+            \item $x$ is transitive;
+            \item $x$ is an ordinal;
+            \item $x$ is a successor ordinal;
+            \item $x$ is a finite ordinal;
+            \item $x$ is a limit ordinal;
+            \item $x=\omega$.
+        \end{enumerate}
+    \end{multicols}
+\end{lemma}
+
+It should also be useful to remember the observation of subsection \ref{absoluteness_and_power_set_axiom} about absoluteness.
+
+\begin{proof}
+    1. $x$ is transitive iff $\forall y\in x(\forall z\in y(z\in x))$;
+
+    2. $x$ is an ordinal iff $x$ is transitive (which we already saw is absolute) and it's well ordered by $\in$. If we look at the definition of well ordering we will see every condition is relativized to $x$ itself, since it's all about elements of it, then it's already a $\Delta_0$ formula;
+
+    3. $x$ is a successor ordinal iff it's an ordinal (absolute) and $x=S(y)$ for some $y$ also an ordinal. But we saw in subsection \ref{absoluteness_and_power_set_axiom} that $x=S(y)$ is equivalent to a $\Delta_0$ formula;
+
+    4. $x$ is a finite ordinal iff $x$ is an ordinal and $\forall y\in x(y=0\vee\text{``$y$ is a successor ordinal''})$;
+
+    5. $x$ is a limit ordinal iff it's an ordinal that is not successor;
+
+    6. $x=\omega$ iff $x$ is a limit ordinal and $\forall y\in x(\text{``$y$ is a successor ordinal''})$.
+\end{proof}
+
+Let's now use it to prove that some other concepts are also absolute.
+
+\begin{lemma}{}{}\label{absoluteness_all_basic}
+    The following are absolute over transitive models of BST:
+    \begin{enumerate}
+        \item The $2$-ary function $\cup$ and the $1$-ary function $\bigcup$;
+        \item The ternary relation $\{x,y\}=z$;
+        \item The $2$-ary function $x,y\mapsto\{x,y\}$;
+        \item The properties: $z$ is an ordered pair, and $x$ is a relation;
+        \item $\text{dom}(x)$ and $\text{Im}(x)$;
+        \item The properties: $f$ is a function, injectiveness and surjectiveness;
+        \item The function $x,y\mapsto x\times y$;
+        \item $R$ being transitive, reflexive, irreflexive, symmetric and satisfying trichotomy.
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    1. $y=a\cup b$ if, and only if, $\forall x\in y(x\in a\vee x\in b)$, similarly we have
+    $$y=\bigcup x\iff\forall z\in x(z\subseteq y)\wedge\forall w\in y\;\exists v\in x(w\in v);$$
+    2. and 3. $z=\{x,y\}$ if, and only if, $\forall w\in z(z=x\vee z=y)\wedge x\in z\wedge y\in z$, but BST also proves that for all $x$ and $y$, there is a unique $z$ such that $z=\{x,y\}$, then we can define such function;
+    
+    4. By the previous item, $z=(x,y)$ is also absolute and, therefore, $z$ is an ordered pair if, and only if, $\exists w\in z\;\exists x,y\in w(z=(x,y))$. Then, $x$ is a relation iff $\forall y\in x(\text{``$y$ is an ordered pair''})$.
+
+    5. We have that $y=\text{dom}(x)$ if, and only if
+    $$\forall z\in y\,\exists w\in\bigcup\bigcup x\,[(z,w)\in x]\wedge\forall z,w\in\bigcup\bigcup x\,[(z,w)\in x\to z\in y]$$
+    Similarly for $y=\text{Im}(x)$.
+
+    6. Using the previous items, $f$ is a function if, and only if
+    $$\forall x\in\text{dom}(f)\,\exists!y\in\text{Im}(f)\,[(x,y)\in f]\equiv\forall x\in\text{dom}(f)\,\forall y,z\in\text{Im}(f)\,[(x,y)\in f\wedge(x,z)\in f\to y=z]$$
+    also, $f$ is injective iff $\forall x,y\in\text{dom}(f)\;[f(x)=f(y)\to x=y]$, surjectiveness is similar.
+
+    7. We have that $z=x\times y$ if, and only if
+    $$\forall a\in x\,\forall b\in y\,[(a,b)\in z]\wedge\forall w\in z\,\exists a\in x\,\exists b\in y\,[w=(a,b)]$$
+
+    8. This is easy to see, since all these definitions quantify over $R\subseteq A^2$ or $A$.
+\end{proof}
+
+\textcolor{laser_eyes}{Absoluteness of Ordinals Operations and Relations}
+
+We can finally show ``finite'' and ``hereditarily finite'' are absolute over transitive models of BST.
+
+\begin{lemma}{}{}\label{absoluteness_of_hf}
+    Let $M$ be a transitive model of BST, then
+    \begin{enumerate}
+        \item $[M]^{<\omega}\subseteq M$;
+        \item $HF\subseteq M$;
+        \item $M^{<\omega}\subseteq M$.
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    1. We will prove it by (metatheorical) induction over $\omega$. Clearly $[M]^0=\{\emptyset\}\subseteq M$. Now, assume $[M]^n\subseteq M$, clearly every $x\in[M]^{n+1}$ can be written as a union $y\cup\{a\}$, where $a\notin y\in[M]^n$ and $a\in M$. In fact, by Lemma \ref{absoluteness_all_basic}, the functions $x,y\mapsto\{x,y\}$ and $a,b\mapsto a\cup b$ are absolute. In particular, given $a\in M$ and $y\in[M]^n$, we have $\{a,a\}=\{a\}\in M$ and $y\cup\{a\}\in M$.
+
+    2. Let's also use induction over $\omega$. Trivially $R(0)=\emptyset\subseteq M$. Now, if $R(n)\subseteq M$, then, given $x\in R(n+1)=\mc{P}(R(n))$, we have $x\subseteq R(n)\subseteq M$, then $x\subseteq M$ and, since $R(n)$ is finite, for every $n\in\omega$, then $x$ is also finite and, therefore, $x\in[M]^{<\omega}\subseteq M$, then, by transitivity, $x\in M$.
+
+    3. Again, by induction, the proof is similar to (1). If $f:0\to M$, then $f=\emptyset\in M$. Now, given that every $g:n\to M$ is in $M$, let $f:n+1\to M$. Clearly $f=(f\restriction_n)\cup\{(n,f(n))\}$, where $f\restriction_n:n\to M$ is in $M$ by hypothesis. Now, $f(n)\in M$, since $f:n+1\to M$, and $n\in M$, since by Lemma \ref{absoluteness_all_basic}, being natural is absolute and, by $(2)$, $HF\subseteq M$. We then have that $\{(n,f(n))\}\in M$ by the same lemma we used in (1), and also $f$ itself, since it's the union of both.
+\end{proof}
+
+The following is the criterion we talked about in the start of this subsection. In fact it's fairly easy to prove that, under such hypothesis, we have that $M\vDash\text{ZF}-\mc{I}$, the problem is for infinity, where now we have a really nice proof using absoluteness of $HF$ over transitive models of BST.
+
+\begin{lemma}{}{}\label{criterion_models_zf}
+    Let $M$ be a transitive class satisfying Comprehension. If for every $x\subseteq M$, there is a $y\in M$ such that $x\subseteq y$, then $M\vDash\text{ZF}$.
+\end{lemma}
+
+\begin{proof}
+    $M\vDash\mc{C}$ by hypothesis and $M\vDash\mc{R}$ by regularity. Now, by Lemma \ref{basic_axioms_criterion}: since $M$ is transitive, $M\vDash\mc{E}$. Also, given $\mc{F}\in M$, then $x\in\bigcup\mc{F}$ iff $x\in y$ for some $y\in\mc{F}\in M$, by transitivity of $M$ we have $x\in M$, then $\bigcup\mc{F}\subseteq M$ and, by hypothesis, there is some $y\in M$ such that $\bigcup\mc{F}\subseteq y$ and, by the Comprehension Axiom we can conclude that
+    $$\bigcup\mc{F}=\{x\in y:\exists z\in\mc{F}\;(x\in z)\}\in M$$
+    And, for Substitution, let $f:z\to M$, with $z\in M$. Since $\text{Im}(f)\subseteq M$, then there is some $y\in M$ such that $\text{Im}(f)\subseteq y$ and, also by the Comprehension Axiom:
+    $$\text{Im}(f)=\{x\in y:\exists w\in z\;(x=f(z))\}\in M$$
+
+    Now, by Lemma \ref{power_set_criterion}, clearly $M\vDash\mc{P}$.
+
+    Finally, by Lemma \ref{absoluteness_of_hf}, since $M\vDash\text{BST}$ and it's transitive, then $HF\subseteq M$. In particular, $\omega\subseteq M$, then there is some $y\in M$ such that $\omega\subseteq y$ and, again by Comprehension
+    $$\omega=\{n\in y:n\text{ is finite}\}\in M$$
+    by absoluteness of finiteness and by Lemma \ref{inf_ac_criterion} we have that $M\vDash\mc{I}$.
+\end{proof}
+
+The following Theorem will be crucial in the proof that $(V=L)^L$, it basically guarantees us that, if we define some function $F$ with domain $A$ recursively using the constructor $G$, and both $A$ and $G$ are absolute, then $F$ is also. We will state the more general statement using any $R$ well founded.
+
+\begin{theorem}{}{}\label{absoluteness_recursion}
+    Let $R$ be a well founded relation on $A$ and $F$ be defined by recursion on $A$ using $G$, i.e., where $\forall a\in A\,[F(a)=G(a,F\restriction_{\text{pred}(a)})]$ and $F(a)=\emptyset$ for $a\notin A$. If $M\vDash\text{ZF}-\mc{P}$ is transitive, $R$, $A$ and $G$ are absolute over $M$, and $\text{pred}(a)\subseteq M$ whenever $a\in M$, then $F^M(a)$ is defined for all $a\in M$, and $F$ is absolute for $M$.
+\end{theorem}
+
+\begin{proof}
+    Note that $(R\text{ is well founded on }A)^M$, since any $\emptyset\neq X\in M$ with $X\subseteq A$ that doesn't have a $R$-minimal element would contradict the well foundedness of $R$. Also, $a\mapsto\text{pred}(a)$ is absolute for $M$, since $x=\text{pred}(a)$ iff $\forall y\in x(yRa)\wedge\forall b\in A(bRa\to b\in x)$. Now, using the Recursion Theorem, $F^M$ is defined and, by absoluteness of $G$, if $F\restriction_{\text{pred}(a)}=F^M\restriction_{\text{pred}(a)}$, then $F(a)=F^M(a)$.
+
+    Finally, if $F$ were not absolute, we could find a $R$-minimal element $a$ of $\{a\in M:F(a)\neq F^M(a)\}$, but then $F(b)=F^M(b)$ for every $bRa$ and, then, $F\restriction_{\text{pred}(a)}=F^M\restriction_{\text{pred}(a)}$, a contradiction.
+\end{proof}
+
+\section{Mostowski Collapse Lemma}
+
+For everything we saw until now, transitive sets are really well behaved and it would be really cool if we could always work with a transitive model. This subsection will be devoted exactly to the proof of the following more general fact, called Mostowski Collapse Lemma:
+
+\begin{lemma}{}{}
+    \textbf{(Mostowski Collapse)} Let $(B,\in)$ be a model of Extensionality and let $\kappa\leq\lvert B\rvert$ be any infinite cardinal. Fix $S\subseteq B$ such that $S$ is transitive and $\lvert S\rvert\leq\kappa$. Then there is a transitive $M$ such that $S\subseteq M$, $(M,\in)\equiv(B,\in)$ and $\lvert M\rvert=\kappa$.
+\end{lemma}
+
+This is also called transitive collapse, and, as we will see in the proof, is a stronger corollary to the fact that for any model $(B,\in)$ of Extensionality, there are unique $M$ and $\pi$ such that $\pi:(B,\in)\cong(M,\in)$. Before giving its proof, let's motivate with the following sketch:
+
+Since $\in$ is metatheoretically well-founded and extensional in $B$, we can look at the $\in$-minimal elements $b_0$ of $B$ and send them to $0$. Then we take the next $\in$-smallest sets $b_1$ and send to $1=\{0\}$. The following definition capture formally this idea using transfinite recursion:
+
+\begin{definition}{}{}
+    Given a well-founded relation $R$ on $A$ define recursively, for $y\in A$,
+    $$\text{mos}_R(y)=\{\text{mos}_R(x):xRy\}$$
+\end{definition}
+
+For our specific case, $R=\in$ and $\text{mos}(y)=\{\text{mos}(x):x\in y\}$, this will be our unique isomorphism $\pi$. Technically we should write $x\in A$ and $xRy$ in the definition of $\text{mos}_R(y)$, but it should be clear that this is the only way it would make sense.
+
+Clearly by definition $\text{mos}_R[A]$ is always a transitive set. The following lemma justifies the additional assumption that $B$ should satisfy Extensionality Axiom.
+
+\begin{lemma}{}{}\label{mostowski-lemma}
+    If $R$ is well-founded on $A$, then $\text{mos}_R$ is injective iff $(A,R)$ satisfies Extensionality, in which case $\text{mos}:(A,R)\cong(\text{mos}[A],\in)$, i.e., it gives us an isomorphism.
+\end{lemma}
+
+\begin{proof}
+    $(\Rightarrow)$ If $(A,R)$ doesn't satisfy Extensionality, then there are $a,b\in A$, with $a\neq b$, such that $\forall x(xRa\leftrightarrow xRb)$, then $\text{mos}(a)=\text{mos}(b)$ and it's not injective.
+
+    $(\Leftarrow)$ Assume for the sake of a contradiction that $(A,R)$ satisfy Extensionality and $\text{mos}$ isn't injective. Then there is an $R$-least element $a\in A$ such that there is some $b\neq a$ satisfying $\text{mos}(b)=\text{mos}(a)$. Since $(A,R)\vDash\mc{E}$ and $a\neq b$ we have $\text{pred}_R(a)\neq\text{pred}_R(b)$, then there are two cases:
+    \begin{itemize}
+        \item If there is a $c$ with $cRa$ and $\neg cRb$, then $\text{mos}(c)\in\text{mos}(a)=\text{mos}(b)=\{\text{mos}(d):dRb\}$ implying that $\text{mos}(c)=\text{mos}(d)$ for some $dRb$. Since $\neg cRb$, then $c\neq d$, but such $c$ contradicts the minimality of $a$;
+        \item If there is a $d$ with $\neg dRa$ and $dRb$, then we can repeat the exact same argument and find a $c$ that contradicts the minimality of $a$. 
+    \end{itemize}
+    What finishes the proof.
+\end{proof}
+
+And finally, the following is the last Lemma we will need to prove Mostowski Collapse
+
+\begin{lemma}{}{}
+    Let $T\subseteq A$ be transitive. If $(A,\in)\vDash\mc{E}$, then $\text{mos}(y)=y$ for all $y\in T$.
+\end{lemma}
+
+\begin{proof}
+    Assume that $\text{mos}(y)\neq y$ for some $y\in T$. Let $a$ be the $\in$-minimal element of $T$ such that $\text{mos}(a)\neq a$. If $y\in a\in T$, since $T$ is transitive, then $y\in T$, and by minimality of $a$ we have
+    $$\text{mos}(a)=\{\text{mos}(y):y\in A\wedge y\in a\}=\{y:y\in a\}=a$$
+    a contradiction.
+\end{proof}
+
+We are now ready to prove Mostowski Collapse Lemma
+
+\begin{proof}
+    By Downward Löwenheim-Skolem let $A\preceq B$ with $S\subseteq A$ and $\lvert A\rvert=\kappa$, then $(A,\in)$ also satisfies Extensionality. By Lemma \ref{mostowski-lemma} $\text{mos}$ is an isomorphism from $(A,\in)$ onto some transitive set $(M,\in)$. Furthermore, since $S$ is transitive, by the previous Lemma $\text{mos}(y)=y$ for all $y\in S$ and, therefore, $S\subseteq M$. We also have $\lvert M\rvert=\kappa$, since $\text{mos}$ is a bijection and, since $M\cong A$ and $A\preceq B$, then $(M,\in)\equiv(A,\in)\equiv(B,\in)$, as desired.
+\end{proof}
+
+It will be used a lot with $S=\emptyset$ and $\kappa=\aleph_0$ to transform models into countable transitive ones.
+
+\section{Reflection Theorem}
+
+\subsection{Digression About Löwenheim-Skolem}
+
+In order to motivate the proof of The Reflection Theorem let's look for the proof of Downward Löwenheim-Skolem Theorem. It's really common to prove Löwenheim-Skolem as a scholium of the Completeness Theorem, since we use a syntactical countable model formed by equivalence classes of some formulas, which automatically gaves us Löwenheim-Skolem. However, there is a different approach we can give using the following lemma, known as Tarski-Vaught Criterion
+
+\begin{lemma}{}{}
+    \textbf{(Tarski-Vaught)} Let $\mf{A}\subseteq\mf{B}$ be $\mc{L}$-structures. The following are equivalent
+    \begin{itemize}
+        \item $\mf{A}\preceq\mf{B}$;
+        \item For all $\varphi\in\mc{L}$ and $\ol{a}\in A$, if $\mf{B}\vDash\exists b\;\varphi(\ol{a},b)$, then there is some $b\in A$ such that $\mf{B}\vDash\varphi(\ol{a},b)$.
+    \end{itemize}
+\end{lemma}
+
+We will omit the proof since we will give a similar one for our specific case and because it's pretty straightforward, we just need to use induction on formulas.
+
+The real power of the previous criterion is that the second statement can be viewed as a closure property of $A$. In this sense, we can use that to create an elementary substructure of $\mf{B}$.
+
+Let's see how to use it to prove Downward Löwenheim-Skolem Theorem.
+
+\begin{theorem}{}{}
+    \textbf{(Downward Löwenheim-Skolem)} Let $\mf{B}$ be an $\mc{L}$-structure. Fix $\kappa$ such that $\max(\lvert\mc{L}\rvert,\aleph_0)\leq\kappa\leq\lvert B\rvert$, and fix $S\subseteq B$ with $\lvert S\rvert\leq\kappa$. Then there is an $\mf{A}\preceq\mf{B}$ such that $S\subseteq A$ and $\lvert A\rvert=\kappa$.
+\end{theorem}
+
+\begin{proof}
+    The idea is to extend $S$ in such a way we can use Tarski-Vaught Criterion. Since the biggest problems are the existential formulas, we extend $S$ in such a way it will be closed under the witnesses. There are two equivalent different ways we can do that, but first, since $S\subseteq B$, $\lvert S\rvert\leq\kappa\leq\lvert B\rvert$, let $S\subseteq S'\subseteq B$ such that $\lvert S'\rvert=\kappa$.
+    \begin{itemize}
+        \item The first is to define $S'=S_0\subseteq S_1\subseteq\dots\subseteq S_n\subseteq\dots$ such that, for each $\ol{a}\in S_n$ and formula $\varphi(\ol{v},w)$, if there is some $b\in B$ such that $\mf{B}\vDash\varphi(\ol{a},b)$ let $f_\varphi(\ol{a})=b$. Define then
+        $$S_{n+1}=S_n\cup\{f_\varphi(\ol{a}):\mf{B}\vDash\exists w\;\varphi(\ol{a},w),\;\ol{a}\in S_n,\;\varphi\in\mc{L}\}$$
+        And, finally, $A:=\bigcup_{n\in\omega}S_n$. Clearly $\lvert A\rvert=\kappa$.
+        \item The second is to define, for each $\varphi(\ol{v},w)$, a function $f_\varphi:B^n\to B$, where $n$ depends on $\varphi$, and such that for each $\ol{a}\in B^n$, if there is some $b\in B$ satisfying $\mf{B}\vDash\varphi(\ol{a},b)$, then $f_\varphi(\ol{a})=b$, otherwise let it be any arbitrary value. We then let $\mc{F}=\{f_\varphi:\varphi\in\mc{L}\}$ and choose $A$ as the closure of $S'$ under $\mc{F}$. It's also not hard to see that $\lvert A\rvert=\kappa$.
+    \end{itemize}
+    It doesn't really matter what approach we take, let's then stick to the first. If $c$ is some constant symbol, then $\mf{B}\vDash\exists w(w=c)$ and $c^\mf{B}$ is the only element $w$ of $B$ satisfying $w=c$, then $c^\mf{B}=f_{w=c}(\ol{a})\in S_1\subseteq A$, for any $\ol{a}\in S_0$. Analogously, given $\ol{a}=a_1,a_2,\dots,a_m\in A$ and an $m$-ary function symbol $f$, there is some $n$ such that $a_1,\dots,a_m\in S_n$ and $f^\mf{B}(\ol{a})$ is the unique element $w$ of $B$ satisfying $w=f(\ol{a})=\psi(\ol{a},w)$, thus $f_\psi(\ol{a})\in S_{n+1}\subseteq A$.
+
+    This guarantees that $\mf{A}\subseteq\mf{B}$, let's now use Tarski-Vaught to show it's an elementary substructure. Given $\varphi(\ol{v},w)\in\mc{L}$ and $\ol{a}\in A$, we know $\ol{a}\in S_n$ for some $n$. Now, if there is some $b\in B$ such that $\mf{B}\vDash\varphi(\ol{a},b)$, then $f_\varphi(\ol{a})\in S_{n+1}\subseteq A$ and $\mf{B}\vDash\varphi(\ol{a},f_\varphi(\ol{a}))$ by definition and, therefore, $\mf{A}\preceq\mf{B}$.
+\end{proof}
+
+\subsection{Reflection Theorem and its Consequences}
+
+We will replicate the same idea, but for cumulative hierarchies instead of structures in general. The idea is to find such ``smaller substructures'' that are elementary just for a fixed finite list of formulas. The following is the Tarski-Vaught Criterion for these specific scenarios.
+
+\begin{lemma}{}{}
+    Let $\varphi_1,\varphi_2,\dots,\varphi_n$ be a subformula-closed list of formulas, and let $A$ and $B$ be classes with $\emptyset\neq A\subseteq B$. Then the following are equivalent:
+    \begin{itemize}
+        \item $A\preceq_{\varphi_i}B$, for $i=1,\dots,n$;
+        \item For all $\varphi_i(\ol{v})=\exists w\;\varphi_j(\ol{v},w)$, the following holds:
+        $$\forall\ol{a}\in A[\varphi_i^B(\ol{a})\to\exists b\in A\;\varphi_j^B(\ol{a},b)]$$
+    \end{itemize}
+\end{lemma}
+
+Before proving it, let's explain what ``subformula-closed'' in the statement means. A list of formulas $\varphi_1,\varphi_2,\dots,\varphi_n$ is subformula-closed iff every subformula of each $\varphi_i$ is also on the list, and no formula on the list uses the universal quantifier $\forall$. The first condition is to help us in the induction step, since if $\varphi_i$ is of the form $\exists w\;\varphi_j$, we can use the induction hypothesis on $\varphi_j$. And the second condition about the universal quantifier is just to avoid extra work, since we just replace every occurrence of $\forall$ by $\neg\exists\neg$, so it makes no difference.
+
+\begin{proof}
+    The proof is kinda exactly the same as Tarski-Vaught.
+
+    $(\Rightarrow)$ Given $\varphi_i(\ol{v})=\exists b\;\varphi_j(\ol{v},b)$ and $\ol{a}\in A$, if $\varphi_i^B(\ol{a})$, since $A\preceq_{\varphi_i}B$, we have $\varphi_i^A(\ol{A})$, i.e., $\exists b\in A\;\varphi_j^A(\ol{a},b)$, then, by $A\preceq_{\varphi_j}B$, we have $\exists b\in A\;\varphi_j^A(\ol{a},b)$ as desired.
+
+    $(\Leftarrow)$ We will prove by induction on the length of $\varphi_i$. The base case for atomic formulas and the induction steps for the logical connectives are trivial. Now, given $\varphi_i(\ol{v})=\exists b\;\varphi_j(\ol{v},b)$, let's fix $\ol{a}\in A$. Then, by hypothesis, $\varphi_i^B(\ol{a})\to\exists b\in A\;\varphi_j^B(\ol{a})$ and, since $A\subseteq B$, we also have the opposite, i.e., $\exists b\in A\;\varphi_j^B(\ol{a})\to\exists b\in B\;\varphi_j^B(\ol{a})\to\varphi_i^B(\ol{a})$. Then, by the induction hypothesis, $A\preceq_{\varphi_j}B$ and, therefore
+    $$\varphi_i^B(\ol{a})\leftrightarrow\exists b\in A\;\varphi_j^B(\ol{a})\leftrightarrow\exists b\in A\;\varphi_j^A(\ol{a})\leftrightarrow\varphi_i^A(\ol{a})$$
+    and then $A\preceq_{\varphi_i}B$, as desired.
+\end{proof}
+
+We are now ready to state and prove the Reflection Theorem.
+
+\begin{theorem}{}{}
+    \textbf{(Reflection Theorem)} Let $\varphi_1,\varphi_2,\dots,\varphi_n\in\mc{L}$ and $B\neq\emptyset$ a class. If $A(\xi)$ satisfies
+    \begin{itemize}
+        \item $A(\xi)\subseteq A(\eta)$, whenever $\xi<\eta$;
+        \item $A(\eta)=\bigcup_{\xi<\eta}A(\xi)$, for $\eta$ a limit ordinal;
+        \item $B=\bigcup_{\xi\in ON}A(\xi)$.
+    \end{itemize}
+    Then for all $\xi$, there is some limit $\eta>\xi$ such that $A(\eta)\neq\emptyset$ and $A(\eta)\preceq_{\varphi_i}B$, for $i=1,\dots, n$.
+\end{theorem}
+
+Clearly a lot of hierarchies and classes we saw satisfies this definition. In particular, assuming The Axiom of Regularity, $B=V$ and $A(\xi)=R(\xi)$ are natural candidates that we will use a lot.
+
+\begin{proof}
+    The proof will follow similar steps as the proof of the Löwenheim-Skolem Theorem. Since we will use the previous lemma, we can assume WLOG that our list is subformula-closed. If not, replace each occurence of $\forall$ by $\neg\exists\neg$ and add each subformula of $\varphi_i$ to the list.
+
+    As in Löwenheim-Skolem, for each $\varphi_i(\ol{v})=\exists w\;\varphi_j(\ol{v},w)$ define $F_i:B^n\to ON$ as follows: if $\varphi_i^B(\ol{a})$, let $F_i(\ol{a})$ be the least $\zeta$ such that $\exists b\in A(\zeta)\;\varphi_j^B(\ol{a},b)$, otherwise let $F_i(\ol{a})=0$. These $F_i$ are just as the skolem functions $f_\varphi$, but defined without AC, and saving the ordinal rank of a witness instead of the witness itself.
+
+    Now, we will make an analogous of the $S_n$'s to store, instead of the witnesses for all parameters in $S_{n-1}$, the ordinal rank of all these witnesses, i.e., let $S:ON\to ON$ be given by
+    $$S(\alpha)=\sup\{F_i(\ol{a}):i<n\text{ and }\ol{a}\in A(\alpha)\}$$
+    However, since we want our ordinal level $\eta$ to be a limit ordinal such that $A(\eta)\neq\emptyset$, let's define the following increasing sequence: Given $\xi$, let $\eta_0$ be the least ordinal $\alpha>\xi$ such that $A(\alpha)\neq\emptyset$, and let $\eta_{n+1}=\max(\eta_n+1,S(\eta_n))$. Then $\eta=\sup\{\eta_k:k\in\omega\}$ is a limit ordinal such that $A(\eta)\neq\emptyset$.
+
+    Now, given $\varphi_i(\ol{v})=\exists b\;\varphi_j(\ol{v},b)$ and $\ol{a}\in A(\eta)$, we have that $\ol{a}\in A(\eta_n)$ for some $n$. If $\varphi_i^B(\ol{a})$, then by definition there is some $b\in A(F_i(\ol{a}))$ such that $\varphi_j^B(\ol{a},b)$, but $F_i(\ol{a})\leq S(\eta_n)\leq\eta_{n+1}<\eta$ and, therefore, $\exists b\in A(\eta)\;\varphi_j^B(\ol{a},b)$ so, by the previous Lemma, $A(\eta)\preceq_{\varphi_i}B$, for $i=1,\dots,n$.
+\end{proof}
+
+\begin{observation}
+    After the previous two results, you could be asking yourself where do we used that the set of formulas should be finite. If you keep reading, you will convince yourself that, if we could generalize these results to infinitely many formulas, we would have a lot of troubles.
+
+    The reason why a finite amount of formulas is the best we can do is because of Tarski's Theorems on the Definability and Undefinability of Truth. The former says roughly, in this context, that we can define using recursion, for each formula $\varphi$ and set $A$, what does it means to $A\vDash\varphi$. In particular, this allows us to define what does it means to $A$ satisfies $\Lambda$, where $\Lambda$ is any set of formulas.
+
+    The latter, however, says roughly that we can't do the same for some classes. In fact, if some class $V$ is such that $(V,\in)\vDash\zfc$, then being able to define $\vDash$ inside ZFC would allow it to prove its own consistency, which is impossible. In particular, we can't give a meaningful definition for $A\preceq V$, but we can for $A\preceq_\varphi V$, where $\varphi$ is some formula, as we did in the previous results.
+
+    This has the same spirit as: if ZFC is consistent, then for all $n\in\omega$, ZFC proves that $n$ is not a Gödel Number for a proof that $0=1$, why this doesn't implies that ZFC proves its own consistency? Because even if $\forall n\in\omega$, $\zfc\vdash\neg\text{Prov}(n,\lceil0=1\rceil)$, we can't necessarily conclude that $\zfc\vdash\forall n\in\omega(\neg\text{Prov}(n,\lceil0=1\rceil))\equiv\con(\zfc)$. The toy model for this phenomenon is called $\omega$-inconsistency, and it also explains a lot of interesting phenomena, like the fact that, if ZFC is consistent, then $\zfc+\neg\con(\zfc)$ is also consistent, despite the fact that it proves its own inconsistency.
+\end{observation}
+
+Let's see one of the most useful application of this theorem
+
+\begin{corollary}{}{}
+    Let $\Lambda\subseteq\text{ZF}$ be finite, then we can prove in ZFC that there is a ctm of $\text{ZC}\cup\Lambda$.
+\end{corollary}
+
+\begin{proof}
+    Assuming Regularity, let $B=V$ and $A(\xi)=R(\xi)$. If $\{\varphi_1,\varphi_2,\dots,\varphi_n\}=\Lambda$, apply the Reflection Theorem to get a limit $\eta>\omega$ such that $R(\eta)\preceq_{\varphi_i}V$, then $R(\eta)\vDash\text{ZC}\cup\Lambda$. Now, in order to get a ctm, just apply Mostowski Collapsing Lemma to $R(\eta)$. 
+\end{proof}
+
+This basically says that, even if $\zfc$ cannot find a model for itself, it can find a model for every finite fragment of it. In some sense $R(\gamma)$ for suitable $\gamma$ can approximate $V$ satisfying $ZC$ and every finite amount of instances of The Replacement Axiom.
+
+Another interesting corollary is that ZF is not finitely axiomatizable, more generally:
+
+\begin{corollary}{}{}
+    If $\Gamma\supseteq\text{ZF}$ is consistent, then $\Gamma$ is not finitely axiomatizable.
+\end{corollary}
+
+\begin{proof}
+    Let $\Lambda\subseteq\Gamma$ be finite and define $\psi:=\exists\eta(R(\eta)\vDash\Lambda)$, we may assume, expanding $\Lambda$ if necessary, that $\Lambda$ proves basic facts about $R(\eta)$ and $\vDash$. Then $\Gamma\vDash\psi$ \todo{Since $\Lambda$ is not necessarily a subset of ZF we can't explicitly use Reflection}by Reflection, but if $\Lambda\vdash\psi$, then $\Lambda$ is inconsistent. This is clear by Gödel's Second Incompleteness Theorem, but we could've also defined $\eta_0$ as the least ordinal such that $R(\eta_0)\vDash\Lambda$, then $R(\eta_0)\vDash\Lambda+\nexists\eta(R(\eta)\vDash\Lambda)$, otherwise there would be some witness $\eta\in R(\eta_0)$, which is impossible since $\eta_0$ is the smallest one.
+\end{proof}
+
+We will now prove a set version of Reflection Theorem, obtained by replacing $ON$ with a regular uncountable cardinal. Since we are dealing with sets, we can use infinitely many formulas, instead of a finite amount. This will be essential in the proof that $V=L$ implies GHC.
+
+\begin{theorem}{}{}
+    Assuming AC, let $\kappa>\omega$ be a regular cardinal and $A(\xi)$ be such that, for $\xi\leq\kappa$:
+    \begin{enumerate}
+        \item $\xi<\eta\to A(\xi)\subseteq A(\eta)$;
+        \item $A(\eta)=\bigcup_{\xi<\eta}A(\xi)$ for limit $\eta\leq\kappa$;
+        \item $\lvert A(\xi)\rvert<\kappa$ for all $\xi<\kappa$, and $\lvert A(\kappa)\rvert=\kappa$.
+    \end{enumerate}
+    Then for all $\xi$, there is some limit ordinal $\kappa$, with $\xi<\eta<\kappa$, such that $A(\eta)\neq\emptyset$ and $A(\eta)\preceq A(\kappa)$.
+\end{theorem}
+
+\begin{proof}
+    \textcolor{laser_eyes}{Pendent}
+\end{proof}
+
+\section{Constructible Sets}
+
+This subsection will be devoted to define one of the most important inner models of ZFC. In fact, it will be the minimal model of ZFC in some specific sense.
+
+\begin{definition}{}{}
+    Let $P\subseteq A$, then $\mc{D}(A,P)$ is the set of all subsets of $A$ that are definable over $(A,\in)$ with parameters in $P$. Then $\mc{D}^+(A)=\mc{D}(A,A)$ and $\mc{D}^-(A)=\mc{D}(A,\emptyset)$.
+\end{definition}
+
+We will now give a sketch of the following important Lemma
+
+\begin{lemma}{}{}\label{absoluteness_definability}
+    The function $\mc{D}(A,P)$ is absolute over transitive models $M\vDash\text{ZF}-\mc{P}$.
+\end{lemma}
+
+\begin{proof}
+    Almost all the hard work use Theorem \ref{absoluteness_recursion}. First of all, the notion of $\varphi$ being a formula is absolute, since we can define it recursively using absolute functions (in fact, this verification is the lame work). And the same can be done to ``$\mf{A}\vDash\varphi$'', which is really boring, since this definition also involves a lot of intricate intermediate definitions we need to show to be absolute. But once we did that, we can then guarantee that $\mc{D}(A,P)$ is absolute, since it depends solely on $\vDash$.
+\end{proof}
+
+We can now define the Constructible Universe as a limit of a cumulative hierarchy
+
+\begin{definition}{}{}
+    Define $L(\delta)$ by recursion on $\delta$ as follows:
+    \begin{itemize}
+        \item $L(0)=\emptyset$;
+        \item $L(\beta+1)=\mc{D}^+(L(\beta))$;
+        \item $L(\gamma)=\bigcup_{\alpha<\gamma}L(\alpha)$ for $\gamma$ a limit ordinal.
+    \end{itemize}
+    Then $L=\bigcup_{\alpha\in ON}L(\alpha)$.
+\end{definition}
+
+\subsection{\texorpdfstring{$L\vDash\text{ZF}$}{LvDashZF}}
+
+This subsubsection will be devoted to develop the machinery needed to use Lemma \ref{criterion_models_zf} and conclude that $L$ is in fact a model of ZF.
+
+Let's start with the following basic properties of $L(\alpha)$
+
+\begin{lemma}{}{}
+    For all ordinals $\alpha$ and $\beta$:
+    \begin{enumerate}
+        \item $L(\alpha)\subseteq R(\alpha)$;
+        \item $L(\alpha)$ is transitive;
+        \item $\alpha\leq\beta\to L(\alpha)\subseteq L(\beta)$;
+        \item $L(\alpha)\cap ON=\alpha$.
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    1. Is pretty easy by induction on $\alpha$, since $\mc{D}^+(A)\subseteq\mc{P}(A)$;
+
+    2. For $\alpha=0$ or a limit ordinal it's clear from the definition. Then assume that $L(\alpha)$ is transitive then, given $A\in L(\alpha)$, we have that $A=\{x\in L(\alpha):x\in A\}\in\mc{D}^+(L(\alpha))=L(\alpha+1)$. Now, given $x\in L(\alpha+1)$, since $L(\alpha+1)\subseteq\mc{P}(L(\alpha))$, then $x\subseteq L(\alpha)\subseteq L(\alpha+1)$;
+
+    3. Fixing $\alpha$, we can prove by induction on $\beta$. The cases $\beta=\alpha$ or a limit ordinal are trivial. The successor case follows by $L(\beta)\subseteq L(\beta+1)$, that we proved for (2);
+
+    4. Also by induction, the base and limit cases are very straightforward. Assume then, as the induction hypothesis for the successor case, that $L(\beta)\cap ON=\beta$, then
+    $$\beta=L(\beta)\cap ON\subseteq L(\beta+1)\cap ON\subseteq R(\beta+1)\cap ON=\beta+1$$
+    So it's sufficient to show that $\beta\in L(\beta+1)\cap ON$. But, if $\varphi(x)$ is the $\Delta_0$ formula equivalent to ``$x$ is an ordinal'', then we have by absoluteness that
+    $$\beta=\{a\in L(\beta):L(\beta)\vDash\varphi(a)\}\in\mc{D}^-(L(\beta))\subseteq L(\beta+1)$$
+    as desired.
+\end{proof}
+
+As for the rank function in $R(\alpha)$ we can define the analogous $L$-rank function $\rho$ for $L(\alpha)$.
+
+\begin{definition}{}{}
+    For $x\in L$, the $L$-rank of $x$, $\rho(x)$, is the least $\alpha$ such that $x\in L(\alpha+1)$.
+\end{definition}
+
+Then clearly we have that $L(\alpha)=\{x\in L:\rho(x)<\alpha\}$. Furthermore:
+
+\begin{lemma}{}{}
+    For each $\alpha$, we have $L(\alpha)\in L$ and $\rho(L(\alpha))=\rho(\alpha)=\alpha$.
+\end{lemma}
+
+\begin{proof}
+    Clearly $L(\alpha)=\{x\in L(\alpha):x=x\}\in D^+(L(\alpha))=L(\alpha+1)\subseteq L$, and, since $L(\alpha)\notin L(\alpha)$, then $\rho(L(\alpha))=\alpha$. By the previous lemma, we have that $\alpha\in L(\alpha+1)\setminus L(\alpha)$, then $\rho(\alpha)=\alpha$.
+\end{proof}
+
+Another clear property is that every finite subset $\{a_1,a_2,\dots,a_n\}$ of $L(\alpha)$ is in $L(\alpha+1)$, we just need to consider $\varphi(y)=y=a_1\vee y=a_2\vee\dots\vee y=a_n$. Then we can see when $R(\alpha)$ and $L(\alpha)$ start to diverge
+
+\begin{lemma}{}{}
+    $R(\alpha)=L(\alpha)$ for all $\alpha\leq\omega$ and $L(\omega+1)\subset R(\omega+1)$.
+\end{lemma}
+
+\begin{proof}
+    By the previous observation $L(n)=R(n)$ for all $n\in\omega$. This then implies, by definition, that $L(\omega)=R(\omega)=HF$. However, $R(\omega+1)=\mc{P}(HF)$ is uncountable, while $L(\omega+1)=\mc{D}^+(HF)$ is countable, because there are only countably many formulas and $HF$ is itself countable.
+\end{proof}
+
+\begin{observation}
+    The previous lemma implies, for example, that $R(\omega+1)\setminus L(\omega+1)$ is uncountable. It's, however, pretty hard to give a ``simple'' example of an element in this set, the best we can do is that $\text{Th}(HF)\in R(\omega+1)\setminus L(\omega+1)$, and $\rho(\text{Th}(HF))=\omega+1$, while $\text{rank}(\text{Th}(HF))=\omega$.
+
+    Since formulas are encoded by sets in $HF$, clearly $\text{Th}(HF)\in R(\omega+1)$. The fact that $HF\notin L(\omega+1)=\mc{D}^+(L(\omega))$ is a corollary of Tarski's Theorem on the undefinability of truth since, otherwise, truthiness on $HF$ would be possibly defined within it. To show that $\text{Th}(HF)\in L(\omega+2)$, however, is a bit tricky, we need to implement some new encoding inside $L(\omega+1)$, which we won't.
+\end{observation}
+
+In order to calculate the size of $L(\alpha)$ we will need the following Lemma
+
+\begin{lemma}{}{}
+    $\lvert\mc{D}^+(A)\rvert=\lvert A\rvert$ for all infinite $A$.
+\end{lemma}
+
+\begin{proof}
+    $\lvert\mc{D}^+(A)\rvert\leq\lvert A\rvert$, since $\{a\}\in\mc{D}^+(A)$ for all $a\in A$. Also, since there are $\aleph_0$ formulas and $\lvert[A]^{<\omega}\rvert=\lvert A\rvert$ parameters, then $\lvert\mc{D}^+(A)\rvert\geq\aleph_0\cdot\lvert A\rvert=\lvert A\rvert$.
+\end{proof}
+
+\begin{theorem}{}{}\label{L(a)_cardinality}
+    Assuming AC, we have $\lvert L(\alpha)\rvert=\lvert\alpha\rvert$ for all $\alpha\geq\omega$.
+\end{theorem}
+
+\begin{proof}
+    Let's prove by induction. For $\alpha=\omega$, $L(\omega)=HF$ is clearly countable. Now, if $\lvert L(\alpha)\rvert=\lvert\alpha\rvert$, then, by the previous lemma $\lvert L(\alpha+1)\rvert=\lvert\mc{D}^+(L(\alpha))\rvert=\lvert L(\alpha)\rvert=\lvert\alpha\rvert$. For $\alpha=\gamma$ limit, since $\gamma\subseteq L(\gamma)$, then $\lvert\gamma\rvert\leq\lvert L(\gamma)\rvert$. Also, if, for every $\beta<\gamma$, we have$\lvert L(\beta)\rvert=\lvert\beta\rvert\leq\lvert\gamma\rvert$, then
+    \begin{equation}
+        \lvert L(\gamma)\rvert=\left\lvert\bigcup_{\beta<\gamma}L(\beta)\right\rvert\leq\sum_{\beta<\gamma}\lvert L(\beta)\rvert\leq\lvert\gamma\rvert
+    \end{equation}
+    and then $\lvert L(\gamma)\rvert=\lvert\gamma\rvert$, as desired. AC is used in the first inequality of (2).
+\end{proof}
+
+In fact, the use of AC in the previous proof is unnecessary, since we could just use absoluteness and redo the proof inside $L$, where, as we will see, satisfies AC.
+
+In comparison, since $\lvert R(\alpha)\rvert=\beth_\alpha$ for great $\alpha\geq\omega^2$, while $\lvert L(\alpha)\rvert=\lvert\alpha\rvert$, it seems that $R(\alpha)$ is way bigger and grows way faster than $L(\alpha)$. It's then reasonable to expect that $L$ should be way smaller than $V$, but, in fact, $V=L$ is consistent with ZF.
+
+\begin{theorem}{}{}
+    $L$ is a model for ZF.
+\end{theorem}
+
+Here is where we use almost all theorems we proved through this section.
+
+\begin{proof}
+    By Lemma \ref{criterion_models_zf}, it's enough to prove that $L\vDash\mc{C}$ and that for every $x\subseteq L$, there is a $y\in L$ such that $x\subseteq y$. For the latter, let $\alpha=\sup\{\rho(z)+1:z\in x\}$ and $y=L(\alpha)$.
+
+    For the former, let $\varphi(x,z,\ol{v})$ be a formula without $y$ free, then $\mc{C}^L$ is equivalent to
+    $$\forall z,\ol{v}\in L\,\exists y\in L\,\forall x\in L\,[x\in y\leftrightarrow x\in z\wedge\varphi^L(x,z,\ol{v})]$$
+    So, given $z,\ol{v}\in L$, let $y=\{x\in z:\varphi^L(x,z,\ol{v})\}$, we just need to show that $y\in L$. Fix $\xi$ such that $z,\ol{v}\in L(\xi)$, since $L(\alpha)$ is a cumulative hierarchy, applying the Reflection Theorem to $\varphi$, there is a limit $\eta>\xi$ such that $L(\eta)\preceq_\varphi L$, and then
+    $$y=\left\{x\in L(\eta):(x\in z\wedge\varphi(x,z,\ol{v}))^{L(\eta)}\right\}\in\mc{D}^+(L(\eta))=L(\eta+1)\subseteq L$$
+\end{proof}
+
+\section{The Axiom of Constructibility \texorpdfstring{$V=L$}{V=L}}
+
+Let's consider now the Axiom of Constructibility $V=L$, which is actually just a shorthand for $\forall x\,\exists\alpha\in ON\,[x\in L(\alpha)]$. In order to see wether it's true in $M$, we need to compute $L(\alpha)^M$, fortunately, it's absolute over almost all models we will consider, as the next lemma shows
+
+\begin{lemma}{}{}\label{L(alpha)_absoluteness}
+    The function $\alpha\mapsto L(\alpha)$ is absolute for transitive $M\vDash\text{ZF}-\mc{P}$.
+\end{lemma}
+
+\begin{proof}
+    Since we are working over $\text{ZF}-\mc{P}$ the construction of $L(\alpha)$ is guaranteed to exist. Now, by Lemma \ref{absoluteness_all_basic} ordinals are absolute over $M$ and, by Lemma \ref{absoluteness_definability} $\mc{D}^+(A)$ is also absolute. By induction, clearly $L(0)^M=L(0)$, if $L(\alpha)^M=L(\alpha)$, then $L(\alpha+1)^M=\mc{D}^+(L(\alpha))^M=\mc{D}^+(L(\alpha))=L(\alpha+1)$ and, if $L(\xi)^M=L(\xi)$ for all $\xi<\eta$, where $\eta$ is a limit ordinal, then
+    $$L(\eta)^M=\rp{\bigcup_{\xi<\eta}L(\xi)}^M=\bigcup_{\xi<\eta}L(\xi)=L(\eta)$$
+    since, as we saw in Lemma \ref{absoluteness_all_basic}, $\bigcup$ is also absolute.
+\end{proof}
+
+\begin{corollary}{}{}
+    $(V=L)^L$
+\end{corollary}
+
+\begin{proof}
+    We need to verify $(\forall x\,\exists\alpha\in ON\,[x\in L(\alpha)])^L$ but, since $ON\subseteq L$ is absolute, then
+    $$(\forall x\,\exists\alpha\in ON\,[x\in L(\alpha)])^L\equiv\forall x\in L\,\exists\alpha\in ON\,[x\in L(\alpha)]$$
+    which is clearly true by the definition of $L$.
+\end{proof}
+
+Although this should seem trivial, it's not. Note how in the previous lemma we used Lemma \ref{absoluteness_definability} which we don't even proved, just showed a sketch. In fact, there are a lot of notions we need to prove to be absolute before we could prove that $(V=L)^L$.
+
+\begin{definition}{}{}
+    For $M$ a transitive set $o(M)=M\cap ON$ is the first ordinal not in $M$.
+\end{definition}
+
+The absoluteness of $L(\alpha)$ lets us identify the transitive set models of $V=L$
+
+\begin{lemma}{}{}
+    Let $M\vDash\text{ZF}-\mc{P}$ be a transitive set. Then $M\vDash V=L$ iff $M=L(o(M))$.
+\end{lemma}
+
+\begin{proof}
+    Let $\gamma=o(M)$. By absoluteness, $L(\alpha)\in M$ for all $\alpha<\gamma$ and, since $M$ is transitive, $L(\gamma)\subseteq M$. Also $(V=L)^M\equiv \forall x\in M\,\exists\alpha\in\gamma\,[x\in L(\alpha)]$, i.e., $M\subseteq L(\gamma)$, then $M=L(\gamma)$.
+\end{proof}
+
+Now, in order to verify that $(\text{AC}+\text{GHC})^L$, we will devote the following subsubsections to the proof that $V=L$ implies both AC (in fact, it implies Global Choice) and GHC.
+
+\subsection{\texorpdfstring{$V=L$}{V=L} Implies Global Choice}
+
+Since AC is equivalent to every set can be well ordered, and $V=L$, it's sufficient to show each $L(\alpha)$ can be well ordered. We will first show how to well order $\mc{D}^+(A)$, whenever $A$ can also be.
+
+Intuitively, if $A$ can be well ordered, then also $A^{<\omega}$, and clearly the countable set of formulas also can. Then, given $S_i=\{a\in A:A\vDash\varphi_i(\ol{b}_i,a)\}\in A$, for $i=1,2$, we first compare $\varphi_1$ with $\varphi_2$ and, if they are equal, then $\ol{b}_1$ with $\ol{b}_2$. I will not give the full proof, just a sketch.
+
+I will first assume that the countable set of all $\in$-formulas can be well-ordered, which is actually not a hard thing to do, it's just really boring. Let's call this well ordering $<_F$ for Formulas.
+
+\begin{lemma}{}{}
+    If $(A,R)$ is a well order, then there is a well order $<_{(A,R)}$ for $\mc{D}^+(A)$.
+\end{lemma}
+
+\begin{sketch}
+    First of all, if $A$ is well ordered by $R$, then $A^n$ can also be well ordered, for each $n\in\omega$, just order it using the $R$-lexicographic order $<_{A^n}$. Now, in order to formalize our previous idea, given $S_i$ we know that both $\varphi_i$ and $\ol{b}_i$ aren't necessarily unique, then, for each $S\in\mc{D}^+(A)$, let $(\varphi,\ol{b})$ be the least pair in the lexicographic order induced by $<_F$ and $<_{A^n}$ such that $S=\{a\in A:A\vDash\varphi(\ol{b},a)\}$. Then, given $S_1,S_2\in\mc{D}^+(A)$ as before, with $(\varphi_1,\ol{b}_1)_{S_1}$ and $(\varphi_2,\ol{b}_2)_{S_2}$, let
+    $$S_1\,<_{(A,R)}\,S_2\iff(\varphi_1<_F\varphi_2)\text{ or }(\varphi_1=\varphi_2\wedge\ol{b}_1<_{A^n}\ol{b}_2)$$
+\end{sketch}
+
+We can then well order each $L(\alpha)$ (and therefore $L$) as following
+
+\begin{definition}{}{}
+    By recursion on $\alpha$, let $<_\alpha\subseteq L(\alpha)\times L(\alpha)$ be defined as: for $x,y\in L(\alpha)$, let $x<_\alpha y$ iff $\rho(x)<\rho(y)$ or $\rho(x)=\rho(y)=\beta<\alpha$ and $x<_{(L(\beta),<_\beta)}y$. Then, let $<_L$ be defined as:
+    $$x<_Ly\iff\rho(x)<\rho(y)\text{ or }(\rho(x)=\alpha=\rho(y)\wedge x<_\alpha y)$$
+\end{definition}
+
+\begin{theorem}{}{}
+    $<_L$ well orders $L$ and, furthermore, each $L(\alpha)$ is an initial segment, with
+    $$<_\alpha=<_L\cap(L(\alpha)\times L(\alpha))$$
+    Now, assuming $V=L$, we have that $<_L$ well orders $V$ and, therefore, AC holds.
+\end{theorem}
+
+We actually have something stronger, since $<_L$ well orders everything, then $V=L$ implies Global Choice.
+
+\subsection{\texorpdfstring{$V=L$}{V=L} Implies GHC}
+
+The following lemma will be surprisingly useful in the proof that $V=L$ implies GHC.
+
+\begin{lemma}{}{}
+    If $\kappa$ is any regular uncountable cardinal, then $L(\kappa)\vDash\text{ZF}-\mc{P}+V=L$.
+\end{lemma}
+
+\begin{proof}
+    \textcolor{laser_eyes}{Pendent}
+\end{proof}
+
+The similarity of the proofs for $L(\kappa)$ and $H(\kappa)$ for $\kappa\geq\omega$ is no coincidence, since:
+
+\begin{theorem}{}{}
+    $V=L$ implies that $L(\kappa)=H(\kappa)$ for all cardinals $\kappa\geq\aleph_0$. Hence $V=L\to\text{GHC}$.
+\end{theorem}
+
+\begin{proof}
+    First of all, since we showed $L(\omega)=HF=H(\omega)$, we didn't need to consider the base case. Also, If $x\in L(\kappa)$ for some $\kappa>\aleph_0$, fix a cardinal $\omega\leq\lambda<\kappa$ such that $x\in L(\lambda)$, then $\text{trcl}(x)\subseteq L(\lambda)$ and, therefore, $\lvert\text{trcl}(x)\rvert\leq\lvert L(\lambda)\rvert=\lambda<\kappa$, so $x\in H(\kappa)$ and $L(\kappa)\subseteq H(\kappa)$ for all $\kappa>\aleph_0$.
+
+    Then, it's sufficient to show that $L(\kappa)\subseteq H(\kappa)$ for all $\kappa>\aleph_0$. In fact, note that we actually just need to prove it for successor cardinals, since, when $\kappa$ is an uncountable limit cardinal, we have
+    $$L(\kappa)=\bigcup_{\lambda<\kappa}L(\lambda^+)=\bigcup_{\lambda<\kappa}H(\lambda^+)=H(\kappa)$$
+    Let $\lambda$ be an infinite cardinal, fix some $b\in H(\lambda^+)$ and let $T=\{b\}\cup\text{trcl}(b)$. Then $b\in T$ and $\lvert T\rvert\leq\lambda$.
+    \textcolor{laser_eyes}{Pendent}
+
+    Then, finally, if $H(\kappa)=L(\kappa)$, then, by Theorems \ref{H(k)_cardinality} and \ref{L(a)_cardinality} we have that
+    $$2^\kappa\leq2^{<\kappa^+}=\lvert H(\kappa^+)\rvert=\lvert L(\kappa^+)\rvert=\kappa^+\leq 2^\kappa$$
+    for all cardinals $\kappa\geq\aleph_0$, which is exactly what GHC states.
+\end{proof}

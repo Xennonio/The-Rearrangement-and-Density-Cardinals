@@ -1,0 +1,155 @@
+\chapter{Introduction}
+
+All these proofs assume a basic understanding of Set Theory and Logic, mainly basic Model Theory. We also assume some notions of cardinal arithmetic, but mostly cofinality, which I explained in more details \href{https://github.com/Xennonio/Cofinality/blob/main/Cofinalidade.pdf}{here}.
+
+You can skip this first subsection and come back when $\sim$ and $\lhd$ were mentioned.
+
+\section{Some Remarks and Definitions}
+
+We will assume for now on that our metatheory is purely finitistic. For this context, $\Gamma$ will always represent some extension of basic set theory without foundation, then in some sense we can develop at least finite combinatorics in it, and the axioms of $\Gamma$ will always be decidable.
+
+\begin{definition}{}{}
+    $\Gamma\lhd\Lambda$ iff $\Lambda\vdash\con(\Gamma)$, and we say $\Lambda$ is strictly stronger proof-theoretically than $\Gamma$.
+\end{definition}
+
+Clearly $\lhd$ is not reflexive since, by Gödel's second incompleteness theorem, $\Gamma\lhd\Gamma$ iff $\Gamma$ is inconsistent. Then, let's define a weaker relation:
+
+\begin{definition}{}{}
+    $\Gamma\leq\Lambda$ iff $\text{PRA}\vdash\con(\Lambda)\to\con(\Gamma)$, such a proof is called a relative consistency proof. Define $\Gamma\sim\Lambda$ iff $\Gamma\leq\Lambda$ and $\Lambda\leq\Gamma$, we say that $\Gamma$ and $\Lambda$ are proof-theoretically equivalent.
+\end{definition}
+
+Clearly $\sim$ is an equivalence relation, and of course the motivation to this notes is to understand this relation (or, at least, $\leq$), i.e., relative consistency proofs over $\zfc$.
+
+\begin{lemma}{}{}\label{proof-theoretic_lemma} The following is true about $\lhd$ and $\leq$ relations:
+    \begin{enumerate}
+        \item $\Gamma\lhd\Lambda\Rightarrow\Gamma\leq\Lambda$;
+        \item $\Gamma\leq\Lambda\;\wedge\;\Lambda\lhd\Theta\Rightarrow\Gamma\lhd\Theta$;
+        \item The relation $\lhd$ is transitive;
+        \item $\Gamma\leq\Lambda\;\wedge\;\Lambda\lhd\Gamma\Rightarrow\neg\con(\Gamma)\;\wedge\;\neg\con(\Lambda)$.
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    1. Assume $\Lambda\vdash\con(\Gamma)$, now, if $\neg\con(\Gamma)$ in PRA, then $\Lambda$ can also prove that $\neg\con(\Gamma)$ and, therefore we can argument finitistically in PRA that $\neg\con(\Lambda)$.
+
+    2. If $\text{PRA}\vdash\con(\Lambda)\to\con(\Gamma)$ and $\Theta\vdash\con(\Lambda)$ then, since $\Theta$ can do finitistic reason, then $\Theta\vdash\con(\Lambda)\to\con(\Gamma)$ also and, therefore, $\Theta\vdash\con(\Gamma)$, i.e., $\Gamma\lhd\Theta$.
+
+    3. Immediate from 1. and 2.
+
+    4. By 2. we have $\Gamma\lhd\Gamma$, then $\neg\con(\Gamma)$, therefore, since $\Gamma\leq\Lambda$, $\neg\con(\Lambda)$.
+\end{proof}
+
+Finally, in order to pin down some notations, we will denote by BST (Basic Set Theory) the following set of axioms: $\mc{E}$, $\mc{R}$, $\mc{C}$, Pairing, $\mc{U}$ and $\mc{P}\vee\mc{F}$.
+
+The last one should seem a bit odd, but it derives from the fact that many of the basic theorems about functions and relations have dual proofs, one using Power Set and one using Replacement.
+
+\section{Model Approximations of \texorpdfstring{$V$}{V}}
+
+Just to pin down some intuition, we will see that $WF$ is the class of all well founded sets which, in some sense, means we can write all it's elements ``extensively'' until we reach $\emptyset$, so they are $\in$-trees whose height (which we call rank) is not arbitrary large in $ON$.
+
+In particular, we can then though about initial segments of $WF$ as the sets $R(\gamma)$ whose height (or rank) of its elements are less than $\gamma$, i.e., if we write the set extensively, we have less than $\gamma$ nested sets until we reach $\emptyset$. Or we can talk about initial segments of the form $H(\kappa)$ whose elements has transitive closures of cardinality less than $\kappa$, which, of course, does imply that its height is less than $\kappa$, and then $H(\kappa)\subseteq R(\kappa)$. At first there is not primary reason to believe that $H(\kappa)=R(\kappa)$, and we will see that this is in fact pretty rare.
+
+\subsection{\texorpdfstring{$R(\gamma)$}{R(gamma)}}
+
+It's common to define $R(\gamma)=V_\gamma$ but this definition requires power set axiom, which could be avoided if we define $R(\gamma):=\{x\in WF:\text{rank}(x)<\gamma\}$, we will not go this way, tho.
+
+To see the equivalence, just note that $b\in R(\alpha+1)$ iff $b\subseteq R(\alpha)$. In fact, if $\text{rank}(b)<\alpha+1$, then, given $x\in b$, $\text{rank}(x)<\text{rank}(b)\leq\alpha$, i.e., $x\in R(\alpha)$. And, if $b\subseteq R(\alpha)$, then
+$$\text{rank}(b)=\sup\{\text{rank}(x)+1:x\in b\}\leq\alpha$$
+so $b\in R(\alpha+1)$.
+
+\begin{lemma}{}{}
+    $R(\gamma)$ is transitive, for every $\gamma\in ON$.
+\end{lemma}
+
+\begin{proof}
+    Clearly $R(0)=0$ is transitive. Assume $R(\alpha)$ is transitive, and let $x\in y\in R(\alpha+1)=\mc{P}(R(\alpha))$, then $x\in y\subseteq R(\alpha)$, so $x\in R(\alpha)$ which, begin transitive, implies that $x\subseteq R(\alpha)$, therefore $x\in\mc{P}(R(\alpha))=R(\alpha+1)$. Now, if $R(\beta)$ is transitive, for every $\beta<\lambda$, with $\lambda$ a limit ordinal, then, given $x\in y\in R(\lambda)=\bigcup_{\beta<\lambda}R(\beta)$, $y\in R(\beta)$ for some $\beta<\lambda$ and, since it's transitive, $x\in R(\beta)$ and, therefore, we also have that $x\in R(\lambda)$.
+\end{proof}
+
+The following Theorem is clear by transfinite induction and the definition of $R(\alpha)$:
+
+\begin{theorem}{}{}
+    $\lvert R(\omega+\alpha)\rvert=\beth_0$ for all $\alpha$, in particular $\lvert R(\alpha)\rvert=\beth_\alpha$ for all $\alpha\geq\omega^2$
+\end{theorem}
+
+It's also not hard to prove that $R(\alpha)\cap ON=\alpha$ using transfinite induction. The base and limit cases are trivial, for the successor case, let $\beta\in R(\alpha+1)\cap ON=\mc{P}(R(\alpha))\cap ON$, then $\beta\subseteq R(\alpha)\cap ON=\alpha$, i.e., $\beta\leq\alpha$ and, since $\alpha\in R(\alpha+1)\cap ON$, then $R(\alpha+1)\cap ON=\alpha+1$.
+
+We will see how this model approximation gives us an independence proof of the infinity and replacement axioms, using $R(\omega)$ and $R(\omega+\omega)$, respectively.
+
+Let's complete this discussion talking about the class $WF$ of all well founded sets.
+
+Since $R(ON)=WF$, we also have that $ON\subseteq WF$, then it's a proper class. Furtherfore, given $x\in y\in WF$, $y\in R(\alpha)$ for some $\alpha$ and, since it's transitive, $x\in R(\alpha)\subseteq WF$, then $WF$ is itself transitive. Note how almost all properties of $R(\alpha)$ and $WF$ are proved by transfinite induction.
+
+\subsection{\texorpdfstring{$H(\kappa)$}{H(kappa)}}
+
+The following will be important to give an independence proof for the power set and union axioms.
+
+\begin{definition}{}{}
+    Given a cardinal $\kappa$, let
+    $$H(\kappa):=\{x\in WF:\lvert\text{trcl}(x)\rvert<\kappa\}$$
+    In particular, $H(\aleph_1)=HC$ is called the set of hereditarily countable sets.
+\end{definition}
+
+$H(\kappa)$ is clearly transitive since, if $x\in y$, then $\text{trcl}(x)\subseteq\text{trcl}(y)$.
+
+This set is also way smaller than $R(\alpha)$, as the next theorem shows.
+
+\begin{theorem}{}{}\label{H(k)_cardinality}
+    For any infinite cardinal $\kappa$, $\lvert H(\kappa)\rvert=2^{<\kappa}$
+\end{theorem}
+
+\begin{proof}
+    Given $\lambda<\kappa$, if $x\subseteq\lambda$, then $\lvert\text{trcl}(x)\rvert\leq\lvert\text{trcl}(\lambda)\rvert=\lambda<\kappa$, i.e., $\mc{P}(\lambda)\subseteq H(\kappa)$, so $\lvert H(\kappa)\rvert\geq2^{<\kappa}$.
+
+    Now, let $F:H(\kappa)\to\bigcup\{\mc{P}(\lambda\times\lambda):\lambda<\kappa\}$ be defined as follows: Given $x\in H(\kappa)$, let $\lambda=\lvert\text{trcl}(x)\cup\{x\}\lvert<\kappa$ and, by $AC$, choose $F(x)\subseteq\lambda\times\lambda$ such that $(\lambda,F(x))\cong(\text{trcl}(x)\cup\{x\},\in)$, which is injective, since $x$ is determined by the order type of $\in$ on $\text{trcl}(x)\cup\{x\}$.
+\end{proof}
+
+\section{Relations Between \texorpdfstring{$R$}{R} and \texorpdfstring{$H$}{H}}
+
+First of all, note the following relation between $H(\kappa)$ and $R(\kappa)$
+
+\begin{lemma}{}{}
+    $H(\kappa)\subseteq R(\kappa)$ for every cardinal $\kappa$.
+\end{lemma}
+
+\begin{proof}
+    Let $x\in H(\kappa)$, we will show that $\text{rank}(x)\leq\lvert\text{trcl}(x)\rvert<\kappa$. Consider the rank function restricted to $\text{trcl}(x)$, we claim that its transitive on $\text{rank}(x)$.
+
+    Let $\beta\in\text{rank}(x)=\sup\{\text{rank}(y)+1:y\in x\}$, then $\beta<\text{rank}(y)+1$ for some $y\in x$, i.e., $\beta\leq\text{rank}(y)$ for some $y\in\text{trcl}(x)$. If $\beta=\text{rank}(y)$, then $\beta\in\text{Im}\;\text{rank}\restriction_{\text{trcl}(x)}$. Otherwise, $\beta<\text{rank}(y)$
+    , and we can repeat the same process to find that $\beta\leq\text{rank}(z)$, for some $z\in y\subseteq\text{trcl}(x)$. Since this can't continue forever, because $\text{trcl}(x)$ is $\in$-well founded, then eventually we will reach a $\beta=\text{rank}(w)$ for some $w\in\text{trcl}(x)$.
+\end{proof}
+
+As we noted earlier, $H(\kappa)$ is almost always way smaller than $R(\kappa)$, but the following theorem gives us an exact criterion for when they're equal
+
+\begin{theorem}{}{}
+    For cardinals $\kappa>\omega$, $H(\kappa)=R(\kappa)$ iff $\kappa=\beth_\kappa$.
+\end{theorem}
+
+\begin{proof}
+    $(\Rightarrow)$ Whenever $\omega^2\leq\alpha<\kappa$, we have that $R(\alpha)\in R(\kappa)=H(\kappa)$, then, since its transitive
+    $$\lvert\text{trcl}(R(\alpha))\rvert=\lvert R(\alpha)\rvert=\beth_\alpha<\kappa$$
+    and, therefore, $\beth_\kappa=\sup_{\alpha<\kappa}\beth_\alpha\leq\kappa$, so, because $\beth_\kappa\geq\kappa$, we have $\beth_\kappa=\kappa$.
+
+    $(\Leftarrow)$ If $x\in R(\kappa)$, then $x\in R(\alpha)$ for some $\omega^2\leq\alpha<\kappa$, and then $\lvert\text{trcl}(x)\rvert\leq\lvert R(\alpha)\rvert=\beth_\alpha<\beth_\kappa=\kappa$, so $x\in H(\kappa)$, which implies, by the previous lemma, that $R(\kappa)=H(\kappa)$.
+\end{proof}
+
+We can also prove by transfinite induction that $R(\omega)=H(\aleph_0)=HF$, called the set of hereditarily finite sets. Just note that $R(0)\subseteq H(\aleph_0)$ and, if $R(n)\subseteq H(\aleph_0)$, given $x\in R(n+1)=\mc{P}(R(n))$, since $R(n)$ only contains finite sets, then $\mc{P}(R(n))$ also contains finite sets, therefore $x$ is finite. Furthermore, since $x\subseteq R(n)\subseteq H(\aleph_0)$, then all subsets of $x$ are hereditarily finite, then $x\in H(\aleph_0)$.
+
+To be fair, the jump between $x\subseteq H(\aleph_0)$ and $\lvert x\rvert<\omega$ to $x\in H(\aleph_0)$, although kinda intuitive, implicitly assumed that $\omega$ is a regular cardinal. Let's restate the more general case:
+
+\begin{lemma}{}{}\label{k-regular_H(k)_subset}
+    Let $\kappa$ be a regular cardinal. If $y\subseteq H(\kappa)$ and $\lvert y\rvert<\kappa$, then $y\in H(\kappa)$.
+\end{lemma}
+
+\begin{proof}
+    Let's first show that, for any given $y$, we have that
+    \begin{equation}
+        \text{trcl}(y)=y\cup\bigcup_{x\in y}\text{trcl}(x)
+    \end{equation}
+    which follows from the fact that $\bigcup^{n+1}y=\bigcup_{x\in y}\bigcup^n x$, for $n\geq 0$. By induction, clearly $z\in\bigcup y$ iff $z\in x$ for some $x\in y$, i.e., $z\in\bigcup_{x\in y}x$. Now, if it's true for $n$, then
+    $$\bigcup\nolimits^{n+2}y=\bigcup\rp{\bigcup\nolimits^{n+1}y}=\bigcup\rp{\bigcup_{x\in y}\bigcup\nolimits^nx}=\bigcup_{x\in y}\bigcup\nolimits^{n+1}x$$
+    and now we can easily see how (1) follows:
+    $$\text{trcl}(y)=y\cup\bigcup_{n\geq0}\bigcup\nolimits^{n+1}y=y\cup\bigcup_{n\geq0}\rp{\bigcup_{x\in y}\bigcup\nolimits^nx}=y\cup\bigcup_{x\in y}\rp{\bigcup_{n\geq0}\bigcup\nolimits^nx}=y\cup\bigcup_{x\in y}\text{trcl}(x)$$
+    Now, for the real proof, since $\lvert y\rvert<\kappa$ and $y\subseteq H(\kappa)$, then $\lvert\text{trcl}(x)\rvert<\kappa$ for every $x\in y$, then
+    $$\lvert\text{trcl}(y)\rvert\leq\lvert y\rvert+\sum_{x\in y}\lvert\text{trcl}(x)\rvert<\kappa$$
+    since $\kappa$ is regular, otherwise $\kappa$ would be the sum of less than $\kappa$ sets with size less than $\kappa$.
+\end{proof}

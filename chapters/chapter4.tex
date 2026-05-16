@@ -1,0 +1,71 @@
+\chapter{Independence of AC Without Forcing}
+
+\section{Ordinal Definable Sets}
+
+\textcolor{laser_eyes}{Pendent}
+
+\section{Rieger-Bernays Permutation Model}
+In order to give a different proof for the consistency of $\text{ZF}^-+\neg\mc{R}$, we will study permutations of the whole universe $V$ and define a new $\in$-relation with this permutation.
+
+\begin{definition}{}{}
+    Let $F:V\to V$ be a function. Define $E=E_F\subseteq V\times V$ by $xEy$ iff $x\in F(y)$.
+\end{definition}
+
+As usual, $F$ is just a formula $\psi(x,y)$ where $\forall x\,\exists!y\,\psi(x,y)$ and $xEy$ abbreviates $\exists y\,[\psi(x,y)\wedge x\in y]$.
+
+We can now prove a really interesting theorem which gives us a lot of different models for ZFC
+
+\begin{theorem}{}{}
+    Let $F:V\to V$ be a permutation of $V$. Then $\varphi^{(V,E)}$ holds for each $\varphi\in\text{ZF}^-$.
+\end{theorem}
+
+\begin{proof}
+    \begin{itemize}
+        \item First, for Extensionality we have that
+        $$\mc{E}^{(V,E)}\equiv\forall x,y\,(x=y\leftrightarrow\forall z(zEx\leftrightarrow zEy))$$
+        substituting the definition of $E$, we have that
+        $$\mc{E}^{(V,E)}\equiv\forall x,y(x=y\leftrightarrow\forall z(z\in F(x)\leftrightarrow z\in F(y))\equiv\forall x,y(x=y\leftrightarrow F(x)=F(y))$$
+        which says that $F$ is a bijection, that is guaranteed by the fact that it's a permutation;
+        \item For the Axiom of Union, we hve that
+        \begin{align*}
+            \mc{U}^{(V,E)} & \equiv \forall A\,\exists U\,\forall y(yEU\leftrightarrow\exists z(yEz\wedge zEA))\\
+            & \equiv \forall A\,\exists U\,\forall y(y\in F(U)\leftrightarrow\exists z(y\in F(z)\wedge z\in F(A)))
+        \end{align*}
+        Which basically says that $F(U)=\bigcup_{z\in F(A)}F(z)$, then, seting
+        $$U=F^{-1}\rp{\bigcup_{z\in F(A)}F(z)}$$
+        is sufficient to prove it.
+        \item For the Axiom of Powerset, we need to interpret $(x\subseteq y)^{(V,E)}$, which is $\forall w(wEx\to wEy)$, i.e., $\forall w(w\in F(x)\to w\in F(y))$, in other words, $F(x)\subseteq F(y)$. Therefore
+        \begin{align*}
+            \mc{P}^{(V,E)} & \equiv \forall x\,\exists y\,\forall z\rp{zEy\leftrightarrow(z\subseteq x)^{(V,E)}}\\
+            & \equiv \forall x\,\exists y\,\forall z(z\in F(y)\leftrightarrow F(z)\subseteq F(x))
+        \end{align*}
+        then, we can let $y$ be such that $F(y)=\{z:F(z)\subseteq F(x)\}$. In order to prove it's a set, just note that $F(y)=F^{-1}(\mc{P}(F(x)))$, which is a set. Then set $y=F^{-1}(F^{-1}(\mc{P}(F(x))))$.
+        \item For the Axiom of Infinity, we need to relativize $\emptyset$ and the $S$ function in $(V,E)$. First, note that $y=\emptyset$ iff $\forall z(z\in y\leftrightarrow z\neq z)$, i.e., relativized to $(V,E)$, $\forall z(z\in F(y)\leftrightarrow z\neq z)$, then $(y=\emptyset)^{(V,E)}$ iff $F(y)=\emptyset$, so $y=F^{-1}(\emptyset)$. Analogously, $y=S(x)$ iff $\forall z(z\in y\leftrightarrow(z\in x\vee z=x))$, then, in $(V,E)$, we have that $(y=S(x))^{(V,E)}$ iff $\forall z(z\in F(y)\leftrightarrow(z\in F(x)\vee z=x))$, equivalently, $F(y)=F(x)\cup\{x\}$. Therefore
+        \begin{align*}
+            \mc{I}^{(V,E)} & \equiv \exists x(\emptyset^{(V,E)}Ex\wedge\forall y(yEx\to S(y)^{(V,E)}Ex))\\
+            & \equiv \exists x(F^{-1}(\emptyset)\in F(x)\wedge\forall y(y\in F(x)\to F(y)\cup\{y\}\in F(x)))
+        \end{align*}
+        we can then define $A=\bigcup_{n\in\omega}A_n$ by recursion, where $A_0=\{F^{-1}(\emptyset)\}$ and, for all $n\geq0$
+        $$A_{n+1}=A_n\cup\{F(x)\cup\{x\}:x\in A_n\}$$
+        Then let $F(x)=A$, i.e., $x=F^{-1}(A)$.
+        \item Finally, for the Axiom Schema of Replacement, clearly $\mc{F}^{(V,E)}$ will state that, if $\varphi^{(V,E)}(x,y,\ol{v},A)$ is ``a function'' in $F(A)$, then there is a $B$ such that $F(B)=\text{Im}(\varphi^{(V,E)}(x,y,\ol{v},A))$. In fact, since $F(A)$ is a set, we can just apply replacement and then let $B=F^{-1}(\text{Im}(\varphi^{(V,E)}(x,y,\ol{v},A)))$.
+    \end{itemize}
+\end{proof}
+
+Note how powerful the previous theorem is. It's basically saying that, assuming consistency of $\text{ZF}^-$, for every model $V$ of it we can make a new one by just choosing a permutation $F$ in it. Let's see how such basic permutations gives us impressive results.
+
+\begin{corollary}{}{}
+    If $\text{ZF}$ is consistent (or even $\text{ZF}^-$), then $\text{ZF}^-+\neg\mc{R}$ is also consistent.
+\end{corollary}
+
+\begin{proof}
+    Let $(V,\in)\vDash\text{ZF}$, and consider $F$ as the transposition of $0$ and $1$. Then, for any set $x$, we have that $xE0$ iff $x\in F(0)=1$, i.e., $x=0$, then $y=0$ proves that $(V,E)\vDash\exists y(y=\{y\})$.
+\end{proof}
+
+\begin{observation}
+    Such permutation $F$ is called the Rieger-Bernays Permutation, and the model $(V,E_F)$ is called the Rieger-Bernays Permutation model. As we saw, it introduces an element $x=\{x\}$, such elements are called Quine Atoms, and it's not hard to see that $x=0$ is the only one in this model.
+\end{observation}
+
+\section{Consistence of \texorpdfstring{$\neg\text{AC}$}{negAC}}
+
+\textcolor{laser_eyes}{Pendent}

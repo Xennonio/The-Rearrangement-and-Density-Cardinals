@@ -1,0 +1,384 @@
+\chapter{Easy Consistency Proofs}
+
+This chapter will be devoted to use our model approximations to give ``easy'' consistency and independence proofs about almost all axioms of ZFC.
+
+Note that hierarchies like $H(\kappa)$ and $R(\gamma)$ are defined in terms of levels of boundedness for some ``rank'' function $\rho$. In fact, since almost every ZFC axiom states the existence of some set $y$ we can construct using sets $x$ that already exists, they can be expressed as a $\forall\exists$, and then the proofs will just consists of showing our set $y$ has a bounded rank in terms of the ranks of the sets $x$.
+
+\section{First Axioms}
+
+Since $WF$, $H(\kappa)$ and $R(\gamma)$ are very similar, a lot of consistency proofs will also be similar. In order to avoid that we will prove the following useful lemma\footnote{Note that such hypothesis in each item of the following lemma are unnecessary, in the sense that they are way stronger than the conclusion. In fact, they prove a stronger axiom, namely the second order version of it, which says ``all'' possible subsets satisfying the properties we want exists, and not just the definable ones. We will see how to weaken this later.}.
+
+\begin{lemma}{}{}\label{basic_axioms_criterion}
+    For any class $M$:
+    \begin{enumerate}
+        \item If $M$ is transitive, then $M\vDash\mc{E}$;
+        \item If $M\subseteq WF$, then $M\vDash\mc{R}$;
+        \item If $\forall z\in M\;\forall y\subseteq z[y\in M]$, then $M\vDash\mc{C}$;
+        \item If $\mc{F}\in M[\bigcup\mc{F}\in M]$, then $M\vDash\mc{U}$;
+        \item If $M$ is transitive and if for any function $f$, with $\text{dom}(f)\in M$ and $\text{Im}(f)\subseteq M$, we have that $\text{Im}(f)\in M$, then $M\vDash\mc{F}$.
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    1. We need to prove that $\forall x,y\in M(x=y\leftrightarrow\forall z\in M(z\in x\leftrightarrow z\in y))$. Clearly, if $x=y$, then $\forall z\in M(z\in x\leftrightarrow z\in y)$. Now, for the other direction, if $z\in x$ or $z\in y$, then, since $x,y\in M$, and $M$ is transitive, $z\in M$, which means $\forall z(z\in x\leftrightarrow z\in y)$, then in fact $x=y$.
+
+    2. The Axiom of Regularity (or Foundation) relativized to $M$ is
+    $$\forall x\in M[\exists w\in M(w\in x)\to \exists y\in M(y\in x\wedge\nexists z\in M(z\in x\wedge z\in y))]$$
+    Given $x\in M$, let $\widetilde{x}=x\cap M$. Since $w\in\widetilde{x}$, and $M\subseteq WF$, then there is a $\in$-minimal element $y$ of $\widetilde{x}$ in $M$. Now, if $z\in M$, and $z\in x$, then $z\in\widetilde{x}$, which means $z\notin y$.
+
+    3. Let $\varphi(x,z,\ol{v})$ be a $\{\in\}$-formula without $y$ free. We need to prove that
+    $$\forall z,\ol{v}\in M\;\exists y\in M\;\forall x\in M[x\in y\leftrightarrow x\in z\wedge\varphi^M(x,z,\ol{v})].$$
+    Given $z\in M$, let $y=\{x\in z:\varphi^M(x,z,\ol{v})\}$, then $y\subseteq z$ and, by hypothesis, implies that $y\in M$.
+
+    With these proofs, it's clear how to do the same for 4. and 5.
+\end{proof}
+
+Let's now see much axioms we can prove in our approximate models
+
+\begin{corollary}{}{}\label{R(gamma)_models}
+    If $\gamma$ is a limit ordinal, then $R(\gamma)\vDash Z-\mc{P}-\mc{I}$. Furthermore, $HF=R(\omega)\vDash\mc{F}$.
+\end{corollary}
+
+\begin{proof}
+    Since all three approximate models are transitive and subsets of $WF$, let's omit 1. and 2.
+
+    3. Let $z\in R(\gamma)$, then $z\in R(\alpha)$, for some $\alpha<\gamma$. Since $\lambda$ is a limit ordinal, $\alpha+1<\gamma$ and, if $y\subseteq z$, then $y\in\mc{P}(z)\subseteq R(\alpha+1)=\mc{P}(R(\alpha))\subseteq R(\gamma)$, then $y\in R(\gamma)$.
+
+    4. Similarly to 3., let $\mc{F}\in R(\gamma)$, then $\mc{F}\in R(\alpha)$ for some $\alpha<\gamma$. Given $x\in\bigcup\mc{F}$, $x\in y$, for some $y\in\mc{F}$, but since $R(\alpha)$ is transitive, $x\in R(\alpha)$ and, therefore, $\bigcup\mc{F}\subseteq R(\alpha)$, which implies that $\bigcup\mc{F}\in\mc{P}(R(\alpha))=R(\alpha+1)\subseteq R(\gamma)$.
+
+    (5. for $R(\omega)$): Since, as we saw, $R(\omega)=H(\omega)$ and $\omega$ is regular, then by Corollary \ref{H(k)_models}, $HF\vDash\mc{F}$.
+\end{proof}
+
+\begin{corollary}{}{}\label{wf_models}
+    $WF\vDash ZF-\mc{P}-\mc{I}$
+\end{corollary}
+
+\begin{proof}
+    They all follow from the previous corollary and the fact that $WF=R(ON)$.
+\end{proof}
+
+\begin{corollary}{}{}\label{H(k)_models}
+    If $\kappa$ is an infinite cardinal, then $H(\kappa)\vDash Z-\mc{P}-\mc{I}$. Furtheremore, $H(\kappa)\vDash\mc{F}$, when $\kappa$ is a regular cardinal.
+\end{corollary}
+
+\begin{proof}
+    3. Clear, since if $y\subseteq z$, then $\text{trcl}(y)\subseteq\text{trcl}(z)$, so we have a bound on cardinality.
+
+    4. Also clear since
+    $$\text{trcl}\rp{\bigcup\mc{F}}=\bigcup_{n\geq0}\rp{\bigcup\nolimits^n\bigcup\mc{F}}=\bigcup_{n\geq1}\bigcup\nolimits^n\mc{F}\subseteq\bigcup_{n\geq0}\bigcup\nolimits^n\mc{F}=\text{trcl}(\mc{F})$$
+
+    (5. for $\kappa$ regular): Let $z=\text{dom}(f)\in H(\kappa)$, since $\text{Im}(f)\subseteq H(\kappa)$ and $f$ is a surjection from $z$ to its image, then $\lvert\text{Im}(f)\rvert\leq\lvert z\rvert<\kappa$ which, by Lemma \ref{k-regular_H(k)_subset} implies that $\text{Im}(f)\in H(\kappa)$.
+\end{proof}
+
+\section{Absoluteness and Power Set Axiom}\label{absoluteness_and_power_set_axiom}
+
+We shall now consider the remaining three Axioms. As we saw, the previous proofs displayed directly the axioms as relativized $\in$-formulas, which is doable, but complicated for sentences about cardinals and other gigantic definitions. For this reason we will talk about absoluteness.
+
+Let's start proving that every $\Delta_0$ formula is absolute
+
+\begin{lemma}{}{}\label{delta_0_absoluteness}
+    Let $\in$ be a symbol of $\mc{L}$ and $\mf{A}\subseteq\mf{B}$. If $A$ is transitive, then $\mf{A}\preceq_\varphi\mf{B}$ for all $\Delta_0$ $\mc{L}$-formulas $\varphi$. For $M$ transitive and $B=V$ it says we can swap from $\varphi^M$ to $\varphi$.
+\end{lemma}
+
+\begin{proof}
+    The base case for $\varphi$ is clear since quantifier-free formulas are preserved under substructures. Similarly, the induction steps for the logical connectives are also clear.
+
+    For $\exists$, let $\varphi(\ol{v})=\exists y[y\in\tau(\ol{v})\wedge\psi(\ol{v},y)]$, where $\psi$ is $\Delta_0$ and $\mf{A}\preceq_\psi\mf{B}$ as the induction hypothesis. Then, let $\ol{a}\in A^n$, we claim that we have the following:
+    \begin{align*}
+        \mf{A}\vDash\varphi(\ol{a}) & \Leftrightarrow \exists b\in A\text{ such that }b\in\tau^\mf{A}(\ol{a})\text{ and }\mf{A}\vDash\psi(\ol{a},b)\\
+        & \Leftrightarrow \exists b\in B\text{ such that }b\in\tau^\mf{B}(\ol{a})\text{ and }\mf{B}\vDash\psi(\ol{a},b)\Leftrightarrow\mf{B}\vDash\varphi(\ol{a})
+    \end{align*}
+    The $(\Rightarrow)$ direction is clear, since $\tau^\mf{A}(\ol{a})=\tau^\mf{B}(\ol{a})$ and $A\subseteq B$ and $\mf{A}\preceq_\psi\mf{B}$. For the $(\Leftarrow)$ direction, since $A$ is transitive and $\tau^\mf{A}(\ol{a})\in A$, then $\tau^\mf{A}(\ol{a})\subseteq A\subseteq B$.
+\end{proof}
+
+\begin{example}
+    For some simple examples, note that the following are $\Delta_0$ formulas:
+    \begin{align*}
+        x\subseteq y &\equiv \forall z\in x(z\in y)\\
+        y=S(x) & \equiv \forall z\in y(y=x\vee y\in x)\wedge x\in y\wedge x\subseteq y\\
+        x=\emptyset & \equiv \forall z\in x(z\neq z)\\
+        y=v\cap w & \equiv \forall z\in y(z\in v\wedge z\in w)\wedge y\subseteq v\wedge y\subseteq w\\
+        \text{``$x$ is a singleton''} & \equiv \exists z\in x\;\forall y\in x(z=y)
+    \end{align*}
+\end{example}
+
+We will often denote ``$x$ is a singleton'' as $\text{Sing}(x)$.
+
+\begin{observation}
+    It's worth noting that, in the previous example, the equivalences are not the ``oficial'' definitions of those terms, in fact, they are equivalent over some basic set theory. What we are using here is the fact that if $V,M\vDash\forall\ol{v}(\varphi(\ol{v})\leftrightarrow\psi(\ol{v}))$, then $\varphi$ is absolute for $M$ iff $\psi$ is also absolute for $M$. What the previous statements says is that $M$ should be able to prove the logical equivalence between the formulas and, then, we sometimes require $M$ to satisfy some basic axioms of ZFC.
+\end{observation}
+
+With absoluteness in hands, we can prove the following lemma
+
+\begin{lemma}{}{}\label{power_set_criterion}
+    Let $M$ be a transitive class, then
+    $$\forall x\in M((\mc{P}(x)\cap M)\in M)\Rightarrow M\vDash\mc{P}$$
+    Also, we have the $(\Leftarrow)$ direction if $M\vDash\mc{C}$.
+\end{lemma}
+
+\begin{proof}
+    By absoluteness of $\subseteq$, the Power Set Axiom relativized to $M$ is equivalent to
+    $$\forall x\in M\;\exists y\in M\;\forall z\in M(z\subseteq x\to z\in y)$$
+    Then it's easy to see, for each $x\in M$, we can just take $y=\mc{P}(x)\cap M$ which is in $M$ by hypothesis.
+
+    The other direction is also clear, since $M\vDash\mc{P}$, then for each $x\in M$ there is some $y\in M$ such that $\mc{P}(x)\cap M\subseteq y$. By Comprehension and absoluteness of $\subseteq$ we have that
+    $$\mc{P}(x)\cap M=\{z\in y:(z\subseteq x)^M\}\in M$$
+\end{proof}
+
+The following is clear by the definition of $R$ and since $WF=R(ON)$.
+
+\begin{corollary}{}{}\label{R,WF_power_set}
+    $WF\vDash\mc{P}$ and $R(\gamma)\vDash\mc{P}$ for any limit $\gamma$.
+\end{corollary}
+
+Unfortunately (or not since it makes independence easy) the same is not true for $H(\kappa)$, as we will see in subsubsection \ref{ind_power_set}
+
+\section{Axiom of Infinity and Choice}
+
+As we shall see, the Axiom of Infinity and AC can be stated only using symbols we proved in the last subsection to be absolute, then we don't need to worry about their relativizations.
+
+\begin{lemma}{}{}\label{inf_ac_criterion}
+    Let $M$ be a transitive class such that $M\vDash\mc{E}$, $\mc{U}$, $\mc{C}$ and Pairing.
+    \begin{enumerate}
+        \item $M\vDash\mc{I}$ iff $\omega\in M$;
+        \item $M\vDash\text{AC}$ iff every disjoint family of non-empty sets in $M$ has a choice set in $M$.
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    1. $(\Rightarrow)$ The Axiom of Infinity is equivalent to $\exists x\;\text{Ind}(x)$, where $\text{Ind}(x)$ states that $x$ is inductive, i.e.
+    $$\text{Ind}(x)\equiv\emptyset\in x\wedge\forall y\in x(S(y)\in x)$$
+    Since it's absolute, then $\mc{I}^M=\exists x\in M(\text{Ind}(x))$, whose $x=\omega$ clearly satisfies.
+
+    $(\Leftarrow)$ Since $\text{Ind}$ is absolute, given that there is some $\lambda\in M$ such that $\text{Ind}(\lambda)$, then $\lambda$ is in fact a limit ordinal and, by transitiveness of $M$, all smaller ordinals are also in $M$, in particular, $\omega\in M$.
+
+    2. AC is equivalent to $\forall F\;\exists C[\text{df}(F)\to\text{cs}(C,F)]$, where $\text{df}(F)$ states $F$ is a disjoint family of non-empty sets and $\text{cs}(C,F)$ that $C$ is a choice set for $F$, i.e.
+    \begin{align*}
+        \text{df}(F) & \equiv\emptyset\notin F\wedge\forall x\in F\;\forall y\in F(x\neq y\to x\cap y=\emptyset)\\
+        \text{cs}(C,F) & \equiv\forall x\in F(\text{Sing}(C\cap x))
+    \end{align*}
+    which are all absolute. Then $\text{AC}^M=\forall F\in M\;\exists C\in M[\text{df}(F)\to\text{cs}(C,F)]$. which is our condition.
+\end{proof}
+
+The hypothesis that $M$ should satisfy $\mc{E}$, $\mc{U}$, $\mc{C}$ and Pairing was used in the absoluteness of the $\Delta_0$ formulas, due to the observation after Lemma \ref{delta_0_absoluteness}.
+
+\begin{observation}
+    As a fun fact, we can't prove the $(\Rightarrow)$ direction of (1) without Regularity. In order to show this we will need to analyze permutations in $V$ and use Mostowski Collapsing Lemma, which we will see in the \href{??}{following sections}.
+\end{observation}\todo{add hyperlink to the proof}
+
+We can now analyze if these axioms are satisfied by our approximate models. In fact, we will see in subsection \ref{ind_regularity} that $WF\vDash\zfc$. For now, let's stick to $R(\gamma)$ and $H(\kappa)$.
+
+\begin{corollary}{}{}\label{R(gamma)_zf}
+    $R(\gamma)\vDash ZC$ whenever $\gamma>\omega$ is a limit ordinal.
+\end{corollary}
+
+\begin{proof}
+    Since $\gamma>\omega$, clearly $\omega\in R(\gamma)$. Now, given $F\in R(\gamma)$ a family of disjoint nonempty sets, by AC there is some choice set $C$, choose it such that $C\subseteq F$ (you can take, for example, $C\cap \bigcup F$). Since $C\subseteq F\in R(\gamma)$ and $\gamma$ is a limit ordinal, then $C\in P(F)\subseteq R(\gamma)$.
+
+    Then, by Corollary \ref{R(gamma)_models} and \ref{R,WF_power_set} we have that $R(\gamma)\vDash ZC$.
+\end{proof}
+
+\begin{corollary}{}{}\label{H(k)_zfc-p}
+    $H(\kappa)\vDash\zfc-\mc{P}$ whenever $\kappa$ is a regular uncountable cardinal.
+\end{corollary}
+
+\begin{proof}
+    Since $\kappa>\omega$, clearly $\omega\in H(\kappa)$. Now, given $F\in H(\kappa)$ a family of disjoint nonempty sets, we can take $C\subseteq F$ a choice set as in the previous proof. Since $F\in H(\kappa)$ and $H(\kappa)$ is transitive, then $F\subseteq H(\kappa)$ and, therefore, $C\subseteq H(\kappa)$. Now, since $\kappa$ is regular and $\lvert C\rvert\leq\lvert F\rvert<\kappa$, then, by Lemma \ref{k-regular_H(k)_subset}, $C\in H(\kappa)$, as desired.
+
+    The rest follows from Corollary \ref{H(k)_models}.
+\end{proof}
+
+\section{Independence of ZFC Axioms}
+
+We will now use our approximate models to construct models of $\zfc-\varphi$, where $\varphi$ is some axiom (or axiom schema) of $\zfc$, with the exception of the basic axioms and AC, whose independence is way harder and will be shown using $L$ and permutations of $V$ in the following sections.
+
+\subsection{Power Set}\label{ind_power_set}
+
+Let's analyze when Power Set Axiom is true in $H(\kappa)$.
+
+\begin{lemma}{}{}
+    If $\kappa$ is regular, uncountable and not strongly inaccessible, then $H(\kappa)\vDash\neg\mc{P}$.
+\end{lemma}
+
+\begin{proof}
+    Let's use Lemma \ref{power_set_criterion}. Since $\kappa$ is not strongly inaccessible, there is some $\lambda<\kappa$ such that $2^\lambda\geq\kappa$. And, since $\kappa$ is also regular, by Lemma \ref{k-regular_H(k)_subset} we have that $\mc{P}(\lambda)\subseteq H(\kappa)$. However, note that
+    $$\lvert\text{trcl}(\mc{P}(\lambda))\rvert\geq\lvert\mc{P}(\lambda)\rvert=2^\lambda\geq\kappa$$
+    and then, $\mc{P}(\lambda)\cap H(\kappa)=\mc{P}(\lambda)\notin H(\kappa)$, which implies $H(\kappa)\vDash\neg\mc{P}$, since $H(\kappa)\vDash\mc{C}$.
+\end{proof}
+
+\begin{observation}
+    Furthermore, when $\kappa$ is strongly inaccessible, we have $H(\kappa)\vDash\mc{P}$. To see this, note first that, as a scholium of Lemma \ref{k-regular_H(k)_subset}, we have that, for each $x\in H(\kappa)$, with $\lvert x\rvert=\lambda$
+    $$\text{trcl}(\mc{P}(x)) = \mc{P}(x)\cup\bigcup_{y\in\mc{P}(x)}\text{trcl}(y)$$
+    and, therefore, knowing that $y\subseteq x$ implies $\text{trcl}(y)\subseteq\text{trcl}(x)$, we also have
+    \begin{align*}
+        \lvert\text{trcl}(\mc{P}(x))\rvert & \leq \lvert\mc{P}(x)\rvert+\sum_{y\in\mc{P}(x)}\lvert\text{trcl}(y)\rvert\\
+        & \leq\lvert\mc{P}(x)\rvert+\lvert\mc{P}(x)\rvert\lvert\text{trcl}(x)\rvert\\
+        & = 2^\lambda+2^\lambda\lvert\text{trcl}(x)\rvert\\
+        & < \kappa^2=\kappa\tag{$2^\lambda<\kappa$}
+    \end{align*}
+    then $\mc{P}(x)\in H(\kappa)$ as desired.
+\end{observation}
+
+We can, therefore, prove our first independency result for a nontrivial axiom.
+
+\begin{theorem}{}{}
+    The Axiom of Power Set is independent of $\zfc-\mc{P}$.
+\end{theorem}
+
+\begin{proof}
+    Consider $HC=H(\aleph_1)$. Since $\aleph_1$ is a regular uncountable cardinal, but not strongly inaccessible, the result follows trivially from Corollary \ref{H(k)_zfc-p} and the previous lemma.
+\end{proof}
+
+\begin{observation}
+    It can be argued that it would be way easier (but not that cool) to just show $HC$ proves $\mc{P}(\omega)$ doesn't exists. However it would require some absoluteness results from the next section, which is really boring to prove. Let's sketch how the proof would be:
+    \begin{proof}
+        Clearly $\forall x\in HC\;\exists f\in HC\;[f:x\stackrel{1-1}{\to}\omega]$, since every set in $HC$ is countable. Now, since $f:x\stackrel{1-1}{\to}\omega$ is absolute, then we can't have $\mc{P}(\omega)\in HF$.
+    \end{proof}
+    Way shorter, right? But trust me, the details are boring.
+\end{observation}
+
+\subsection{Infinity}
+
+\begin{theorem}{}{}
+    The Axiom of Infinity is independent of $\zfc-\mc{I}$
+\end{theorem}
+
+\begin{proof}
+    Consider $HF=H(\aleph_0)=R(\omega)$. Since $\omega\notin R(\omega)$, by Lemma \ref{inf_ac_criterion} $HF\vDash\neg\mc{I}$. Also, since $HF$ can be well-ordered, then a choice set always exists in it, then $HF\vDash\text{AC}$.
+    
+    The other axioms are consequences of Corollaries \ref{R(gamma)_models} and \ref{R,WF_power_set}.
+\end{proof}
+
+\subsection{Replacement}
+
+Before our proof, let's prove the following lemma about Beth function:
+
+\begin{lemma}{}{}
+    Show that $\{\delta:\delta=\beth_\delta\}$ is unbounded in $ON$.
+\end{lemma}
+
+\begin{proof}
+    Define $\delta_\xi$ by transfinite recursion as follows:
+    \begin{itemize}
+        \item $\delta_0=0$; \qquad $\delta_{\xi+1}=\beth_{\delta_\xi}$;
+        \item $\delta_\eta=\sup\{\delta_\xi:\xi<\eta\}$, when $\eta$ is a limit ordinal.
+    \end{itemize}
+    Note first that, given $\alpha<\delta_\eta$, with $\eta$ a limit ordinal, since $\delta_\eta=\sup\{\delta_\xi:\xi<\eta\}$, there is some $\xi<\eta$ such that $\delta_\xi>\alpha$. Using this fact, we then have that, for $\eta$ a limit ordinal
+    $$\beth_{\delta_\eta}=\sup\{\beth_\alpha:\alpha<\delta_\eta\}=\sup\{\beth_{\delta_\xi}:\xi<\eta\}=\sup\{\delta_{\xi+1}:\xi<\eta\}=\delta_\eta$$
+    Since $\eta$ is an arbitrary limit ordinal, we conclude that $\{\delta:\delta=\beth_\delta\}$ is unbounded in $ON$.
+\end{proof}
+
+Let's now see a necessary condition for $R(\gamma)\vDash\mc{F}$.
+
+\begin{lemma}{}{}
+    If $R(\gamma)\vDash\mc{F}$, for $\gamma>\omega$, then $\gamma=\beth_\gamma$ and $\{\delta<\gamma:\delta=\beth_\delta\}$ has size $\gamma$.
+\end{lemma}
+
+\begin{proof}
+    \todo{It should be a direct corollary of the previous lemma using that $\delta\mapsto\beth_\delta$ is absolute}\textcolor{laser_eyes}{PENDENT}
+\end{proof}
+
+\begin{theorem}{}{}
+    The Axiom of Replacement is independent of $\text{ZC}$
+\end{theorem}
+
+\begin{proof}
+    Consider $M=R(\omega+\omega)$, by Corollary \ref{R(gamma)_zf} it's a model of ZC and, by the previous lemma, since $\omega+\omega\neq\beth_{\omega+\omega}$, we have that $M\vDash\neg\mc{F}$.
+\end{proof}
+
+\subsection{Union}
+
+This is not as direct as the previous theorems, in fact we need to define some new kind of model approximation of $V$ that looks like $H(\kappa)$.
+
+\begin{definition}{}{}
+    Given a cardinal $\kappa$, a set $x$ is pseudo-hereditarily of cardinality less than $\kappa$ if $\lvert x\rvert<\kappa$ and, for all $y\in x$, $\lvert\text{trcl}(y)\rvert<\kappa$, i.e., $y\subseteq H(\kappa)$. We can define
+    $$H^*(\kappa):=\{x:x\text{ is pseudo-hereditarily of cardinality less than }\kappa\}$$
+\end{definition}
+
+Intuitively, this is as $H(\kappa)$, but it doesn't restrict the size of the union $x\cup\bigcup_{y\in x}\text{trcl}(y)$, just the size of each term. By the next lemmas, our intended model for $\zfc-\mc{U}+\neg\mc{U}$ will be $H^*(\beth_\omega)$.
+
+\begin{lemma}{}{}
+    Let $\kappa$ be a strong limit cardinal, then $H^*(\kappa)\vDash\zfc-\mc{U}$
+\end{lemma}
+
+\begin{proof}
+    Clearly $H(\kappa)\subseteq H^*(\kappa)\subseteq WF$ for all cardinals $\kappa$. And, if $x\in y\in H^*(\kappa)$, then $x\subseteq\text{trcl}(y)$, which implies that $\lvert x\rvert\leq\lvert\text{trcl}(y)\rvert<\kappa$. Similarly, for all $z\in\text{trcl}(x)\subseteq\text{trcl}(y)$, we have $\text{trcl}(z)\subseteq\text{trcl}(y)$, then $\lvert\text{trcl}(z)\rvert\leq\lvert\text{trcl}(y)\rvert<\kappa$ and, therefore, $x\in H^*(\kappa)$.
+
+    Since $H^*(\kappa)$ is a subset of $WF$ and transitive, by Lemma \ref{basic_axioms_criterion}, it satisfies $\mc{E}$ and $\mc{R}$. Also, since $\kappa>\aleph_0$, we have $\omega\in H^*(\kappa)$ and, by Lemma \ref{inf_ac_criterion}, it satisfies $\mc{I}$.
+
+    For Power Set Axiom, we will use Lemma \ref{power_set_criterion}. If $x\in H^*(\kappa)$ and $y\subseteq x$, then $\lvert y\rvert\leq\lvert x\rvert<\kappa$ and $\text{trcl}(y)\subseteq\text{trcl}(x)$, so $\lvert\text{trcl}(y)\rvert\leq\lvert\text{trcl}(x)\rvert<\kappa$, this implies that $\mc{P}(x)\cap H^*(\kappa)=\mc{P}(x)$. Now, if $\lvert x\rvert=\lambda<\kappa$, since $\kappa$ is strong limit, then $\lvert\mc{P}(x)\rvert=2^\lambda<\kappa$. And, for $y\in\mc{P}(x)$, as we saw $\lvert\text{trcl}(y)\rvert<\kappa$, which implies that $\mc{P}(x)\in H^*(\kappa)$, then $H^*(\kappa)$ satisfies $\mc{P}$.
+
+    As in the proof that $H(\kappa)\vDash\mc{F}$ and $\mc{C}$, we just need to show the analogous of the Lemma \ref{k-regular_H(k)_subset} for $H^*(\kappa)$. Given $x\subseteq H^*(\kappa)$ such that $\lvert x\rvert<\kappa$, if $y\in\text{trcl}(x)$, then $\text{trcl}(y)\subseteq\text{trcl}(x)$, which implies that $\lvert\text{trcl}(y)\rvert\leq\lvert\text{trcl}(x)\rvert<\kappa$, therefore $x\in H^*(\kappa)$ and $H^*(\kappa)\vDash\mc{F},\mc{C}$.
+\end{proof}
+
+\begin{lemma}{}{}
+    If $\kappa$ is a singular strong limit cardinal, then $H^*(\kappa)\vDash\neg\mc{U}$
+\end{lemma}
+
+\begin{proof}
+    Let $\cf(\kappa)=\lambda$ and $\langle\alpha_\beta:\beta<\lambda\rangle$ be a strictly increasing sequence converging to $\kappa$, with $\lvert\alpha_\beta\rvert<\kappa$, for every $\beta<\lambda$. Clearly $\xi\in H^*(\kappa)$ for every $\xi$ such that $\lvert\xi\rvert<\kappa$, then $\lambda,\alpha_\beta\in H^*(\kappa)$, for every $\beta<\lambda$, and, therefore, $\{\alpha_\beta:\beta<\lambda\}\in H^*(\kappa)$ since it satisfies $\mc{F}$. However
+    $$\bigcup\{\alpha_\beta:\beta<\lambda\}=\kappa\notin H^*(\kappa)$$
+    then $H^*(\kappa)\vDash\neg\mc{U}$
+\end{proof}
+
+\begin{observation}
+    It's clear that, in the previous model, The Axiom of Union fails to ensure that the union of a set of size $\cf(\kappa)$ exists, in particular, the model of the next theorem doesn't guarantee that union of countable sets always exists.
+
+    Fortunately, since $\beth_\alpha$ is strong inaccessible, whenever $\alpha$ is a limit ordinal, and since $\cf(\kappa)$ is always a regular cardinal, then $H^*(\beth_{\kappa+\kappa})$, with $\kappa$ regular, is a model where The Axiom of Union fails for sets of size $\kappa$, since $\beth$ is a continuous function, $\cf(\beth_{\kappa+\kappa})=\kappa$ and $\beth_{\kappa+\kappa}>\beth_\kappa\geq\cf(\beth_\kappa)=\kappa$, i.e., it's singular.
+
+    Some natural questions are whether we can find models whose union fails for singular cardinals or, maybe, if we can make it fails even for union of finite elements.
+
+    It turns out that, surprisingly, we can make it fail for the union of two elements! The full construction can be found \href{https://math.stackexchange.com/a/3982905/1147686}{here}, unfortunately, it uses forcing, which we didn't learn yet.
+\end{observation}
+
+\begin{theorem}{}{}
+    The Axiom of Union is independent of $\zfc-\mc{U}$.
+\end{theorem}
+
+\begin{proof}
+    By the two previous lemmas, let $M=H^*(\beth_\omega)$, since $\beth_\omega$ is a singular strong limit cardinal, then $M\vDash\zfc-\mc{U}+\neg\mc{U}$, as desired.
+\end{proof}
+
+\subsection{Regularity}\label{ind_regularity}
+
+This is way easier than the previous result, but the results in this subsubsection are in some sense more important, that's why it's the last one.
+
+\begin{theorem}{}{}
+    The Axiom of Regularity is independent of $\zfc^-$.
+\end{theorem}
+
+\begin{proof}
+    Let's add the constant symbols $\{c_n\}_{n\in\omega}$ to the language. Consider now the set
+    $$S=\{c_{n+1}\in c_n:n\in\omega\}$$
+    Now, since we're assuming $\zfc$ is consistent, let $M$ be some model of it. Clearly for any finite subset $S_0\subseteq S$ we have that $M\vDash S_0$, then, by Compactness Theorem, there is some model $M'$ of $\zfc+S$, which gives us an infinite descending $\in$-chain $c_0\ni c_1\ni c_2\ni\dots$, therefore $M'\vDash\neg\mc{R}$.
+\end{proof}
+
+It's worth noting that we can also construct some model of $\text{ZF}^-$ that doesn't satisfies regularity using permutations of $V$, as we shall see in the following sections.
+
+We have two reasons to give a different proof. The first is because the method used introduces a really powerful method called Permutation Models. The second is because it can be hard to tell how many axioms of ZFC we need to prove Compacteness. In fact, we need at least AC, since Compacteness is equivalent to the Ultrafilter Lemma, which is a weaker fragment of AC. With the alternative proof, however, we can just work with $\text{ZF}^-$, instead.
+
+Let's conclude this section finishing the proof that $WF$ is a model of ZFC.
+
+\begin{theorem}{}{}
+    $WF\vDash\text{ZF}$ and, if we assume AC, $WF\vDash\zfc$.
+\end{theorem}
+
+\begin{proof}
+    It follows easily from Corollaries \ref{wf_models} and \ref{R(gamma)_zf} with the fact that $WF=R(ON)$.
+\end{proof}
+
+It's worth noting now that, almost all work we did from now on can be done in $\text{ZF}^--\mc{P}$ instead of $\zfc$, which means we could prove the following results about proof theoretic equivalence
+
+\begin{theorem}{}{}
+    Let $\Gamma$ be one of the theories $\text{ZF}-\mc{P}$, $\zfc-\mc{P}$, $\text{ZF}$, $\zfc$. If $\Gamma^-=\Gamma-\mc{R}$, then $\Gamma\leq\Gamma^-$.
+\end{theorem}
+
+\begin{proof}
+    Working in $\Gamma^-$, we can just prove, as before, each axiom of $\Gamma$ relativized to $WF$.
+\end{proof}
+
+And, since $\Gamma^-\leq\Gamma$, then we conclude that $\Gamma\sim\Gamma^-$ which, in some sense, says that set theory without regularity is not weaker, i.e., regularity don't really add anything new.
+
+Note also that, since in almost all other independence proofs we used models that are actually sets, then we proved the stronger claim that $\Gamma\lhd\zfc$, where $\Gamma$ is ZFC minus that specific axiom. This implies that, by Lemma \ref{proof-theoretic_lemma}, with the exception of regularity, $\Gamma$ can't be proof theoretically equivalent to $\zfc$. We will see later that GHC is also another exception.
+
+With this remarks we will, for now on, always assume the Regularity Axiom (which will help us).

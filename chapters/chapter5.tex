@@ -1,0 +1,339 @@
+\chapter{Martin's Axiom}
+
+In the 60's, Martin, Solovay, Tennenbaum, and others extended Cohen's method of forcing and proved many statements to be independent of $\zfc+\neg\text{CH}$. But then Martin and a few other people realized that one could encapsulate the results of some of these proofs into one axiom, now called Martin's Axiom or MA, which would have been understandable in the 20's. It's consistent with it that $\mf{c}$ is arbitrarily large, and in fact it's a consequence of CH. MA is usually covered before forcing, since it introduces many of the combinatorial complexities found there, as we will see.
+
+\section{Forcing Posets}
+
+\begin{definition}{}{}
+    A forcing poset is a triple $(\mbb{P},\leq,\mathbbm{1})$, where $\leq$ is a pre order on $\mbb{P}$ and $\mathbbm{1}$ is a maximum element in $\mbb{P}$.
+\end{definition}
+
+Elements of $\mbb{P}$ are called forcing conditions, and $p\leq q$ is read ``$p$ extends $q$''.
+
+\begin{definition}{}{}
+    Let $\mbb{P}$ be a forcing poset, then $p,q\in\mbb{P}$ are compatible ($p\not\perp q$) iff they have a common extension, and incompatible ($p\perp q$) otherwise. $A\subseteq\mbb{P}$ is an antichain iff its elements are pairwise incompatible. $\mbb{P}$ has the countable chain condition (ccc) iff every antichain in $\mbb{P}$ is countable.
+\end{definition}
+
+The following example gives us some intuition on how the elements of $\mbb{P}$ are approximations of something we are trying to construct.
+
+\begin{definition}{}{}
+    For any $I,J$, let $\text{Fn}(I,J)$ be te set of all finite partial functions from $I$ to $J$. Make it into a forcing poset by letting $\leq$ be $\supseteq$ and $\mathbbm{1}=\emptyset$.
+\end{definition}
+
+So $p\not\perp q$ iff $p,q$ are compatible as function, i.e., they have a common extension or, equivalently, $p\cup q\in\text{Fn}(I,J)$. Informally, each $p\in\text{Fn}(I,J)$ is a finite approximation of some function $f:I\to J$, then it informally expresses a condition that our $f$ needs to satisfy, namely $f\supseteq p$.
+
+In order to define MA, we need the following concepts
+
+\begin{definition}{}{}
+    Let $\mbb{P}$ be a forcing poset. Then $D\subseteq\mbb{P}$ is dense in $\mbb{P}$ iff $\forall p\in\mbb{P}$ $\exists q\in D$ $q\leq p$.
+\end{definition}
+
+Let's see examples of dense sets in $\mbb{P}$ using the previous forcing poset.
+
+\begin{example}
+    If $I$ is infinite and $J\neq\emptyset$, then
+    $$D_i=\{q\in\text{Fn}(I,J):i\in\text{dom}(q)\}\text{ and }I_j=\{q\in\text{Fn}(I,J):j\in\text{Im}(q)\}$$
+    are dense whenever $i\in I$ and $j\in J$.
+
+    As another example, if $\lvert J\rvert\geq2$, then
+    $$E_h=\{q\in\text{Fn}(I,J):q\nsubseteq h\}$$
+    is dense, whenever $h\in J^I$.
+\end{example}
+
+Which is clear, since, for the first, any finite partial function can be extended to one that contains $i$ in its domain or $j$ in its image; and, for the second, let $i\in I\setminus\text{dom}(p)$ and $j\in J$, with $j\neq h(i)$, then $q=p\cup\{(i,j)\}$ extends $p$ and is in $E_h$.
+
+\begin{definition}{}{}
+    Let $\mbb{P}$ be a forcing poset. Then $G\subseteq\mbb{P}$ is a filter on $\mbb{P}$ iff
+    \begin{enumerate}
+        \item $\mathbbm{1}\in G$;
+        \item $\forall p,q\in G\,\exists r\in G\,[r\leq p\wedge r\leq q]$;
+        \item $\forall p,q\in\mbb{P}\,[p\geq q\wedge q\in G\to p\in G]$
+    \end{enumerate}
+    Given a family $\mc{D}$ of dense subsets of $\mbb{P}$, a filter $G$ is called $\mc{D}$-generic iff $G\cap D\neq\emptyset$ for every $D\in\mc{D}$.
+\end{definition}
+
+In some sense, filters is a measure for ``largeness''. Condition 1 says $\mathbbm{1}$ is large, condition 2. says that any common extension of larger elements is also large, and condition 3. says $G$ is upward closed, i.e., given any large element, every other greater one is also large.
+
+\section{\texorpdfstring{$\text{MA}(\kappa)$}{MA(kappa)} and Generic Filter Existence Lemma}
+
+We can now state Martin's Axiom. In fact, since it's based on forcing arguments, the reasons for why we should accept it or why these weird concepts like generic filters, dense and ccc forcing posets appears will be clarified in the next section where we explain the forcing technique.
+
+\begin{definition}{}{}
+    $\text{MA}_{\mbb{P}}(\kappa)$ is the statement that whenever $\mc{D}$ is a family of dense subsets of $\mbb{P}$, with $\lvert\mc{D}\rvert\leq\kappa$, there exists a $\mc{D}$-generic filter $G$ on $\mbb{P}$.
+    \begin{itemize}
+        \item $\text{MA}(\kappa)$ is the statement that $\text{MA}_{\mbb{P}}(\kappa)$ holds for all ccc posets $\mbb{P}$;
+        \item MA is the statement that $\text{MA}(\kappa)$ holds for every $\kappa<\mf{c}$
+    \end{itemize}
+\end{definition}
+
+From the definition, clearly $\text{MA}_{\mbb{P}}(\kappa)\to\text{MA}_{\mbb{P}}(\lambda)$ and $\text{MA}(\kappa)\to\text{MA}(\lambda)$, whenever $\lambda\leq\kappa$.
+
+Now, motivated by the definition and our previous example, let's prove the following lemma.
+
+\begin{lemma}{}{}\label{Fn(I,J)_has_ccc}
+    $\text{Fn}(I,J)$ has the ccc iff $I=\emptyset$ or $J$ is countable.
+\end{lemma}
+
+\begin{proof}
+    \textcolor{laser_eyes}{Pendent}
+\end{proof}
+
+We can then illustrate how we can force some desired properties with the following lemma.
+
+\begin{lemma}{}{}\label{MA(kappa)_kappa<c}
+    if $\text{MA}(\kappa)$, then $\kappa<\mf{c}$.
+\end{lemma}
+
+\begin{proof}
+    Since $\text{MA}(\kappa)$, in particular $\text{MA}_{\mbb{P}}(\kappa)$, for $\mbb{P}=\text{Fn}(I,J)$, where $I=\emptyset$ or $J$ is countable. Now, if $G$ is any filter on $\mbb{P}$, given $p,q\in G$, since $p\not\perp q$ then they agree on $\text{dom}(p)\cap\text{dom}(q)$, so $f_G=\bigcup G$ is a function with $\text{dom}(f_G)\subseteq I$ and $\text{Im}(f_G)\subseteq J$.
+
+    If we force $f_G:I\to J$ to be surjection, but also force that $f\notin J^I$ we will have a contradiction. In order to force these conditions, we need to find some family of dense sets $\mc{D}$, and the fact that $G$ is $\mc{D}$-dense will force $f_G$ to have the desired properties.
+
+    First of all, to guarantee that $\mbb{P}$ is pcc, let's take $J$ countable as in the previous lemma. Now, to force the first condition, we know by the previous example that, if $J\neq\emptyset$, $D_i$ and $R_j$ are dense, then, if $G$ intersects all these sets, clearly $f_G\in J^I$. For the second condition, if $\lvert J\rvert\geq 2$, then $E_h$ is dense, which means that, if $G$ intersects all $E_h$, then $f_G\neq h$ for all $h\in J^I$.
+
+    In fact, if $\text{MA}(\kappa)$, for $\kappa\geq\mf{c}$, then, for $\lvert I\rvert=\aleph_0$ and $\lvert J\rvert\geq2$, we have
+    $$\mc{D}=\{D_i,R_j,E_h:i\in I,j\in J,h\in J^I\}$$
+    as a family of dense sets in $\mbb{P}$. Since $\lvert\mc{D}\rvert\leq\lvert J^I\rvert\leq\aleph_0^{\aleph_0}=\mf{c}\leq\kappa$
+    then, by $\text{MA}(\kappa)$, we have that there is a $\mc{D}$-generic filter $G$ and, then, $f_G=\bigcup G$ is such that $f\in J^I$, but $f\neq h$ for all $h\in J^I$.
+\end{proof}
+
+The previous proof shows us why we need $\mbb{P}$ to be ccc:
+
+\begin{lemma}{}{}
+    For all $\kappa\geq\aleph_1$, there is a non-ccc $\mbb{P}$ such that $\text{MA}_{\mbb{P}}(\kappa)$ is false.
+\end{lemma}
+
+\begin{proof}
+    Let $\mbb{P}=\text{Fn}(I,J)$, where $\lvert I\rvert=\aleph_0$ and $\lvert J\rvert=\kappa$, then $\mc{D}=\{D_i,R_j:i\in I,j\in J\}$ has cardinality $\leq\kappa$ and, then, any $\mc{D}$-generic filter $G$ would give us a surjective $\bigcup G=f_G:I\to J$.
+\end{proof}
+
+It doesn't work for $\kappa=\aleph_0$ since, in fact, we can prove $\text{MA}(\aleph_0)$ in $\zfc$ using the following lemma, which will be of great importance in the next section when talking about forcing.
+
+\begin{lemma}{}{}\label{generic_filter_existence}
+    (\textbf{Generic Filter Existence Lemma}) Let $\mbb{P}$ be a ny forcing poset and $\mc{D}$ a countable family of dense subsets of $\mbb{P}$. For any $p\in\mbb{P}$ there is a $\mc{D}$-generic filter $G$ on $\mbb{P}$ such that $p\in G$.
+\end{lemma}
+
+\begin{sketch}
+    The idea is that filters can be generated by chains (subset where all elements are pairwise compatible). In fact, if $C$ is any chain, then $G=\{q\in\mbb{P}:\exists p\in C(p\leq q)\}$ is a filter, since $\mathbbm{1}\in G$, for all $p,q\in G$, by definition there are $r,s\in C$ such that $r\leq p$ and $s\leq q$, in fact, since $C$ is a chain, we can assume WLOG that $r\leq s$, then $r\leq p,q$. And, if $p,q\in\mbb{P}$ with $p\geq q$ and $q\in G$, then $p\geq q\geq r$ for some $r\in C$ and, therefore, $p\in G$.
+\end{sketch}
+
+\begin{proof}
+    Motivated by the sketch, let $\mc{D}=\{D_n:n\in\omega\}$. Using AC and recursion on $\omega$ we will construct a chain $\{r_n\}_{n\in\omega}$ of elements in each $D_n$ starting with $p$. Let then $r_0=p$ and $r_{n+1}\leq r_n$ be such that $r_{n+1}\in D_n$, in fact such $r_{n+1}$ does exists, since $D_n$ is dense.
+
+    Then $C=\{r_n:n\in\omega\}$ is a chain and, as we saw, $G=\{q\in\mbb{P}:\exists n(r_n\leq q)\}$ is a filter. Clearly $r_0=p\in G$ and, since each $r_{n+1}\in G$, then $G\cap D_n\neq\emptyset$ and $G$ is $\mc{D}$-generic.
+\end{proof}
+
+In particular, CH would imply MA. Note that we can't prove an analogous lemma for $\mc{D}$ indexed by any larger ordinal $\alpha$, since the definition of $r_\lambda$ for $\lambda$ a limit ordinal would naturally be such that $r_\lambda\leq r_\xi$ for all $\xi<\lambda$, but we couldn't use density to guarantee that such $r_\lambda$ in fact exists.
+
+\section{Atomless and Centered Posets}
+
+\begin{definition}{}{}
+    $r\in\mbb{P}$ is an atom iff there are no $p,q\leq r$ such that $p\perp q$. We say $\mbb{P}$ is atomless iff there are no atoms in it.
+\end{definition}
+
+Let's see why we care about atoms
+
+\begin{lemma}{}{}
+    If $\mbb{P}$ has an atom, then $G=\{q\in\mbb{P}:q\not\perp r\}$ is a filter that meets all dense sets in $\mbb{P}$.
+\end{lemma}
+
+\begin{proof}
+    If $r$ is an atom, then, clearly $\mathbbm{1}\in G$, since $r\leq\mathbbm{1},r$, i.e., $\mathbbm{1}\not\perp r$, also, if $p,q\in G$, then there are $a\leq p,r$ and $b\leq q,r$; since $r$ is an atom we have $a\not\perp b$, so there is some $c\leq a,b\leq p,q$ and, since $c\leq c,r$, then $c\not\perp r$, i.e., $c\in G$. Lastly, if $p\geq q$ and $q\in G$, then there is some $s\leq q,r$, so $s\leq p$ and $p\not\perp r$ too, i.e., $p\in G$. This guarantees that $G$ is a filter but, furthermore, given $D\subseteq\mbb{P}$ dense, there is some $p\in D$ such that $p\leq r$, then $p\not\perp r$, i.e., $p\in G\cap D$, and then $G$ intersects every dense set.
+\end{proof}
+
+Since the previous lemma just gave us a free witness for $\text{MA}_{\mbb{P}}(\kappa)$, we have the following corollary.
+
+\begin{corollary}{}{}\label{atomless_not_MA}
+    If $\mbb{P}$ has an atom, then $\text{MA}_{\mbb{P}}(\kappa)$ holds for all $\kappa$. If $\mbb{P}$ is atomless, then $\neg\text{MA}_{\mbb{P}}\rp{2^{\lvert\mbb{P}\rvert}}$.
+\end{corollary}
+
+\begin{proof}
+    The first one is clear by the previous Lemma. For the second, let $\mbb{P}$ be atomless and $G$ be any filter. Then $D:=\mbb{P}\setminus G$ is dense, since whenever $r\in\mbb{P}$, $r$ is not an atom, so there are $p,q\leq r$ such that $p\perp q$, thus $p,q$ are not both in $G$, so at least one of these must be in $\mbb{P}\setminus G=D$, then $G$ cannot meet $D$ and, in particular, it cannot meet all dense sets of $\mbb{P}$, whose amount is $\leq2^{\lvert\mbb{P}\rvert}$.
+\end{proof}
+
+\section{Applications}
+
+As we said before, the reason why we would care about concepts like density, generic filters, ccc, etc. will be clear when we motivate forcing. For now, we're trying to explain how posets would appear naturally.
+
+The idea to approximate our generic object $G$ by things $p,q$ that \textit{could be true} about it. So it ends up to be something like an implication $p\to q$ meaning that if $p$ is true about $G$, then also is $q$. And this is exactly a poset, where $p\to q$ is interpreted as $p\geq q$.
+
+It's worth noting that MA is just a single axiom (the most known one) in a large variety of others called Forcing Axioms. In the previous section, we just saw how to use it to approximate objects using one kind of poset / forcing notion, known as Cohen Forcing (or sometimes Easton Forcing).
+
+\subsection{Cardinal Characteristics}
+
+Cardinal Characteristics of the Continuum is a vast subarea of combinatorial set theory that analyzes combinatorial defined cardinals that are consistently between $\aleph_1$ and $\mf{c}$, that's why the name.
+
+One of the greatest achievements of Cardinal Characteristics is the so called Cichoń's Diagram:
+
+\textcolor{laser_eyes}{Picture and explain it}
+
+Now, let's ramble a lit bit about cardinal characteristics $\kappa$. Since they are such that $\aleph_1\leq\kappa\leq\mf{c}$ and are consistently in between, it's expected that they have a lot to do with the Real numbers. In fact, the same happens with MA, that can be seen as a generalized Baire's Theorem.
+
+As we saw in the diagram, a lot of cardinals there are measure-topological defined in terms of $\mbb{R}$. However, some of them like $\mf{b}$ and $\mf{d}$, and a lot of others can be defined combinatorially and, if you look at all those definitions, they are usually defined in terms of properties that \textit{almost happens}, meaning that happen for all, but a finite amount of terms. We can see this in concepts like dominating $\geq^*$, almost contained $\subseteq^*$ and almost disjoint relations.
+
+Such \textit{almost something} properties happen to be really fruitful when using specific forcing notions to approximate our objects, and this is what we will start to see now. When we get comfortable with this, we will step up to start approximate more complicated objects.
+
+\subsection{Hechler Forcing}
+
+\begin{definition}{}{}
+    Given $f,g\in\omega^\omega$, let $f\geq^*g$, whenever $f(n)\geq g(n)$ for all, but finitely many $n\in\omega$.
+
+    A family $\mc{F}\subseteq\omega^\omega$ is called unbounded if there is no single $g\in\omega^\omega$ such that, for all $f\in\mc{F}$, $g\geq^*f$.
+
+    The dominating number $\mf{b}$ is the least cardinality of an unbounded family.
+\end{definition}
+
+We will see that $\text{MA}(\kappa)$ implies that $\mf{b}>\kappa$ by defining some forcing notion and, using our $G$, create such dominating function $g$.
+
+\begin{theorem}{}{}
+    Let $\kappa\geq\aleph_0$. Under $\text{MA}(\kappa)$, we have $\mf{b}>\kappa$. I.e., if $\mc{F}\subseteq\omega^\omega$, with $\lvert\mc{F}\rvert\leq\kappa$, then there is some $g\in\omega^\omega$ such that $g\geq^*f$, for all $f\in\mc{F}$, so $\mc{F}$ is not unbounded.
+\end{theorem}
+
+\begin{sketch}
+    The forcing notion we will sketch here is called Hechler forcing. Since our generic object will be a function $g\in\omega^\omega$, we can, as in the previous forcing notions, try to approximate it using finite partial functions $s\in\omega^{<\omega}$.
+
+    The problem is, now we have some family $\mc{F}$ of conditions to add. In order to approximate such conditions, we can, as some analogous attempt of approximate functions with its finite segments, approximate our conditions $\mc{F}$ as finite subsets $F\in[\mc{F}]^{<\omega}$.
+
+    Then our forcing notion $\mbb{P}$ will have pairs $(s,F)$ and, for a suitable $\mc{D}$, our $\mc{D}$-generic filter $G$ will give rise to a function $g=\bigcup\{s:\exists F\,(s,F)\in G\}\in\omega^\omega$. To guarantee $g:\omega\to\omega$, we can use a similar set of dense sets $D_n$ as in Easton's Forcing. To guarantee $g\geq^*f$ for every $f\in\mc{F}$, we want that $G$ have at least one pair $(s,F)$, where $f\in F$, so the most natural choice for the dense sets $E_f$ are such pairs, where $f\in F$.
+
+    Now, it remains to define our order $\leq$. Naturally, we want in $(s,F)\leq(t,H)$ that, for example, $t\subseteq s$ and $H\subseteq F$, but, furthermore, it would be nice if $s$ dominates every $h\in H$, so when we start to grow our chain $\dots\leq (s_n,F_n)\leq\dots\leq(s_2,F_1)\leq(s_1,F_1)$, each $s_m$ dominates all previous $f\in F_m$.
+
+    Two things to note about this, first, this will not guarantee us that $(s,F)\leq(s,F)$, since we would need to have $s$ dominating each $f\in F$ previously. And second, we don't even need all this complication. Given $f\in\mc{F}$, since $g\geq^*f$, there is some $n_0$ such that $g(n)\geq f(n)$, for all $n\geq n_0$. We could assume that our pair $(s,F)$ that $G$ founds, where $f\in F$, is such that $n_0\in\text{dom}(s)$, meaning the extensions we want for $s$ is all such that just the next numbers added in the domain dominates the elements of $F$.
+\end{sketch}
+
+\begin{proof}
+    Based in our messy previous sketch, let's define
+    $$\mbb{P}=\{(s,F):s\in\omega^{<\omega}\text{ and }F\in[\mc{F}]^{<\omega}\}$$
+    and define our relation $\leq$ as following: Given $(s,F),(t,H)\in\mbb{P}$
+    $$(s,F)\leq(t,H)\iff s\supseteq t,\,F\supseteq H,\text{ and, for all }h\in H,\,s(n)\geq h(n),\,\forall n\in\text{dom}(s)\setminus\text{dom}(t)$$
+    It's routine to verify that $(\mbb{P},\leq)$ is a poset. Let's now define, for each $n\in\omega$ and $f\in\mc{F}$:
+    $$D_n=\{(s,F)\in\mbb{P}:n\in\text{dom}(s)\}\quad\text{and}\quad E_f=\{(s,F)\in\mbb{P}:f\in F\}$$
+    To see they are dense, let $(s,F)\in\mbb{P}$. If $n\in\text{dom}(s)$, then $(s,F)\in D_n$ already, otherwise, let $m=\max_{f\in F}f(n)$, then $D_n\ni(s\cup\{(n,m)\},F)\leq(s,F)$. Analogously, $E_f\ni(s,F\cup\{f\})\leq(s,F)$.
+
+    So, let $\mc{D}=\{D_n,E_f:n\in\omega,f\in[\mc{F}]^{<\omega}\}$, since $\lvert\mc{D}\rvert\leq\omega\cdot\kappa=\kappa$, it just remains to show it's ccc. Let's skip it by now and use $\text{MA}(\kappa)$ to create our $\mc{D}$-generic filter $G$ over $\mbb{P}$.
+
+    Let then $g=\bigcup\{s:\exists F\,(s,F)\in G\}$. Given $n\in\omega$, there is some $(s,F)\in G\cap D_n$, so $n\in\text{dom}(g)$, and $g:\omega\to\omega$, as desired. Now, given $f\in\mc{F}$, there is some $(s,F)\in G\cap E_f$, let $\text{dom}(s)=n_0$, we claim that $g(n)\geq f(n)$, $\forall n>n_0$. In fact, let $n>n_0$ and $(t,H)\in G\cap D_n$, then, since $G$ is a filter, there is some $(p,J)\leq(s,F),(t,H)$, so $p(n)\geq f(n)$, as desired.
+
+    The reason to $g$ be well defined is that $(s,F)\not\perp(t,H)$ guarantees us $s$ and $t$ are compatible.
+\end{proof}
+
+Now, as we said, the proof that $(\mbb{P},\leq)$ is ccc was skipped. In fact, based on the argument we needed to use to prove Easton's Forcing was ccc, we expect it to be as hard, using some hard combinatorial lemma as the $\Delta$-System Lemma.
+
+In fact, it turns out that it's very easy to show $(\mbb{P},\leq)$ is ccc, by just using a counting argument.
+
+Before seeing it, let's define the more general scenario.
+
+\begin{definition}{}{}
+    A subset $C\subseteq\mbb{P}$ of a poset is \textit{centered} iff for all $n\in\omega$ and $p_1,\dots,p_n\in C$, there is a $q\in\mbb{P}$ such that $q\leq p_i$, for $1\leq i\leq n$. $\mbb{P}$ is $\sigma$-centered iff $\mbb{P}=\bigcup_{i\in\omega}C_i$, where each $C_i$ is centered.
+\end{definition}
+
+We can now state the main reason why we care about such posets
+
+\begin{theorem}{}{}
+    Every $\sigma$-centered poset has the ccc.
+\end{theorem}
+
+\begin{proof}
+    In fact, since every $p,q\in C_i$ are compatible, each antichain contains at most one element of each $C_i$, but they form a countable partition of $\mbb{P}$, so our antichain should also be countable.
+\end{proof}
+
+Let's now finish our previous proof. 
+
+\begin{lemma}{}{}
+    Hechler Forcing has the ccc.
+\end{lemma}
+
+\begin{proof}
+    The more naive approach would be: If $\mc{A}$ is any uncountable antichain, since $\omega^{<\omega}$ is countable, by Pigeonhole Principle, there would have $(s,F),(s,H)\in\mc{A}$, but then $(s,F\cup H)\leq (s,F),(s,H)$, i.e., $(s,F)\not\perp (s,H)$, contradicting $\mc{A}$ is an antichain.
+
+    In the more general sceneario, we are actually proving $\mbb{P}$ is $\sigma$-centered, i.e.,
+    $$\mbb{P}=\bigcup_{p\in\omega^{<\omega}}C_p,\text{ where }C_p=\{(p,F):F\in[\mc{F}]^{<\omega}\}$$
+    where each $C_p$ is clearly centered.
+\end{proof}
+
+\subsection{MAD Families}
+
+\begin{definition}{}{}
+    $A,B\in[\omega]^\omega$ are called \textit{almost disjoint} if $A\cap B$ is finite. A family $\mc{A}\subseteq[\omega]^\omega$ is called a \textit{Maximal Almost Disjoint} (MAD) family if its elements are pairwise almost disjoint, and it's maximal. The almost disjoint number $\mf{a}$ is the least cardinality of a MAD family.
+\end{definition}
+
+Before analyzing such cardinal, let's guarantee it's well defined, i.e., that there exists an uncountable MAD family.
+
+\begin{lemma}{}{}
+    Let $A\subseteq\omega$ be any infinite set, then there is an almost disjoint family $\{A_\alpha:\alpha<\mf{c}\}$ of subsets of $A$, where almost disjoint means that for any $\alpha\neq\beta<\mf{c}$, we have that $\lvert A_\alpha\cap A_\beta\rvert<\aleph_0$.
+\end{lemma}
+
+\begin{proof}
+    Since $A\subseteq\omega$ is infinite, there is a bijection $f:\mbb{Q}\to A$, then it's sufficient to find an almost disjoint family $\{A_\alpha:\alpha<\mf{c}\}$ of subsets of $\mbb{Q}$. Then, for each irrational number $\alpha$, let $\{q_n^\alpha\}_{n\in\omega}\subseteq\mbb{Q}$ be a sequence converging to $\alpha$, and let $A_\alpha=\{q^\alpha_n:n\in\omega\}$. Then, since $\alpha$ is irrational, each $A_\alpha$ is infinite and, if $\alpha\neq\beta$, $q_n^\alpha=q_n^\beta$ only for finitely many $n$'s, so $\{f(A_\alpha):\alpha<\mf{c}\}$ is our family.
+\end{proof}
+
+Now to construct a MAD family we simply apply Zorn's Lemma in the expected way
+
+\begin{theorem}{}{}
+    Every almost disjoint family $\mc{A}$ can be extended to a MAD family $\widetilde{\mc{A}}$.
+\end{theorem}
+
+\begin{proof}
+    Consider the following set ordered by inclusion:
+    $$\mc{F}=\{\mc{B}:\mc{B}\text{ is a MAD family and }\mc{A}\subseteq\mc{B}\}$$
+    Since $\mc{A}\in\mc{F}$, then it's non-empty. Now, given a chain $C$ in $\mc{F}$, let $U=\bigcup C$, clearly, if $A,B\in U$, then $A,B\in\mc{B}$ for some $\mc{B}\in C$, and then $A$ and $B$ are almost disjoint, so $U$ is a upper bound for $C$. Then, by Zorn's Lemma, $\mc{F}$ admits a maximal element $\widetilde{\mc{A}}$.
+\end{proof}
+
+We will now do a similar construction to show the following.
+
+\begin{theorem}{}{}
+    Let $\kappa\geq\aleph_0$. Under $\text{MA}(\kappa)$, we have $\mf{a}>\kappa$.
+\end{theorem}
+
+\begin{proof}
+    Let $\mc{M}$ be an infinite MAD family, with $\lvert\mc{M}\rvert\leq\kappa$. We will create an $G\in[\omega]^\omega$ such that $G\cap A$ is finite, for every $A\in\mc{M}$, contradicting its maximality.
+
+    As in Hechler's Forcing, let's try the following forcing notion:
+    $$\mbb{P}=\{(X,\mc{A}):X\in[\omega]^{<\omega}\text{ and }\mc{A}\in[\mc{M}]^{<\omega}\}$$
+    And let's define $(X,\mc{A})\leq(Y,\mc{B})$ iff $X\supseteq Y$, $\mc{A}\supseteq \mc{B}$, and $(X\setminus Y)\cap A=\emptyset$, for every $A\in\mc{A}$. It's routine to verify that $(\mbb{P},\leq)$ is a poset. Let's now define, for $n\in\omega$ and $A\in\mc{M}$
+    $$D_n=\{(X,\mc{A})\in\mbb{P}:\exists k\geq n\,[k\in X]\}\quad\text{and}\quad E_A=\{(X,\mc{A})\in\mbb{P}:A\in\mc{A}\}$$
+    Given $(X,\mc{A})\in\mbb{P}$, since $\mc{A}$ is finite and $\mc{M}$ infinite, let $C\in\mc{M}\setminus\mc{A}$. If $\omega\setminus\bigcup\mc{A}$ was finite, we would have $C\cap\rp{\bigcup\mc{A}}$ infinite and, by the Pigeonhole Principle, $C\cap A$ is infinite, for some $A\in\mc{A}$, contradicting that $\mc{M}$ is a MAD family. Then, $\omega\setminus\bigcup\mc{A}$ is infinite, and we can find some $k\geq n$, such that $k\notin\bigcup\mc{A}$. So $D_n\ni(X\cup\{k\},\mc{A})\leq(X,\mc{A})$. Similarly, $E_A\ni(X,\mc{A}\cup\{A\})\leq(X,\mc{A})$.
+
+    We can also see that $\mbb{P}$ is $\sigma$-centered, since we can write
+    $$\mbb{P}=\bigcup_{X\in[\omega]^{<\omega}}C_X,\;\text{where }C_X=\{(X,\mc{A}):\mc{A}\in[\mc{M}]^{<\omega}\}$$
+    where each $C_X$ is clearly centered. Then $\mbb{P}$ has the ccc. Now, let
+    $$\mc{D}=\{D_n,E_A:n\in\omega,\,A\in\mc{M}\}$$
+    Then $\lvert\mc{D}\rvert\leq\omega\cdot\kappa=\kappa$, so, by $\text{MA}(\kappa)$, there is a $\mc{D}$-generic filter $G$. Let's define
+    $$X_G=\bigcup\{X:\exists\mc{A}\,(X,A)\in G\}$$
+    Since for every $n$, $G\cap D_n\neq\emptyset$, it means we have $k\in X_G$ for some $k\geq n$, so $X_G\in[\omega]^\omega$. Now, given $A\in\mc{M}$, let $(X,\mc{A})\in G\cap E_A$, we claim that $(X_G\setminus \max X)\cap A=\emptyset$. In fact, let $n>\max X$, and $(Y,\mc{B})\in G\cap D_n$. Since $G$ is a filter, there is some $(Z,\mc{C})\leq(X,\mc{A}),(Y,\mc{B})$, so $n\notin A$.
+\end{proof}
+\textcolor{laser_eyes}{We could avoid the stinky $\max X$ by changing $Y\subseteq X$ in the $\leq$ definition with $Y\subseteq_c X$ (i.e., initial segment)}
+
+\subsection{Amoeba Forcing}
+
+\begin{definition}{}{}
+    The additivity of null sets, called $\textbf{add}(\mc{N})$, is the least amount of null sets whose union is not a null set.
+\end{definition}
+
+Since this is the least cardinal in Cichoń's Diagram, the following Theorem shows that MA collapses all of Cichoń's Diagram to $\mf{c}$.
+
+\begin{theorem}{}{}
+    Let $\kappa\geq\aleph_0$, then $\text{MA}(\kappa)$ implies $\textbf{add}(\mc{N})>\kappa$.
+\end{theorem}
+
+\begin{proof}
+    Given our null sets $\{N_\alpha\}_{\alpha<\kappa}$, we will show $N=\bigcup_{\alpha<\kappa}N_\alpha$ is also a null set by showing that, for all $\varepsilon>0$, there is some open set $U_G\supseteq N$ such that $\mu(U_G)\leq\varepsilon$.
+
+    Let's then approximate it by $\mbb{P}=\{U\subseteq\mbb{R}:U\text{ is open and }\mu(U)<\varepsilon\}$, under reverse inclusion. Clearly our dense sets would be $D_\alpha=\{U\in\mbb{P}:N_\alpha\subseteq U\}$, then, if all conditions to apply $\text{MA}(\kappa)$ are satisfied, we would have a $\mc{D}$-generic filter $G$, where $\mc{D}=\{D_\alpha\}_{\alpha<\kappa}$, and we can let $U_G=\bigcup G$.
+    
+    To show $\mu(U_G)\leq\varepsilon$, since $U_G\subseteq\mbb{R}$, it's second countable and, therefore, Lindelöf, so the cover $G$ of $U_G$ admits a countable subcover $\{G_n\}_{n\in\omega}\subseteq G$. Since $G$ is a filter, for any $G_0,\dots,G_k$, we can find a $\mbb{P}\ni V\leq G_0,\dots,G_n$, so $\mu\rp{\bigcup_{i=0}^kG_i}<\varepsilon$ and, therefore, $\mu(U_G)\leq\varepsilon$, as desired.
+
+    It then remains to show that $(\mbb{P},\supseteq)$ is ccc and $D_\alpha$ are dense. To see density, given $U\in\mbb{P}$, fix $\alpha<\kappa$; since $\varepsilon-\mu(U)>0$ and $\mu(N_\alpha)=0$, we can find some open $V\supseteq N_\alpha$ such that $\mu(V)<\varepsilon-\mu(U)$, but then we have $W=U\cup V\leq U$ such that $\mu(W)<\varepsilon$ and $W\in D_\alpha$.
+
+    Finally, to prove ccc, the ideia is to use the countable basis $\mc{B}$ in $\mbb{R}$ of finite union of intervals with rational endpoints. In particular, for any $U\in\mbb{P}$ we can find some $V_U\in\mc{B}$, with $V_U\subseteq U$, such that $\mu(U\setminus V_U)$ is arbitrarily small. Let then it be such that $\mu(U\setminus V_U)<\frac12(\varepsilon-\mu(U))\leq\frac12(\varepsilon-\mu(V_U))$.
+    
+    Now, let $\mc{A}$ be an uncountable antichain. But, since $\mc{B}$ is countable, we will have two distinct $U,W\in\mc{A}$ such that $V=V_U=V_W$, but then
+    $$\mu(U\cup W)\leq \mu(U\setminus V)+\mu(W\setminus V)+\mu(V)<\varepsilon$$
+    and $U\cup W\leq U,W$, i.e., $U\not\perp W$, contradicting that $\mc{A}$ is an antichain.
+\end{proof}
+
+Such forcing notion if called Amoeba Forcing cause of $V$ in the proof that each $D_\alpha$ is dense, where $W$ is the amoeba, $U$ is it nucleus, and $V$ is the pseudopod it uses to reach the food $N_\alpha$.
+
+\subsection{Mathias Forcing}
+
+\textcolor{laser_eyes}{Pendent}

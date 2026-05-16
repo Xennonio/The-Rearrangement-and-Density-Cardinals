@@ -1,0 +1,145 @@
+%% -- Packages --
+\usepackage{amsmath, amsthm, amsfonts, amssymb}
+\usepackage{thmtools}
+\usepackage{mathrsfs}
+\usepackage{cancel}
+\usepackage[margin=3cm]{geometry}
+\usepackage{empheq}
+\usepackage{framed}
+\usepackage[most]{tcolorbox}
+\definecolor{lasereyes}{RGB}{220, 6, 90}
+\usepackage[color=lasereyes, textcolor=white]{todonotes}
+\usepackage{hyperref} %% to use texorpdfstring
+\usepackage{cleveref}
+\hypersetup{
+    colorlinks=false,
+    urlbordercolor=lasereyes,
+    linkbordercolor=lasereyes,
+    citebordercolor=lasereyes,
+}
+\usepackage[Conny]{fncychap}
+\usepackage{enumitem}
+\usepackage{footnote}
+\usepackage{etoolbox}
+
+%% idk why these
+\usepackage{multicol}
+\usepackage{bbm}
+
+%% code to use cleveref with tcolorbox
+\makeatletter
+    \crefname{tcb@cnt@theorem}{theorem}{theorems}
+    \Crefname{tcb@cnt@theorem}{Theorem}{Theorems}
+    
+    \crefname{tcb@cnt@definition}{definition}{definitions}
+    \Crefname{tcb@cnt@definition}{Definition}{Definitions}
+
+    \crefname{tcb@cnt@corollary}{corollary}{corollaries}
+    \Crefname{tcb@cnt@corollary}{Corollary}{Corollaries}
+    
+    \crefname{tcb@cnt@lemma}{lemma}{lemmas}
+    \Crefname{tcb@cnt@lemma}{Lemma}{Lemmas}
+\makeatother
+
+%% -- Pagestyle --
+\setlength{\parskip}{0.05in} %% space between paragraphs
+\parindent 0in %% no paragraph indentation
+\geometry{margin=1in} %% page margin
+\ChTitleAsIs %% not upper titles
+
+%% NewCommands
+\newcommand{\mc}[1]{\mathcal{#1}}
+\newcommand{\mf}[1]{\mathfrak{#1}}
+\newcommand{\mbb}[1]{\mathbb{#1}}
+\newcommand{\ol}[1]{\overline{#1}}
+\newcommand{\rp}[1]{{\left(#1\right)}}
+\renewcommand\qedsymbol{$\blacksquare$}
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\contentsname}{Summary}
+\counterwithout{equation}{chapter}
+\DeclareMathOperator{\cf}{cf}
+\DeclareMathOperator{\con}{Con}
+\newcommand{\zfc}{\text{ZFC}}
+
+%% -- Environments --
+%% lorelei and the laser eyes colors
+\definecolor{lorelei}{RGB}{120, 4, 56}
+\definecolor{laser_eyes}{RGB}{220, 6, 90}
+
+%% theorems style
+\NewTcbTheorem[number within=chapter]{theorem}{Theorem}{
+    enhanced,
+    colback=laser_eyes!10,
+    colframe=lorelei,
+    fonttitle=\bfseries,
+    title style={
+        left color=black!15!lorelei,
+        right color=laser_eyes!85!black
+        },
+}{th}
+\BeforeBeginEnvironment{theorem}{\savenotes}
+\AfterEndEnvironment{theorem}{\spewnotes}
+
+%% definitions style
+\NewTcbTheorem[number within=chapter]{definition}{Definition}{
+    colback=gray!5,
+    colframe=gray!80!black,
+    fonttitle=\bfseries,
+}{def}
+\BeforeBeginEnvironment{definition}{\savenotes}
+\AfterEndEnvironment{definition}{\spewnotes}
+
+%% lemmas style
+\NewTcbTheorem[number within=chapter]{lemma}{Lemma}{
+    colback=gray!5,
+    colframe=gray!30!black,
+    fonttitle=\bfseries,
+}{lem}
+\BeforeBeginEnvironment{lemma}{\savenotes}
+\AfterEndEnvironment{lemma}{\spewnotes}
+
+%% corollaries style
+\NewTcbTheorem[number within=chapter]{corollary}{Corollary}{
+    colback=gray!5,
+    colframe=gray!55!black,
+    fonttitle=\bfseries,
+}{cor}
+\BeforeBeginEnvironment{corollary}{\savenotes}
+\AfterEndEnvironment{corollary}{\spewnotes}
+
+%% sketches style
+\newtcolorbox{sketch}{
+    enhanced,
+    title=Sketch,
+    colback=gray!5,
+    colframe=lorelei!80!black,
+    coltitle=lorelei!80!black,
+    fonttitle=\bfseries,
+    attach title to upper,
+    after title={:\enskip},
+    borderline west={5pt}{0pt}{lorelei},
+}
+
+\newtcolorbox{example}{
+    enhanced,
+    title=Example,
+    colback=gray!5,
+    colframe=lorelei!80!black,
+    coltitle=lorelei!80!black,
+    fonttitle=\bfseries,
+    attach title to upper,
+    after title={:\enskip},
+    borderline west={5pt}{0pt}{lorelei},
+}
+
+\newtcolorbox{observation}{
+    enhanced,
+    title=Observation,
+    colback=gray!5,
+    colframe=lorelei!80!black,
+    coltitle=lorelei!80!black,
+    fonttitle=\bfseries,
+    attach title to upper,
+    after title={:\enskip},
+    borderline west={5pt}{0pt}{lorelei},
+}
