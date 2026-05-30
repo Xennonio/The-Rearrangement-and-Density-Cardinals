@@ -4,136 +4,65 @@
 
 We already knew that MA implies $\mf{dd}=\mf{c}$, since, as we saw, $\text{non}(\mc{M})\leq\mf{dd}$, and we know MA collapses Cichoń's Diagram. However, let's do a direct proof of it by exhibiting a suitable poset.
 
-\begin{theorem}{}{}
+\begin{theorem}{}{MA_dd=c}
     $\text{ZFC}+\text{MA}(\kappa)\vdash\mf{dd}>\kappa$.
 \end{theorem}
 
-\section{Take 1}
+So, given a set $\mc{F}\subseteq\sym$, with $\lvert\mc{F}\rvert\leq\kappa$, using $\text{MA}(\kappa)$ we will find an infinite and coinfinite subset $A\subseteq\omega$ such that $d(\pi[A])=d(A)=0$, for all $\pi\in\mc{F}$. In order to simplify our work, let's assume WLOG that $\text{id}\in\mc{F}$.
 
-Let $S\subseteq\text{Sym}(\omega)$, with $\lvert S\rvert\leq\kappa$, and let's assume $\text{MA}(\kappa)$. Now, consider
+Intuitively, the idea to construct such set $A$ is to partition $\omega$ as
+$$\omega=\bigsqcup_{k\in\omega}I_k,\text{ where }\lvert I_k\rvert/\lvert I_{k+1}\rvert\to0$$
+and let $A$ be a set such that $\pi[A]$ has at most one point in each interval $I_k$.
 
-$$\mbb{P}=\{(s,P,k):s\in2^{<\omega},\;\text{id}\in P\in[S]^{<\omega}\;k>0\}$$
+Throughout the proof, we will use interchangeably the characteristic function $s_A\in2^{<\omega}$ of our generic set $A\subseteq\omega$ we want to construct, and the set itself.
 
-Intuitively, $s\in 2^{<\omega}$ is a finite fragment of a characteristic function of the set we want to construct; $P\in [S]^{<\omega}$ is a finite set of permutations conditions we want to assure, $k>0$ will be our error $\frac1k$ between finite fragments of $A$ and $p[A]$. We will denote by $A_s$ (or just $A$), the set $\{n\in\omega:s(n)=1\}$.
+\begin{sketch}
+    Before proving it directly, let's construct our poset intuitively. We want our set of conditions $\mbb{P}$ to be such that $p=(s_p,F_p,n_p)$, where $s_p\in2^{<\omega}$, $F_p\in[\mc{F}]^{<\omega}$ and $n_p\in\omega$. And maybe the most naive common way to define $p\leq q$ is as $s_p\supseteq s_q$,$F_p\supseteq F_q$,$n_p\geq n_q$, and
+    $$\lvert\pi[A_p]\cap I_k\rvert\leq 1,\;\forall k\geq n_q,\;\forall\pi\in F_q$$
+    Let's see the possible problems that could arise with such definition. Clearly $(\mbb{P},\leq)$ is antisymmetric, but what about reflexivity? In fact, nothing guarantees us that $\lvert\pi[A_p]\cap I_k\rvert\leq 1$ holds for all $\pi\in F_p$ and $k\geq n_p$, so what we need to do is to add such condition in the definition of $\mbb{P}$. Having done that, let's try to prove transitivity.
 
-Also, we considered $\text{id}\in P$ in the definition of $\mbb{P}$ just for simplicity, since we will eventually want to guarantee that $d(A)$ exists and $d(A)=d(p[A])$, we can already let $p=\text{id}$ and use the same Cauchy's Criterion as we will see next in the definition of $\leq$:
-
-Let $p_1=(s_1,P_1,k_1)\leq (s_2,P_2,k_2)=p_2$ if, and only if, $s_1\supseteq s_2$, $P_1\supseteq P_2$, $k_1\geq k_2$ and, for all $n,m>0$ such that $\text{dom}(s_2)\leq n,m\leq\text{dom}(s_1)$, and all $p\in P_2$, we have
-$$\lvert d_n(A_{s_1})-d_m(p[A_{s_1}])\rvert\leq\frac1{k_2}-\frac1{k_1}$$
-
-We used $\frac1{k_2}-\frac1{k_1}$, instead of just $\frac1{k_2}$, to assure we can do a triangle inequality trick in order to prove $(\mbb{P},\leq)$ is a poset.
-
-The idea is to consider the following (expected dense) sets, for each $n\in\omega$ and $p\in P$
-\begin{align*}
-    C_n=\{(s,P,k)\in\mbb{P}:k\geq n\}&\quad\text{and}\quad E_p=\{(s,P,k)\in\mbb{P}:p\in P\}\\
-    D_n=\{(s,P,k)\in\mbb{P}:\exists m\geq n\;[s(m)=1]\}&\quad\text{and}\quad \widetilde{D}_n=\{(s,P,k)\in\mbb{P}:\exists m\geq n\;[s(m)=0]\}
-\end{align*}
-$$F_n = \{(s,P,k):n\in\text{dom}(s)\}$$
-
-The set $F_n$ is, as in the Cohen/Easton Forcing, to guarantee that our generic object $s_G$ will have domain $\omega$. $D_n$ and $\widetilde{D}_n$ are to guarantee $s$ is the characteristic function of an infinite and coinfinite set. $E_p$ is to assure we can prove the condition for all $p\in P$ and $C_n$ to guarantee we can let $\frac1k$ be a decreasing sequence.
-
-Then, given $G$ our $\mc{D}$-generic filter, with $\mc{D}=\{E_p,C_n,D_n,\widetilde{D}_n,F_n:n\in\omega,\,p\in S\}$, let
-$$s_G=\bigcup\{s:\exists P\;\exists k\;[(s,P,k)\in G]\}$$
+    Given $p\leq q\leq r$, let $\pi\in F_r$ and $k\geq n_r$. If $k\geq n_q$, this automatically follows from $p\leq q$, otherwise, $n_r\leq k<n_q$. In this case, by $q\leq r$ we have that
+    $$\lvert\pi[A_q]\cap I_k\rvert\leq 1$$
+    but we want $\pi[A_p]$ there instead of $\pi[A_q]$. In order to do that, we will state in the definition of $\leq$ that every new element in the extension isn't in any $I_k$, where $k<n_q$, which will clearly be sufficient to guarantee that $\pi[A_q]\cap I_k=\pi[A_p]\cap I_k$ for those $k$'s.
+\end{sketch}
 
 \begin{proof}
-    For now on, let $N_i:=\text{dom}(s_i)$ and $N=\text{dom}(s)$. Let's start proving $(\mbb{P},\leq)$ is in fact a poset:
+    Let
+    $$\mbb{P}=\left\{p=(s_p,F_p,n_p):s_p\in2^{<\omega},F_p\in[\mc{F}]^{<\omega},n_p\in\omega,\;\forall\pi\in F_p\;\forall k\geq n_p\;(\lvert\pi[A_p]\cap I_k\rvert\leq 1\right)\}$$
+    And consider $(\mbb{P},\leq)$, where $p\leq q$ iff $s_p\supseteq s_q$, $F_p\supseteq F_q$, $n_p\geq n_q$ and, for all $\pi\in F_q$:
+    \begin{enumerate}
+        \item $\lvert\pi[A_p]\cap I_k\rvert\leq 1$, $\forall k\geq n_q$;
+        \item $\pi(n)\notin\bigcup_{k<n_q}I_k$, $\forall n\in A_p\setminus A_q$.
+    \end{enumerate}
+    Clearly $\leq$ is antisymmetric and reflexive, since (1) is guaranteed by definition of $\mbb{P}$, and (2) is trivial for $A_p=A_q$. For transitivity, (1) was proved in the previous sketch, since condition (2) is added so (1) could hold, then it's sufficient to show (2). In fact, if $p\leq q\leq r$, given $n\in A_p\setminus A_r$ we have two options:
     \begin{itemize}
-        \item \textbf{Antisymmetry:} Trivial
-        \item \textbf{Reflexivity:} \textcolor{laser_eyes}{Also wrong, bruh} if $N\leq n,m\leq N$, then $n=m=N$ and, for all $p\in P$, since $A_s$ is a finite set, we will have that $\lvert A\rvert=\lvert p[A]\rvert$, so
-        $$0=\lvert d_N(A)-d_N(p[A])\rvert\leq\frac1k-\frac1k=0$$
-        \item \textbf{Transitivy:} Let $p_i=(s_i,P_i,k_i)$, for $i=1,2,3$, where $p_1\leq p_2\leq p_3$. Clearly $s_1\supseteq s_3$, $P_1\supseteq P_3$ and $k_1\geq k_3$. Now, given $n,m>0$ such that $N_3\leq n,m\leq N_1$. If either $n,m\leq N_2$ or $N_2\leq n,m$, we can clearly just apply $p_2\leq p_3$ or $p_1\leq p_2$, respectively, to guarantee our condition for all $p\in P_3\subseteq P_2,P_1$.
-
-        Assume then that $N_3\leq n\leq N_2\leq m\leq N_1$, then we have that, for all $p\in P_3$
-        \begin{align*}
-           \lvert d_n(A_{s_2})-d_{N_2}(A_{s_2})\rvert\leq\frac1{k_3}-\frac1{k_2}\tag{$\text{id}\in P_3$}\\
-            \lvert d_{N_2}(A_{s_1})-d_m(p[A_{s_1}])\rvert\leq\frac1{k_2}-\frac1{k_1}
-        \end{align*}
-        summing, using $A_{s_2}\cap k=A_{s_1}\cap k$, for $k\leq N_2$, and triangle inequality, we conclude that
-        $$\lvert d_n(A_{s_1})-d_m(p[A_{s_1}])\rvert\leq\frac1{k_3}-\frac1{k_1}$$
+        \item If $n\in A_q\setminus A_r$, then it follows imediatelly from $q\leq r$;
+        \item If $n\in A_p\setminus A_q$, then $\pi(n)\notin\bigcup_{k<n_q}I_k\supseteq\bigcup_{k<n_r}I_k$.
     \end{itemize}
-    Let's now show that $\mc{D}$ is in fact a family of dense sets:
+
+    Now, $(\mbb{P},\leq)$ is clearly $\sigma$-centered, since
+    $$\mbb{P}=\bigcup_{n\in\omega,\,s\in2^{<\omega}}\left\{(s,F,n)\in\mbb{P}:F\in[\mc{F}]^{<\omega}\right\}$$
+    and $(s,F_1,n)\leq(s,F_2,n)$ iff $F_1\supseteq F_2$. So $(\mbb{P},\leq)$ is ccc, as desired.
+
+    Consider now the sets, for $m\in\omega$ and $\sigma\in\mc{F}$:
+    $$D_m=\{p\in\mbb{P}:\lvert A_p\rvert\geq n\}\qquad\text{and}\qquad D_\sigma=\{p\in\mbb{P}:\sigma\in F_p\}$$
+    If they were dense, then we can apply $MA(\kappa)$ for $\mc{D}=\{D_m,D_\sigma:m\in\omega,\;\sigma\in\mc{F}\}$, since $\lvert\mc{D}\rvert\leq \kappa$. Fix then $q\in\mbb{P}$, and consider $m\in\omega$ and $\sigma\in\mc{F}$, then:
     \begin{itemize}
-        \item $C_n$: Trivial, since $(s,P,k)\leq (s,P,m)$, for all $m\geq k$;
-
-        \item \textcolor{laser_eyes}{$D_n$, $\widetilde{D}_n$ and $F_n$: I don't know how to guarantee they are dense;}
-        \item $E_p$: Similarly, it follows from $(s,P\cup\{p\},m)\leq(s,P,m)$.
+        \item To see $D_m$ is dense, it's sufficient to add one element $n$ to $A_q$, i.e., find $p\leq q$ such that $F_p=F_q$, $n_p=n_q$ and $A_p=A_q\cup\{n\}$, where $n\notin A_q$. In order to do that, let's see which $n$ we need such that $p\leq q$. We need that, for every $\pi\in F_q$, that
+        \begin{itemize}
+            \item $\pi[A_p\setminus A_q]\cap\bigcup_{k<n_q}I_k=\emptyset$. Then it's sufficient to show $\pi(n)\notin\bigcup_{k<n_q}I_k$;
+            \item $\lvert\pi[A_q]\cap I_k\rvert\leq 1$, $\forall k\geq n_p$, i.e., if $\pi[A_q]\cap I_k\neq\emptyset$, then $\pi(n)\notin I_k$.
+        \end{itemize}
+        But notice that, since we have a finite amount of $\pi\in F_q$, and both $\bigcup_{k<n_q}I_k$ and the amount of intervals $I_k$ where $\pi[A_q]\cap I_k\neq\emptyset$ are finite, we can let $n$ be any number greater than all of those.
+        \item To see $D_\sigma$ is dense, let $p=(s_q, F_q, n_p)\leq q$, where $n_p\geq n_q$ is such that
+        $$\sigma[A_p]=\sigma[A_q]\subseteq\bigcup_{k<n_p}I_k$$
+        which implies that $\lvert\sigma[A_p]\cap I_k\rvert=0\leq 1$, $\forall k\geq n_p$, so $p\in\mbb{P}$. It's not hard to see we can choose such $n_p$, since $\sigma[A_q]$ is finite. Then we have $p\leq q$, as desired.
     \end{itemize}
-    Now, since $\lvert\mc{D}\rvert\leq\lvert S\rvert\leq\kappa$, we can apply $\text{MA}(\kappa)$ to find our $\mc{D}$-generic filter $G$ and define $s_G$. $F_n$ guarantees us that $s_G\in 2^\omega$; both $D_n$ and $\widetilde{D}_n$ guarantees $A_{s_G}$ is infinite and coinfinite.
+    Now, since $\mc{D}$ is a family of $\leq\kappa$ dense sets, by $MA(\kappa)$ we can find a $\mc{D}$-generic filter $G$ in $\mbb{P}$. Let
+    $$A_G=\bigcup_{p\in G}A_p$$
+    Clearly, since $G\cap D_n\neq\emptyset$ for every $n\in\omega$, then $A_G$ is infinite, so it's a non-trivial object. Now, given $\pi\in\mc{F}$, let $q\in G\cap D_\pi$, we claim that $\lvert\pi[A_G]\cap I_k\rvert\leq 1$, for every $k\geq n_q$.
 
-    Now, fix $p\in S$, $\varepsilon>0$ and let $\frac1n<\varepsilon$. Since $G$ is a $\mc{D}$-generic filter, we can find $p_1\in G\cap C_n$, $p_2\in G\cap E_p$ and a $p_3\leq p_1,p_2$. We claim that $N=\text{dom}(s_3)$ is our initial point to verify Cauchy's Criterion for $\varepsilon$. Let then $n,m\geq N$, we will show $\lvert d_n(A_{s_G})-d_m(A_{s_G})\rvert<\varepsilon$.
-
-    Let $M=\max(p^{-1}[\max\{m,n\}])$, then we can find $p_4\in G\cap F_M$, let $G\ni q\leq p_3,p_4$. Then, by now, $q=(s,P,k)$ would be such that $p\in P$, $\frac1k<\varepsilon$ and $M\subseteq \text{dom}(s)$. Since $q\leq p_3$, we have
-    $$\lvert d_n(A_s)-d_m(p[A_s])\rvert<\varepsilon$$
-    Now, we just need to prove that $p[A_s]\cap m=p[A_{s_G}]\cap m$. The $(\subseteq)$ is clear. Now, let $\ell \in p[A_{s_G}]\cap m$, then $\ell\leq m$, but $p^{-1}[\max\{m,n\}]\subseteq M\subseteq\text{dom}(s)$, so $p^{-1}(\ell)\in\text{dom}(s)$. Now, since $p^{-1}(\ell)\in A_{s_G}$, then $p^{-1}(\ell)\in A_s$ too, implying $\ell\in p[A_s]\cap m$, as desired.
+    In fact, let $p$ be an element extending both $q$ and an element in $G\cap D_n$, with $n>k$ large enough such that $\pi^{-1}[I_k]\subseteq\text{dom}(s_p)$, this guarantees us that $\pi[A_G]\cap I_k=\pi[A_p]\cap I_k$, since $s_p\subseteq s_G$. But then, since we have $p\leq q$, it implies that
+    $$\lvert\pi[A_G]\cap I_k\rvert=\lvert\pi[A_p]\cap I_k\rvert\leq 1$$
+    as desired, so $d(\pi[A_G])=0$.
 \end{proof}
-
-\section{General Attempts}
-
-\begin{itemize}
-    \item I tried to use conditions of the form $(s,N,p,k)$, where $N,p^{-1}[N]\subseteq\text{dom}(s)$ and in the $\leq$ definition we would use $n$'s inside $[N_2,N_1]$ instead of inside the domains. This allow us to control well the domain of $s$ and avoid a messy argument as in the end of the previous one, where we need to define some $M$.
-
-    However, as the previous try, we already have a problem trying to prove reflexivity, which is a problem that wasn't actually solved, because my argument, as we can see, is also wrong.
-    \item It's worth noting that the condition that
-    $$\lvert d_n(A)-d_m(p[A])\rvert<\varepsilon$$
-    is way too strong, since this is kind an adaptation of Cauchy's criterion but without a definitive meaning. We actually just need the previous condition for when $p=\text{id}$ (which is exactly the Cauchy's Criterion for the sequences $(d_n(A))$ guaranteeing it converges) and the condition that
-    $$\lim_{n\to\infty}\lvert d_n(A)-d_m(p[A])\rvert=0$$
-    which clearly follows from what we assume, but it's way more natural.
-    \item Based on the previous comment, we could also state the Cauchy's Criterion but for all $p[A]$ instead of just $A$, so we guarantee that all of them has a definitive density, and then we can, in the end, just prove that some subsequence guarantees us that $d_n(A)$ converges in it to $d_n(p[A])$, but it's hard to keep tracking the domain of $p[A]$ to state a Cauchy's Criterion for it, but whatever, i didn't even try enough.
-\end{itemize}
-
-\section{Take 2}
-
-Let
-$$\mbb{P}=\{p=(A_p,F_p, n_p, \varepsilon_p):A_p\in[\omega]^{<\omega},\text{id}\in F_p\in[\mc{F}]^{<\omega},n_p\in\omega,\varepsilon\in\mbb{Q}_+,\pi^{-1}[n_p]\subseteq A_p,\forall\pi\in F_p\}$$
-And let
-$$p\leq q\iff A_p\supseteq_c A_q, F_p\supseteq F_q,n_p\geq n_q,\varepsilon_p\leq\varepsilon_q,\;\lvert d_n(\pi[A_p])-1\rvert<\varepsilon_q,\forall n\in n_p\setminus n_q,\forall\pi\in F_q$$
-It's clearly reflexive and symmetric. Now, if $p\leq q\leq r$, let $n\in n_p\setminus n_r$
-\begin{itemize}
-    \item If $n\in n_p\setminus n_q$, we already have $\lvert d_n(\pi[A_p])-1\rvert<\varepsilon_q\leq\varepsilon_r$, $\forall\pi\in F_q\supseteq F_r$;
-    \item If $n\in n_q\setminus n_r$, since we know $\lvert d_n(\pi[A_q])-1\rvert<\varepsilon_r$, and $\pi^{-1}[n]\subseteq A_q\subseteq_c A_p$, then we have that $\pi[A_q]\cap n=\pi[A_p]\cap n$, which implies $\lvert d_n(\pi[A_p])-1\rvert<\varepsilon_r$.
-\end{itemize}
-then it's also transitive, so $(\mbb{P},\leq)$ is a poset that is clearly ccc, since it's $\sigma$-centered.
-
-So, consider the sets
-$D_\varepsilon=\{p\in\mbb{P}:\varepsilon_p<\varepsilon\}$, $D_\pi=\{p\in\mbb{P}:\pi\in F_p\}$ and $$D_n=\{p\in\mbb{P}:\exists m,k\geq n,\text{ with }m<k\text{ such that }m\notin A_p\text{ and }k\in A_p\}$$
-they're clearly dense, since we have $$D_\varepsilon\ni q=(A_p,F_p,n_p,\varepsilon)\leq p$$
-and
-$$D_\pi\ni q=(A_p,F_p\cup\{\pi\},n_p,\varepsilon_p)\leq p$$
-and for $D_n$ we can clearly just extend some $A_p$ to a set like that adding one element way greater than $k$. Now, all we need to do is to guarantee that the set
-$$E_n=\{p\in\mbb{P}:n_p>n\}$$
-is a dense set, then if $A_G=\bigcup_{p\in G}A_p$, for $G$ a $\mc{D}$-generic filter, with $\mc{D}=\{D_\varepsilon,D_\pi,D_n,E_n\}$, then $D_n$ guarantees it's infinite and coinfinite and, given $\varepsilon>0$ and $\pi\in\mc{F}$, consider $p$ extending an element in $G\cap D_\varepsilon$ and in $G\cap D_\pi$, we claim that if $n>n_p$, then $\lvert d_n(\pi[A_G])-1\rvert<\varepsilon$.
-
-In fact, let $q$ be an extension of $p$ and an element of $G\cap E_n$, then
-$$\lvert d_n(\pi[A_q])-1\rvert<\varepsilon_p<\varepsilon$$
-but since $A_q\subseteq_c A_G$, and $\pi^{-1}[n]\subseteq A_q$, then $\pi[A_q]\cap n=\pi[A_G]\cap n$, and so $\lvert d_n(\pi[A_G])-1\rvert<\varepsilon$.
-
-So it remains to prove denseness of $E_n$:
-
-Let $q\in\mbb{P}$, we need a $p\leq q$, with $n_p>n$. Let then $F_p=F_q$, $\varepsilon_p=\varepsilon_q$ and
-$$A_p=A_q\cup\bigcup_{\pi\in F_p}\pi^{-1}[n_p]$$
-by definition of $A_p$ we have $p\in\mbb{P}$ and, if $m\in n_p\setminus n_q$, then, since $\pi^{-1}[n_p]\subseteq A_p$, then $n_p\subseteq\pi[A_p]$, and then we have, for $m\leq n_p$, that $\pi[A_p]\cap m=m$, so $d_m(\pi[A_p])=1$, therefore
-$$\lvert d_m(\pi[A_p])-1\rvert=0<\varepsilon_q$$
-so $E_n\ni p\leq q$, as desired.
-
-\textcolor{laser_eyes}{Wrong, because $A_p$ isn't necessarily a end-extension of $A_q$, bruh. In fact, since $\text{id}\in F_p$ and $\pi^{-1}[n_p]\subseteq A_p$, we already had $n_p\subseteq A_p$, but since $D_n$ is dense, we would have $A_G=\omega$ trivializing.}
-
-\section{Take 3}
-
-Let
-$$\mbb{P}=\{p=(s_p,F_p, \varepsilon_p):s_p\in2^{<\omega},\text{id}\in F_p\in[\mc{F}]^{<\omega},\varepsilon\in\mbb{Q}_+\}$$
-Also, let $K(p,\pi)=\max\{k\in\omega:\pi^{-1}[k]\subseteq\text{dom}(s_p)\}$, and $A_p=A_{s_p}$. Then define $p\leq q$ as
-$$s_p\supseteq s_q, F_p\supseteq F_q,\varepsilon_p\leq\varepsilon_q,\;\lvert d_n(\pi[A_p])-1/2\rvert<\varepsilon_q,\forall n\in K(p,\pi)\setminus K(q,\pi),\forall\pi\in F_q$$
-this is clearly reflexive and symmetric. For transitiveness, let $p\leq q\leq r$, then
-\begin{itemize}
-    \item If $n\in K(p,\pi)\setminus K(q,\pi)$, for $\pi\in F_q\supseteq F_r$ we have
-    $$\lvert d_n(\pi[A_p])-1/2\rvert<\varepsilon_q\leq\varepsilon_r$$
-    \item If $n\in K(q,\pi)\setminus K(r,\pi)$, for $\pi\in F_r$, then, since $\pi^{-1}[n]\subseteq A_q\subseteq_c A_p$ we have, as in the previous try, that $n\cap \pi[A_q]=n\cap\pi[A_p]$, and so $\lvert d_n(\pi[A_p])-1/2\rvert<\varepsilon_r$.
-\end{itemize}
-
-So $(\mbb{P},\leq)$ is a poset that, as before, is clearly ccc, since it's $\sigma$-centered. Now, consider the sets
-\begin{itemize}
-    \item $D_\varepsilon=\{p\in\mbb{P}:\varepsilon_p<\varepsilon\}$, this is trivially dense;
-    \item $D_\pi=\{p\in\mbb{P}:\pi\in F_p\}$, also trivially dense;
-    \item $D_n=\{p\in\mbb{P}:\exists k\geq m\geq n\text{ such that }s_p(m)=0\text{ and }s_p(k)=1\}$;
-    \item $E_n=\{p\in\mbb{P}:n\subseteq\text{dom}(s_p)\}$.
-\end{itemize}
