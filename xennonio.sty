@@ -56,12 +56,12 @@
 \renewcommand{\contentsname}{Summary}
 \counterwithout{equation}{chapter}
 \newcommand{\sym}{\mathrm{Sym}(\omega)}
-\newcommand{\cf}[1]{\mathrm{cf}\left(#1\right)}
+\newcommand{\cf}[1]{\mathrm{cf}\!\left(#1\right)}
 \newcommand{\lasereye}[1]{\textcolor{emph}{#1}}
-\newcommand{\add}[1]{\mathrm{add}\left(#1\right)}
-\newcommand{\cov}[1]{\mathrm{cov}\left(#1\right)}
-\newcommand{\non}[1]{\mathrm{non}\left(#1\right)}
-\newcommand{\cof}[1]{\mathrm{cof}\left(#1\right)}
+\newcommand{\add}[1]{\mathrm{add}\!\left(#1\right)}
+\newcommand{\cov}[1]{\mathrm{cov}\!\left(#1\right)}
+\newcommand{\non}[1]{\mathrm{non}\!\left(#1\right)}
+\newcommand{\cof}[1]{\mathrm{cof}\!\left(#1\right)}
 \newcommand{\osc}{\mathbf{osc}}
 
 %% -- Environments --
@@ -123,6 +123,7 @@
     attach title to upper,
     after title={:\enskip},
     borderline west={5pt}{0pt}{lorelei},
+    before upper={\setlength{\parskip}{0.3\baselineskip}},
 }
 \BeforeBeginEnvironment{sketch}{\savenotes}
 \AfterEndEnvironment{sketch}{\spewnotes}
