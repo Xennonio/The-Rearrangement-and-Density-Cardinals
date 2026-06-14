@@ -4,11 +4,13 @@
 
 We already knew that MA implies $\mf{dd}=\mf{c}$, since, as we saw, $\text{non}(\mc{M})\leq\mf{dd}$, and we know MA collapses Cichoń's Diagram. However, let's do a direct proof of it by exhibiting a suitable poset.
 
+First, let's prove we can find a counterexample whose density is exactly $0$.
+
 \begin{theorem}{}{MA_dd=c}
-    $\text{ZFC}+\text{MA}(\kappa)\vdash\mf{dd}>\kappa$.
+    Let $\mc{F}\subseteq\sym$, with $\lvert\mc{F}\rvert\leq\kappa$. Then, under $\text{MA}(\kappa)$, there is an infinite set $A\subseteq\omega$ such that $d(\pi[A])=d(A)=0$, $\forall\pi\in\mc{F}$.
 \end{theorem}
 
-So, given a set $\mc{F}\subseteq\sym$, with $\lvert\mc{F}\rvert\leq\kappa$, using $\text{MA}(\kappa)$ we will find an infinite and coinfinite subset $A\subseteq\omega$ such that $d(\pi[A])=d(A)=0$, for all $\pi\in\mc{F}$. In order to simplify our work, let's assume WLOG that $\text{id}\in\mc{F}$.
+In order to simplify our work, let's assume WLOG that $\text{id}\in\mc{F}$.
 
 Intuitively, the idea to construct such set $A$ is to partition $\omega$ as
 $$\omega=\bigsqcup_{k\in\omega}I_k,\text{ where }\lvert I_k\rvert/\lvert I_{k+1}\rvert\to0$$
@@ -65,4 +67,36 @@ Throughout the proof, we will use interchangeably the characteristic function $s
     In fact, let $p$ be an element extending both $q$ and an element in $G\cap D_n$, with $n>k$ large enough such that $\pi^{-1}[I_k]\subseteq\text{dom}(s_p)$, this guarantees us that $\pi[A_G]\cap I_k=\pi[A_p]\cap I_k$, since $s_p\subseteq s_G$. But then, since we have $p\leq q$, it implies that
     $$\lvert\pi[A_G]\cap I_k\rvert=\lvert\pi[A_p]\cap I_k\rvert\leq 1$$
     as desired, so $d(\pi[A_G])=0$.
+\end{proof}
+
+Clearly the previous theorem also gives us an example of $A$ with density $1$, the complementar. Let's now prove that we can also find a counterexample with density $r\in(0,1)$.
+
+\begin{theorem}{}{MA_dd=c_2}
+    Let $\mc{F}\subseteq\sym$, with $\lvert\mc{F}\rvert\leq\kappa$, and $r\in(0,1)$. Then, under $\text{MA}(\kappa)$, there is an infinite set $A\subseteq\omega$ such that $d(\pi[A])=d(A)=r$, $\forall\pi\in\mc{F}$.
+\end{theorem}
+
+\begin{sketch}
+    Let's first sketch the general idea of the construction, and leave the proof just to fill in the details.
+
+    Consider the product measure $\mu$ on $2^\omega$ of the probability measure $m$, with $m(\{1\})=r$ and $m(\{0\})=1-r$. Our poset will be
+    $$\mbb{P}=\{F\in2^\omega:F\text{ is closed and }\mu(F)>0\},\text{ ordered by }\subseteq,$$
+    and our family $\mc{D}=\{D_\pi:\pi\in\mc{F}\}$ of density sets is such that
+    $$D_\pi=\{F\in\mbb{P}:\forall A\in F,\;d(\pi[A])=r\}$$
+    Let $G$ be our $\mc{D}$-generic filter and let $A_G\in\bigcap G$. Since there is some $F\in G\cap D_\pi$, for any $\pi\in\mc{F}$, then $A_G\in F$ too, i.e., $d(\pi[A_G])=r$, as desired.
+\end{sketch}
+
+\begin{proof}
+    Now, clearly $(\mbb{P},\subseteq)$ is a ccc poset. It remains to show that $D_\pi$ is dense and that $\bigcap G\neq\emptyset$.
+
+    To show $D_\pi$ is dense consider, for each $n\in\omega$, the random variable $X_n:2^\omega\to 2$ given by $X_n(s)=s(n)$. By The Strong Law of Large Numbers, since $\mbb{E}[X_n]=r$, we have that
+    $$\mu\rp{\lim_{n\to\infty}\overline{X}_n(s)=r}=\mu(\{s\in2^\omega:d(A_s)=r\})=1.$$
+    And then, for any $\pi\in\sym$, we have that
+    $$\mu(\{s\in2^\omega:d(\pi[A_s])=r\})=\mu(\pi^{-1}\{s\in2^\omega:d(A_s)=r\})=1$$
+    so $N_\pi=\{s\in2^\omega:d(\pi[A_s])\neq r\}$ is a null set. Now, given any $C\in\mbb{P}$, it's sufficient to find some $F\subseteq C\setminus N_\pi$ in $\mbb{P}$. But, since $\mu(C)>0$ and $\mu(N_\pi)=0$, then $C\setminus N_\pi$ has positive measure. By inner regularity, since $C\setminus N_\pi$ is measurable, we can find a compact, hence closed, $F\subseteq C\setminus N$ of positive measure.
+
+    Now, since $2$ is compact, by Tychonoff's Theorem we have that $2^\omega$ is also compact. Also, since $G$ is a filter, it has the finite intersection property (fip). It's a theorem that any family of closed subsets of a compact space that has the fip also has nonempty intersection, so $\bigcap G\neq\emptyset$, as desired.
+
+    In fact, this is not hard to prove. If $\bigcap G=\emptyset$, then
+    $$\bigcup_{F\in G}2^\omega\setminus F=2^\omega.$$
+    But since each $F$ is closed, then $2^\omega\setminus F$ is open, and then we have an open cover for $2^\omega$. By compactness, we can find a finite subcover $(2^\omega\setminus F_1)\cup\dots\cup(2^\omega\setminus F_n)=2^\omega$, so $F_1\cap\dots\cap F_n=\emptyset\in G$, contradicting that $G$ is a filter.
 \end{proof}
